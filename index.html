@@ -9,6 +9,20 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "rk3jfbm30q");
+    </script>
   </head>
 
   <body>
@@ -39,7 +53,12 @@
         <h2>Obtén asesoría experta para tu próximo proyecto</h2>
         <form action="#" method="POST">
           <input type="text" name="nombre" placeholder="Nombre" required />
-          <input type="email" name="email" placeholder="Correo electrónico" required />
+          <input
+            type="email"
+            name="email"
+            placeholder="Correo electrónico"
+            required
+          />
           <select name="tipo-proyecto" required>
             <option value="" disabled selected>Tipo de proyecto</option>
             <option value="compra">Compra de propiedad</option>
@@ -203,8 +222,18 @@
           Contáctanos y recibe asesoría personalizada
         </h3>
         <form class="contact-form__form" action="#" method="POST">
-          <input type="text" name="nombre_contacto" placeholder="Nombre" required />
-          <input type="email" name="email_contacto" placeholder="Correo electrónico" required />
+          <input
+            type="text"
+            name="nombre_contacto"
+            placeholder="Nombre"
+            required
+          />
+          <input
+            type="email"
+            name="email_contacto"
+            placeholder="Correo electrónico"
+            required
+          />
           <select name="tipo_proyecto_contacto" required>
             <option value="" disabled selected>Tipo de proyecto</option>
             <option value="compra">Compra de propiedad</option>
@@ -231,8 +260,12 @@
         <a href="#" class="main-footer__link">Privacy policy</a>
       </div>
       <div class="main-footer__social">
-        <a href="#" class="main-footer__social-icon"><img src="./images/Social.svg" alt="Facebook icon"></a>
-        <a href="#" class="main-footer__social-icon"><img src="./images/instagram.svg" alt="Instagram icon"></a>
+        <a href="#" class="main-footer__social-icon"
+          ><img src="./images/Social.svg" alt="Facebook icon"
+        /></a>
+        <a href="#" class="main-footer__social-icon"
+          ><img src="./images/instagram.svg" alt="Instagram icon"
+        /></a>
       </div>
     </footer>
   </body>

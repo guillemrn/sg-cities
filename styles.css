@@ -76,7 +76,9 @@ nav ul {
   background-repeat: no-repeat;
   background-position: right center; /* Ajustado para más control */
   /* height: 100vh; */ /* Se manejará con min-height o en media queries */
-  min-height: calc(100vh - 8rem); /* Ejemplo: altura del viewport menos altura del header */
+  min-height: calc(
+    100vh - 8rem
+  ); /* Ejemplo: altura del viewport menos altura del header */
 }
 
 .hero-text {
@@ -108,19 +110,21 @@ nav ul {
   border-radius: 8px;
   border: 2px solid var(--glass-border); /* Usando variable */
   background: var(
-    --Glass-input, /* Esto parece una variable redundante, considera simplificar a var(--glass-bg) o un gradiente directo */
-    linear-gradient(
-      93deg,
-      rgba(255, 255, 255, 0.09) -14.07%,
-      rgba(255, 255, 255, 0.49) 116.73%
-    )
+    --Glass-input,
+    /* Esto parece una variable redundante, considera simplificar a var(--glass-bg) o un gradiente directo */
+      linear-gradient(
+        93deg,
+        rgba(255, 255, 255, 0.09) -14.07%,
+        rgba(255, 255, 255, 0.49) 116.73%
+      )
   );
   backdrop-filter: blur(17px);
   max-width: 450px;
   width: 100%; /* Para ocupar espacio en layouts flexibles */
 }
 
-.hero-form h2 { /* Ajustado a h2 como en el HTML */
+.hero-form h2 {
+  /* Ajustado a h2 como en el HTML */
   color: var(--text);
   font-family: "Outfit", sans-serif;
   font-size: 2.4rem;
@@ -155,7 +159,8 @@ select {
 }
 
 input::placeholder,
-textarea::placeholder { /* Select no usa ::placeholder de esta forma */
+textarea::placeholder {
+  /* Select no usa ::placeholder de esta forma */
   color: var(--text);
   font-family: "Poppins", sans-serif;
   font-size: 1.6rem;
@@ -276,9 +281,15 @@ button:hover {
   position: relative; /* Para posibles overlays o posicionamiento absoluto interno */
 }
 /* Aplicar fondos específicos */
-.card1 { background-image: url("/images/compra.jpg"); }
-.card2 { background-image: url("/images/gestion.jpg"); }
-.card3 { background-image: url("/images/estudios.jpg"); }
+.card1 {
+  background-image: url("/images/compra.jpg");
+}
+.card2 {
+  background-image: url("/images/gestion.jpg");
+}
+.card3 {
+  background-image: url("/images/estudios.jpg");
+}
 
 .solutions__content {
   display: flex;
@@ -305,7 +316,8 @@ button:hover {
   line-height: 1.3;
   letter-spacing: 0.5px;
 }
-.solutions__item-text { /* Clase corregida/asumida */
+.solutions__item-text {
+  /* Clase corregida/asumida */
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 1.5;
@@ -348,7 +360,8 @@ button:hover {
   line-height: 1.6;
 }
 
-.start-project__right { /* Contenedor del formulario */
+.start-project__right {
+  /* Contenedor del formulario */
   display: flex;
   padding: 4rem;
   flex-direction: column;
@@ -482,7 +495,6 @@ button:hover {
   }
 }
 
-
 /* Móviles (ej. hasta 767px) */
 @media (max-width: 767px) {
   html {
@@ -507,7 +519,9 @@ button:hover {
     justify-content: center;
     padding: 4rem 2rem; /* Más padding vertical */
     height: auto;
-    min-height: calc(100vh - (header altura)); /* Asegurar que al menos llene pantalla */
+    min-height: calc(
+      100vh - (header altura)
+    ); /* Asegurar que al menos llene pantalla */
     text-align: center;
     /* background-image: none; Considerar quitar imagen pesada en móviles */
     background-position: bottom;
@@ -585,15 +599,18 @@ button:hover {
     font-size: 2.2rem;
   }
 
-
   .main-footer {
     flex-direction: column;
     padding: 3rem 2rem;
     text-align: center;
     gap: 2.5rem;
   }
-  .main-footer figure { order: 1; } /* Logo primero */
-  .main-footer__social { order: 2; } /* Redes después */
+  .main-footer figure {
+    order: 1;
+  } /* Logo primero */
+  .main-footer__social {
+    order: 2;
+  } /* Redes después */
   .main-footer__links {
     order: 3; /* Links al final */
     flex-direction: column;
