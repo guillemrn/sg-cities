@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Asegúrate de que el DOM esté completamente cargado
 
   const benefitsContainer = document.querySelector(".why-sg-cities__benefits");
@@ -72,5 +72,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // 3. Llama a la función para mostrar las cards
   displayBenefitCards();
-
 });
