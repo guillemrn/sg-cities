@@ -73,10 +73,9 @@ nav ul {
   flex-wrap: wrap;
   background-color: var(--bg-color);
   background-image: url("/images/building.png");
-  background-size: 800px;
+  background-size: contain;
   background-repeat: no-repeat;
-  background-position: right center; /* Ajustado para más control */
-  /* height: 100vh; */ /* Se manejará con min-height o en media queries */
+  background-position: bottom right; /* Ajustado para más control */
   min-height: calc(
     100vh - 8rem
   ); /* Ejemplo: altura del viewport menos altura del header */
