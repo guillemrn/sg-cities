@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
-
+document.addEventListener("DOMContentLoaded", function () {
   // --- CÓDIGO PARA LAS CARDS DE BENEFICIOS ("¿Por qué elegir SG Cities?") ---
   const benefitsContainer = document.querySelector(".why-sg-cities__benefits");
 
@@ -63,7 +62,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     displayBenefitCards();
   } else {
-    console.warn("El contenedor de beneficios (.why-sg-cities__benefits) no fue encontrado.");
+    console.warn(
+      "El contenedor de beneficios (.why-sg-cities__benefits) no fue encontrado.",
+    );
   }
 
   // --- CÓDIGO PARA LAS CARDS DE SOLUCIONES ---
@@ -115,7 +116,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     displaySolutionCards();
   } else {
-    console.warn("El contenedor de soluciones (.solutions__list) no fue encontrado.");
+    console.warn(
+      "El contenedor de soluciones (.solutions__list) no fue encontrado.",
+    );
   }
-
 });

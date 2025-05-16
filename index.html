@@ -30,7 +30,10 @@
       property="og:description"
       content="Facilitamos la compra de bienes, la construcción y el análisis del mercado inmobiliario con un enfoque estratégico."
     />
-    <meta property="og:image" content="https://sgcities.com/images/social-image.png" />
+    <meta
+      property="og:image"
+      content="https://sgcities.com/images/social-image.png"
+    />
     <meta property="og:url" content="https://sgcities.com/" />
     <meta property="og:type" content="website" />
     <link rel="stylesheet" href="styles.css" />
@@ -53,7 +56,10 @@
   <body>
     <header>
       <figure>
-        <img src="./images/sg-cities-logo.svg" alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios" />
+        <img
+          src="./images/sg-cities-logo.svg"
+          alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios"
+        />
       </figure>
       <nav>
         <ul>
@@ -85,7 +91,9 @@
             required
           />
           <select name="tipo-proyecto" required>
-            <option value="" disabled selected>Selecciona el tipo de proyecto</option>
+            <option value="" disabled selected>
+              Selecciona el tipo de proyecto
+            </option>
             <option value="compra">Comprar una propiedad</option>
             <option value="construccion">Construir una propiedad</option>
             <option value="estudio">Solicitar un estudio de mercado</option>
@@ -122,8 +130,7 @@
           estratégicas.
         </p>
       </div>
-      <ul class="solutions__list">
-      </ul>
+      <ul class="solutions__list"></ul>
     </section>
 
     <section class="start-project" id="start-project">
@@ -142,26 +149,23 @@
           Contáctanos y recibe asesoría personalizada
         </h3>
         <form class="contact-form__form" netlify>
-          <input
-            type="text"
-            name="nombre_contacto"
-            placeholder="Nombre"
-            required
-          />
+          <input type="text" name="nombre" placeholder="Nombre" required />
           <input
             type="email"
-            name="email_contacto"
+            name="email"
             placeholder="Correo electrónico"
             required
           />
-          <select name="tipo_proyecto_contacto" required>
-            <option value="" disabled selected>Tipo de proyecto</option>
-            <option value="compra">Compra de propiedad</option>
-            <option value="construccion">Construcción</option>
-            <option value="estudio">Estudio de mercado</option>
+          <select name="tipo-proyecto" required>
+            <option value="" disabled selected>
+              Selecciona el tipo de proyecto
+            </option>
+            <option value="compra">Comprar una propiedad</option>
+            <option value="construccion">Construir una propiedad</option>
+            <option value="estudio">Solicitar un estudio de mercado</option>
           </select>
           <textarea
-            name="mensaje_contacto"
+            name="mensaje"
             placeholder="¿En qué te ayudamos?"
             rows="4"
             required
@@ -173,14 +177,24 @@
 
     <footer class="main-footer">
       <figure>
-        <img src="./images/sg-cities-logo.svg" alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios" />
+        <img
+          src="./images/sg-cities-logo.svg"
+          alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios"
+        />
       </figure>
       <div class="main-footer__links">
-        <a href="terminos-y-condiciones.html" class="main-footer__link">Términos y Condiciones</a>
-        <a href="politica-de-privacidad.html" class="main-footer__link">Politica de privacidad</a>
+        <a href="terminos-y-condiciones.html" class="main-footer__link"
+          >Términos y Condiciones</a
+        >
+        <a href="politica-de-privacidad.html" class="main-footer__link"
+          >Politica de privacidad</a
+        >
       </div>
       <div class="main-footer__social">
-        <a href="https://www.facebook.com/SGcities/" target="_blank" class="main-footer__social-icon"
+        <a
+          href="https://www.facebook.com/SGcities/"
+          target="_blank"
+          class="main-footer__social-icon"
           ><img src="./images/Social.svg" alt="Facebook icon"
         /></a>
         <!-- <a href="#" class="main-footer__social-icon"
