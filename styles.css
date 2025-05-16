@@ -7,6 +7,7 @@
   --glass-bg: rgba(255, 255, 255, 0.25);
   --glass-border: rgba(255, 255, 255, 0.3);
   --button-hover: #0f5c64;
+  --bg-color: rgba(97, 176, 188, 0.1);
 }
 
 html {
@@ -55,7 +56,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 4rem 10rem;
-  background-color: rgba(113, 168, 80, 0.1);
+  background-color: var(--bg-color);
 }
 
 nav ul {
@@ -70,8 +71,8 @@ nav ul {
   justify-content: space-between;
   padding: 0rem 10rem;
   flex-wrap: wrap;
-  background-color: rgba(113, 168, 80, 0.1);
-  background-image: url("/images/bernard-hermant-KqOLr8OiQLU-unsplash\ 1.png");
+  background-color: var(--bg-color);
+  background-image: url("/images/building.png");
   background-size: 800px;
   background-repeat: no-repeat;
   background-position: right center; /* Ajustado para más control */
@@ -289,6 +290,12 @@ button:hover {
 }
 .card3 {
   background-image: url("/images/estudios.jpg");
+}
+.card4 {
+  background-image: url("/images/urban-map.jpg");
+}
+.card5 {
+  background-image: url("/images/admin.jpg");
 }
 
 .solutions__content {
@@ -526,7 +533,7 @@ button:hover {
     /* background-image: none; Considerar quitar imagen pesada en móviles */
     background-position: bottom;
     background-size: cover; /* Ajustar imagen de fondo */
-    background-color: rgba(113, 168, 80, 0.15); /* Fondo alternativo */
+    background-color: var(--bg-color); /* Fondo alternativo */
   }
   .hero-text {
     max-width: 100%;

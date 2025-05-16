@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
       iconSrc: "./images/Location.svg",
       iconAlt: "Icono de ubicación representando red de expertos",
       title: "Red de expertos",
-      text: "Contamos con arquitectos, urbanistas y analistas de mercado para un enfoque integral.",
+      text: "Contamos con arquitectos, urbanistas, ingenieros ambientales especialistas del derecho urbano como parte del equipo multidisciplinario para un enfoque integral",
     },
   ];
 
