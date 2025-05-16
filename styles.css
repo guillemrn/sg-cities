@@ -531,7 +531,7 @@ button:hover {
     text-align: center;
     /* background-image: none; Considerar quitar imagen pesada en móviles */
     background-position: bottom;
-    background-size: cover; /* Ajustar imagen de fondo */
+    background-size: 850px; /* Ajustar imagen de fondo */
     background-color: var(--bg-color); /* Fondo alternativo */
   }
   .hero-text {
