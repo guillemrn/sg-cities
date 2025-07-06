@@ -269,46 +269,62 @@ button:hover {
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
 }
+.solutions__list li {
+  list-style: none; /* Quita los puntos de la lista */
+  padding: 0;
+  margin: 0;
+}
 .solutions__item {
-  display: flex;
-  height: 450px;
-  padding: 0; /* Padding se manejará en .solutions__content */
+  display: flex; /* Cambiado de block a flex para alinear contenido */
   flex-direction: column;
-  justify-content: flex-end; /* Contenido de texto abajo */
+  justify-content: flex-end; /* Alinea .solutions__content abajo */
   align-items: center;
-  gap: 1.6rem;
+  height: 450px;
   border-radius: 8px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  overflow: hidden; /* Para que el border-radius afecte a la imagen de fondo */
-  position: relative; /* Para posibles overlays o posicionamiento absoluto interno */
+  overflow: hidden;
+  position: relative;
+  text-decoration: none; /* Quita el subrayado del enlace */
+  color: var(--text); /* Hereda el color de texto del body */
+
+  /* 3. AÑADIMOS LA TRANSICIÓN PARA EL EFECTO HOVER */
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
 }
-/* Aplicar fondos específicos */
-.card1 {
-  background-image: url("/images/compra.jpg");
+
+/* 4. AÑADIMOS EL EFECTO HOVER */
+.solutions__item:hover,
+.solutions__item:focus {
+  transform: translateY(-10px); /* La tarjeta "salta" un poco */
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
 }
-.card2 {
-  background-image: url("/images/gestion.jpg");
-}
-.card3 {
-  background-image: url("/images/estudios.jpg");
-}
-.card4 {
-  background-image: url("/images/urban-map.jpg");
-}
-.card5 {
-  background-image: url("/images/admin.jpg");
+
+/* 5. AÑADIMOS UN OVERLAY sutil en el hover para mejorar el efecto visual */
+.solutions__item:hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Un poco más sutil */
+  border-radius: 8px;
+
+  /* --- LÍNEA AÑADIDA --- */
+  z-index: 1; /* Coloca el overlay en la capa 1 (en medio) */
 }
 
 .solutions__content {
   display: flex;
-  padding: 2rem; /* Aumentado un poco */
+  padding: 2rem;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 0.8rem; /* Ajustado */
-  border-radius: 8px; /* Podría ser heredado o específico */
+  gap: 0.8rem;
+  border-radius: 8px;
   border: 1px solid var(--glass-border);
   background: linear-gradient(
     93deg,
@@ -316,15 +332,20 @@ button:hover {
     rgba(255, 255, 255, 0.49) 116.73%
   );
   backdrop-filter: blur(17px);
-  width: calc(100% - 3.2rem); /* Ajustado para padding interno */
-  margin: 1.6rem; /* Espacio desde los bordes del .solutions__item */
+  width: calc(100% - 3.2rem);
+  margin: 1.6rem;
   box-sizing: border-box;
+
+  /* --- LÍNEAS AÑADIDAS --- */
+  position: relative; /* Necesario para que z-index funcione */
+  z-index: 2; /* Coloca el contenido en la capa 2 (la más alta) */
 }
 .solutions__item-title {
   font-size: 2rem; /* Consistente con benefits */
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: 0.5px;
+  transition: color 0.3s ease-in-out; /* <- Añadir esta línea */
 }
 .solutions__item-text {
   /* Clase corregida/asumida */
@@ -332,6 +353,12 @@ button:hover {
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0.5px;
+  transition: color 0.3s ease-in-out; /* <- Añadir esta línea */
+}
+
+.solutions__item:hover .solutions__item-title,
+.solutions__item:hover .solutions__item-text {
+  color: #ffffff;
 }
 
 .start-project {
@@ -454,11 +481,263 @@ button:hover {
   text-decoration: underline;
 }
 
-/* ------------------------- */
-/* --- MEDIA QUERIES --- */
-/* ------------------------- */
+/* ======================================================= */
+/* =      ESTILOS PARA PÁGINAS DE SERVICIO (NUEVO)       = */
+/* ======================================================= */
 
-/* Tablets (ej. 768px - 1024px) */
+/* --- Hero de la Página de Servicio --- */
+.service-hero {
+  background-color: var(--bg-color);
+  text-align: center;
+  padding: 8rem 2rem;
+}
+
+.service-hero h1 {
+  font-size: 5.2rem;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.service-hero__subtitle {
+  font-size: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+/* --- Contenedor Principal de Detalles --- */
+.service-details {
+  padding: 10rem 2rem; /* Coincide con el padding de .solutions */
+}
+
+.service-container {
+  max-width: 1200px; /* Un contenedor estándar para centrar contenido */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6rem;
+  align-items: flex-start;
+}
+
+/* --- Columna de Texto --- */
+.service-details__text h2 {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.service-details__text p {
+  margin-bottom: 2rem;
+  font-size: 1.7rem;
+  line-height: 1.8;
+}
+
+.service-details__text h3 {
+  font-size: 2.4rem;
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.service-details__text ul {
+  list-style-position: inside;
+  padding-left: 1rem;
+}
+
+.service-details__text li {
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+
+/* --- Columna de Galería --- */
+.service-details__gallery h2 {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  aspect-ratio: 4 / 3; /* Mantiene la proporción de las imágenes */
+  object-fit: cover;
+}
+
+/* --- Sección de Llamada a la Acción (CTA) --- */
+.service-cta {
+  background-color: var(--card-bg);
+  text-align: center;
+  padding: 8rem 2rem;
+}
+
+.service-cta h2 {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.service-cta p {
+  font-size: 1.8rem;
+  margin-bottom: 3rem;
+}
+
+.button-primary {
+  display: inline-block; /* Para que el botón no ocupe todo el ancho */
+  padding: 1.8rem 3.6rem;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.button-primary:hover {
+  background-color: var(--button-hover);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* ======================================================= */
+/* =      ESTILOS PARA GALERÍA CON SWIPER (NUEVO)        = */
+/* ======================================================= */
+
+/* --- Estilos para las miniaturas (thumbnails) --- */
+.gallery-thumbs {
+  height: 100px; /* Altura fija para la tira de miniaturas */
+  margin-top: 2rem;
+}
+
+.gallery-thumbs .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+/* El thumbnail activo se ve nítido */
+.gallery-thumbs .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.gallery-thumbs .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* --- Estilos para el Lightbox (oculto por defecto) --- */
+.gallery-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(19, 33, 36, 0.9); /* Fondo oscuro semitransparente */
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Oculto por defecto, se mostrará con JS */
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+
+/* Clase que se añade con JS para mostrar el lightbox */
+.gallery-lightbox.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --- Estilos para el visor principal dentro del lightbox --- */
+.gallery-main {
+  width: 90%;
+  height: 80%;
+}
+
+.gallery-main .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-main .swiper-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+/* --- Estilos para los botones de navegación y cierre --- */
+.gallery-lightbox .swiper-button-next,
+.gallery-lightbox .swiper-button-prev {
+  color: var(--primary); /* Usa tu color primario */
+}
+
+.gallery-lightbox__close {
+  position: absolute;
+  top: 2rem;
+  right: 3rem;
+  font-size: 5rem;
+  color: #fff;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* ======================================================= */
+/* =      MEDIA QUERIES PARA PÁGINAS DE SERVICIO         = */
+/* ======================================================= */
+
+@media (max-width: 1024px) {
+  .service-details {
+    padding: 8rem 5rem;
+  }
+  .service-container {
+    /* En tablet, apilamos las columnas */
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .service-hero {
+    padding: 6rem 2rem;
+  }
+  .service-hero h1 {
+    font-size: 3.8rem;
+  }
+  .service-hero__subtitle {
+    font-size: 1.8rem;
+  }
+
+  .service-details {
+    padding: 6rem 2rem;
+  }
+  .service-container {
+    gap: 5rem;
+  }
+  .service-details__text h2,
+  .service-details__gallery h2 {
+    font-size: 3rem;
+  }
+}
+
+/* ======================================================= */
+/* =            MEDIA QUERIES OPTIMIZADAS              = */
+/* ======================================================= */
+
+/* --- Punto de ruptura para Tablets --- */
 @media (max-width: 1024px) {
   header,
   .main-footer {
@@ -467,183 +746,151 @@ button:hover {
 
   .hero {
     padding: 3rem 5rem;
-    background-size: contain; /* Ajustar imagen de fondo */
-    background-position: center right 10%;
-    min-height: 0; /* Resetear min-height para tablet */
-    height: auto;
+    min-height: auto; /* Dejar que el contenido defina la altura */
   }
   .hero-text h1 {
     font-size: 5rem;
-  }
-  .hero-text p {
-    margin-bottom: 3rem; /* Más espacio si el formulario va abajo */
-  }
-  .hero-form {
-    max-width: 400px; /* Un poco más pequeño */
   }
 
   .why-sg-cities,
   .solutions {
     padding: 8rem 5rem;
-    min-height: 0;
+    min-height: auto; /* Resetear min-height */
   }
+
   .why-sg-cities__benefits,
   .solutions__list {
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas para tablets */
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet, perfecto */
   }
 
   .start-project {
     padding: 8rem 5rem;
-    flex-direction: column; /* Apilar en tablet */
+    flex-direction: column;
+    text-align: center;
     gap: 4rem;
   }
   .start-project__left,
   .start-project__right {
-    flex-basis: auto; /* Resetear flex-basis */
+    flex-basis: auto;
     width: 100%;
-    max-width: 600px; /* Limitar ancho del formulario y texto */
-    align-items: center; /* Centrar contenido */
-    text-align: center;
-  }
-  .start-project__left {
-    order: 1; /* Opcional: mantener texto arriba */
-  }
-  .start-project__right {
-    order: 2;
-  }
-  .start-project__title {
-    font-size: 4.2rem;
-  }
-
-  .main-footer {
-    justify-content: center; /* Centrar contenido del footer si se apila */
-    gap: 3rem;
+    max-width: 600px;
+    align-items: center; /* Centrar elementos internos */
   }
 }
 
-/* Móviles (ej. hasta 767px) */
+/* --- Punto de ruptura para Móviles --- */
 @media (max-width: 767px) {
   html {
-    font-size: 58%; /* Ajustar tamaño base para mejor lectura en móviles pequeños */
-  }
-  body {
-    font-size: 1.6rem; /* Resetear a 16px efectivos con el nuevo html font-size */
-    line-height: 1.7; /* Ligeramente más alto para móviles */
+    font-size: 58%; /* Ajuste fino para pantallas pequeñas, buena técnica */
   }
 
+  /* RECOMENDACIÓN: Aquí deberíamos añadir estilos para un menú de hamburguesa */
   header {
     flex-direction: column;
     padding: 2.5rem 2rem;
     gap: 2rem;
   }
   nav {
+    /* ADVERTENCIA UX: La navegación principal está oculta. Se necesita un menú móvil. */
     display: none;
   }
 
   .hero {
     flex-direction: column;
     justify-content: center;
-    padding: 4rem 2rem; /* Más padding vertical */
-    height: auto;
-    min-height: calc(
-      100vh - (header altura)
-    ); /* Asegurar que al menos llene pantalla */
+    padding: 4rem 2rem;
     text-align: center;
-    /* background-image: none; Considerar quitar imagen pesada en móviles */
+    height: auto;
     background-position: bottom;
-    background-size: 850px; /* Ajustar imagen de fondo */
+    background-size: 850px;
     background-color: var(--bg-color); /* Fondo alternativo */
   }
-  .hero-text {
-    max-width: 100%;
-    margin-bottom: 3rem;
-  }
   .hero-text h1 {
-    font-size: 3.4rem;
-  }
-  .hero-text p {
-    font-size: 1.7rem;
+    font-size: 3.6rem; /* Ajustado para mejor legibilidad */
   }
   .hero-form {
     padding: 2.5rem;
-    max-width: 100%; /* Ocupar todo el ancho disponible */
-  }
-  .hero-form h2 {
-    font-size: 2.2rem;
+    width: 100%;
+    max-width: 100%;
   }
 
-  .terms-conditions {
-    padding: 4rem 2rem;
-  }
-
+  .terms-conditions,
   .why-sg-cities,
   .solutions {
     padding: 6rem 2rem;
-    align-items: center;
-    text-align: center; /* Centrar texto de títulos y descripciones */
+    text-align: center;
   }
   .why-sg-cities__title,
   .solutions__title {
-    font-size: 2.8rem;
-  }
-  .why-sg-cities__description,
-  .solutions__description {
-    font-size: 1.7rem;
+    font-size: 3rem; /* Ajustado */
   }
 
   .why-sg-cities__benefits,
   .solutions__list {
-    grid-template-columns: 1fr; /* Una columna */
+    grid-template-columns: 1fr; /* Una columna, perfecto */
   }
   .why-sg-cities__benefit {
-    align-items: center; /* Centrar contenido interno de las tarjetas */
+    align-items: center;
     text-align: center;
   }
   .solutions__item {
-    height: auto; /* Altura automática */
-    min-height: 380px; /* Altura mínima para visualización */
-  }
-  .solutions__content {
-    width: calc(100% - 2.4rem);
-    margin: 1.2rem;
-    padding: 1.5rem; /* Ajustar padding */
-  }
-  .solutions__item-title {
-    font-size: 1.9rem;
+    height: 400px; /* Es mejor mantener una altura fija para consistencia visual */
   }
 
   .start-project {
     padding: 6rem 2rem;
-    /* flex-direction: column; ya está de tablet */
-  }
-  .start-project__left,
-  .start-project__right {
-    max-width: 100%; /* Ocupar ancho completo */
-    align-items: center; /* Centrar texto del formulario también */
-    text-align: center;
   }
   .start-project__title {
-    font-size: 3.2rem;
-  }
-  .contact-form__title {
-    font-size: 2.2rem;
+    font-size: 3.4rem;
   }
 
   .main-footer {
     flex-direction: column;
-    padding: 3rem 2rem;
-    text-align: center;
-    gap: 2.5rem;
+    padding: 4rem 2rem;
+    gap: 3rem;
   }
   .main-footer figure {
     order: 1;
-  } /* Logo primero */
+  }
   .main-footer__social {
     order: 2;
-  } /* Redes después */
+  }
   .main-footer__links {
-    order: 3; /* Links al final */
+    order: 3;
     flex-direction: column;
     gap: 1.5rem;
   }
+}
+
+/* --- Media Query para Interacción (Hover) --- */
+/* Esto soluciona el problema del "hover pegajoso" en móviles */
+@media (hover: hover) {
+  .solutions__item:hover,
+  .solutions__item:focus {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .solutions__item:hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    z-index: 1;
+  }
+
+  .solutions__item:hover .solutions__item-title,
+  .solutions__item:hover .solutions__item-text {
+    color: #ffffff;
+  }
+}
+
+/* --- Feedback para el toque en dispositivos sin hover --- */
+.solutions__item:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease-out;
 }

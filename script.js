@@ -66,58 +66,126 @@ document.addEventListener("DOMContentLoaded", function () {
       "El contenedor de beneficios (.why-sg-cities__benefits) no fue encontrado.",
     );
   }
+});
 
-  // --- CÓDIGO PARA LAS CARDS DE SOLUCIONES ---
+// --- CÓDIGO PARA LAS CARDS DE SOLUCIONES (MODIFICADO) ---
+
+// Espera a que el DOM esté completamente cargado
+document.addEventListener("DOMContentLoaded", function () {
   const solutionsContainer = document.querySelector(".solutions__list");
 
   if (solutionsContainer) {
+    // DATOS ENRIQUECIDOS: Añadimos 'link' y 'imageUrl' para cada solución.
+    // DEBERÁS REEMPLAZAR 'URL_DE_TU_IMAGEN_X.jpg' con las rutas reales.
     const solutionsData = [
       {
-        cardClass: "card1",
         title: "Asesoría inmobiliaria",
         text: "Te ayudamos a encontrar la propiedad ideal, evaluando ubicación, precio y proyección de valor.",
+        link: "/asesoria-inmobiliaria.html", // Página de destino
+        imageUrl: "./images/compra.jpg", // Imagen de fondo
       },
       {
-        cardClass: "card2",
         title: "Gestión y planificación de construcción",
         text: "Optimizamos cada etapa del proceso constructivo para garantizar eficiencia y calidad.",
+        link: "/gestion-construccion.html",
+        imageUrl: "./images/gestion.jpg",
       },
       {
-        cardClass: "card3",
         title: "Estudios de mercado inmobiliario",
         text: "Análisis detallado de tendencias, precios y demanda para respaldar cada decisión.",
+        link: "/estudios-mercado.html",
+        imageUrl: "./images/estudios.jpg",
       },
       {
-        cardClass: "card4",
         title: "Estudios de factibilidad",
         text: "Realizamos estudios de impacto urbano, regional, movilidad, de evaluación ambiental y factibilidades técnicas.",
+        link: "/estudios-factibilidad.html",
+        imageUrl: "./images/urban-map.jpg",
       },
       {
-        cardClass: "card5",
         title: "Derecho administrativo",
         text: "Buscamos la solución a los problemas administrativos de los bienes inmuebles y las mejores posibilidades para el aprovechamiento del suelo.",
+        link: "/derecho-administrativo.html",
+        imageUrl: "./images/admin.jpg",
       },
     ];
 
     function displaySolutionCards() {
       let solutionsHTML = "";
       solutionsData.forEach((solution) => {
+        // PLANTILLA MODIFICADA: Ahora generamos un <a> dentro de cada <li>
+        // La clase .solutions__item y la imagen de fondo se aplican al enlace <a>
         const solutionCardHTML = `
-          <li class="solutions__item ${solution.cardClass}"> 
-            <div class="solutions__content">
-              <h3 class="solutions__item-title">${solution.title}</h3>
-              <p class="solutions__item-text">${solution.text}</p>
-            </div>
-          </li>
-        `;
+                    <li> 
+                        <a href="${solution.link}" 
+                           class="solutions__item" 
+                           style="background-image: url('${solution.imageUrl}');"
+                           aria-label="Más información sobre ${solution.title}">
+                            <div class="solutions__content">
+                                <h3 class="solutions__item-title">${solution.title}</h3>
+                                <p class="solutions__item-text">${solution.text}</p>
+                            </div>
+                        </a>
+                    </li>
+                `;
         solutionsHTML += solutionCardHTML;
       });
       solutionsContainer.innerHTML = solutionsHTML;
     }
+
     displaySolutionCards();
   } else {
     console.warn(
       "El contenedor de soluciones (.solutions__list) no fue encontrado.",
     );
+  }
+});
+
+// Dentro de tu listener 'DOMContentLoaded'
+
+document.addEventListener("DOMContentLoaded", function () {
+  // ... tu código para cargar header/footer ...
+
+  // Solo se ejecuta si encontramos la nueva galería estática
+  if (document.getElementById("static-gallery")) {
+    // 1. Inicializamos ÚNICAMENTE el carrusel principal (el lightbox)
+    var galleryLightboxSwiper = new Swiper(".gallery-main", {
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
+    // 2. Lógica para abrir y cerrar el lightbox
+    const lightbox = document.querySelector(".gallery-lightbox");
+    const closeButton = document.querySelector(".gallery-lightbox__close");
+    const gridImages = document.querySelectorAll("#static-gallery a");
+
+    // 3. Añadimos un listener a CADA imagen de la rejilla
+    gridImages.forEach((imgLink) => {
+      imgLink.addEventListener("click", function (event) {
+        event.preventDefault(); // Evitamos que el enlace '#' recargue la página
+
+        // Obtenemos el índice del 'data-index' que pusimos en el HTML
+        const slideIndex = parseInt(this.dataset.index, 10);
+
+        // Le decimos al swiper del lightbox que vaya a esa imagen específica
+        galleryLightboxSwiper.slideTo(slideIndex, 0); // El 0 es para que vaya instantáneamente
+
+        // Mostramos el lightbox
+        lightbox.classList.add("is-active");
+      });
+    });
+
+    // La lógica para cerrar se mantiene igual
+    closeButton.addEventListener("click", function () {
+      lightbox.classList.remove("is-active");
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        lightbox.classList.remove("is-active");
+      }
+    });
   }
 });
