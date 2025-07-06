@@ -482,48 +482,49 @@ button:hover {
 }
 
 /* ======================================================= */
-/* =      ESTILOS PARA PÁGINAS DE SERVICIO (NUEVO)       = */
+/* =   ESTILOS COMPLETOS PARA PÁGINAS DE SERVICIO Y GALERÍA   = */
 /* ======================================================= */
 
-/* --- Hero de la Página de Servicio --- */
+/* --- 1. Estructura y Hero de la Página de Servicio --- */
 .service-hero {
+  padding: 8rem 2rem;
   background-color: var(--bg-color);
   text-align: center;
-  padding: 8rem 2rem;
 }
 
 .service-hero h1 {
+  margin-bottom: 1.5rem;
   font-size: 5.2rem;
   line-height: 1.1;
-  margin-bottom: 1.5rem;
 }
 
 .service-hero__subtitle {
-  font-size: 2rem;
   max-width: 700px;
   margin: 0 auto;
+  font-size: 2rem;
   color: var(--text);
   opacity: 0.9;
 }
 
-/* --- Contenedor Principal de Detalles --- */
+/* --- 2. Contenido Principal y Detalles del Servicio --- */
 .service-details {
-  padding: 10rem 2rem; /* Coincide con el padding de .solutions */
+  padding: 10rem 2rem;
 }
 
 .service-container {
-  max-width: 1200px; /* Un contenedor estándar para centrar contenido */
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr; /* Layout de dos columnas */
   gap: 6rem;
-  align-items: flex-start;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* --- Columna de Texto --- */
-.service-details__text h2 {
-  font-size: 4rem;
+/* --- 2a. Columna de Texto --- */
+.service-details__text h2,
+.service-details__gallery h2 {
   margin-bottom: 2rem;
+  font-size: 4rem;
 }
 
 .service-details__text p {
@@ -533,121 +534,68 @@ button:hover {
 }
 
 .service-details__text h3 {
-  font-size: 2.4rem;
   margin-top: 4rem;
   margin-bottom: 1.5rem;
+  font-size: 2.4rem;
 }
 
 .service-details__text ul {
-  list-style-position: inside;
   padding-left: 1rem;
+  list-style-position: inside;
 }
 
 .service-details__text li {
-  font-size: 1.7rem;
   margin-bottom: 1rem;
+  font-size: 1.7rem;
 }
 
-/* --- Columna de Galería --- */
-.service-details__gallery h2 {
-  font-size: 4rem;
-  margin-bottom: 2rem;
-}
-
+/* --- 2b. Columna de Galería Híbrida (Rejilla + Scroll) --- */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* Define una rejilla de 2 filas de alto */
+  grid-template-rows: repeat(2, 1fr);
+  /* Le dice que cree columnas nuevas a la derecha en lugar de filas nuevas abajo */
+  grid-auto-flow: column;
+  /* Define el ancho de cada columna para que quepan 2 en la vista inicial */
+  grid-auto-columns: 45%; /* 50% del ancho menos la mitad del gap */
   gap: 1.5rem;
+  overflow-x: auto; /* Activa el scroll horizontal solo cuando es necesario */
+  scroll-snap-type: x mandatory; /* Mejora la experiencia de scroll */
+  scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
+}
+.gallery-grid::-webkit-scrollbar {
+  display: none; /* Oculta la barra de scroll en Chrome, Safari, etc. */
+}
+
+.gallery-grid a {
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  aspect-ratio: 4 / 3;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  scroll-snap-align: start; /* Cada imagen es un punto de "enganche" para el scroll */
 }
 
 .gallery-grid img {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
-  aspect-ratio: 4 / 3; /* Mantiene la proporción de las imágenes */
-  object-fit: cover;
-}
-
-/* --- Sección de Llamada a la Acción (CTA) --- */
-.service-cta {
-  background-color: var(--card-bg);
-  text-align: center;
-  padding: 8rem 2rem;
-}
-
-.service-cta h2 {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
-}
-
-.service-cta p {
-  font-size: 1.8rem;
-  margin-bottom: 3rem;
-}
-
-.button-primary {
-  display: inline-block; /* Para que el botón no ocupe todo el ancho */
-  padding: 1.8rem 3.6rem;
-  background: var(--primary);
-  color: #fff;
-  border-radius: 8px;
-  font-weight: 700;
-  text-decoration: none;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
-}
-
-.button-primary:hover {
-  background-color: var(--button-hover);
-  color: #fff;
-  transform: translateY(-3px);
-}
-
-/* ======================================================= */
-/* =      ESTILOS PARA GALERÍA CON SWIPER (NUEVO)        = */
-/* ======================================================= */
-
-/* --- Estilos para las miniaturas (thumbnails) --- */
-.gallery-thumbs {
-  height: 100px; /* Altura fija para la tira de miniaturas */
-  margin-top: 2rem;
-}
-
-.gallery-thumbs .swiper-slide {
-  width: 25%;
-  height: 100%;
-  opacity: 0.5;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-}
-
-/* El thumbnail activo se ve nítido */
-.gallery-thumbs .swiper-slide-thumb-active {
-  opacity: 1;
-}
-
-.gallery-thumbs .swiper-slide img {
-  width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
 }
 
-/* --- Estilos para el Lightbox (oculto por defecto) --- */
+/* --- 3. Lightbox (Visor de Galería con Swiper) --- */
 .gallery-lightbox {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1000;
   width: 100%;
   height: 100%;
-  background-color: rgba(19, 33, 36, 0.9); /* Fondo oscuro semitransparente */
-  z-index: 1000;
+  background-color: rgba(19, 33, 36, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* Oculto por defecto, se mostrará con JS */
   opacity: 0;
   visibility: hidden;
   transition:
@@ -655,14 +603,13 @@ button:hover {
     visibility 0.3s ease;
 }
 
-/* Clase que se añade con JS para mostrar el lightbox */
 .gallery-lightbox.is-active {
   opacity: 1;
   visibility: visible;
 }
 
-/* --- Estilos para el visor principal dentro del lightbox --- */
 .gallery-main {
+  /* Contenedor de Swiper dentro del lightbox */
   width: 90%;
   height: 80%;
 }
@@ -680,10 +627,9 @@ button:hover {
   height: auto;
 }
 
-/* --- Estilos para los botones de navegación y cierre --- */
 .gallery-lightbox .swiper-button-next,
 .gallery-lightbox .swiper-button-prev {
-  color: var(--primary); /* Usa tu color primario */
+  color: var(--primary);
 }
 
 .gallery-lightbox__close {
@@ -694,6 +640,94 @@ button:hover {
   color: #fff;
   cursor: pointer;
   line-height: 1;
+}
+
+/* --- 4. Sección de Llamada a la Acción (CTA) --- */
+.service-cta {
+  padding: 8rem 2rem;
+  background-color: var(--card-bg);
+  text-align: center;
+}
+
+.service-cta h2 {
+  margin-bottom: 1.5rem;
+  font-size: 4rem;
+}
+
+.service-cta p {
+  margin-bottom: 3rem;
+  font-size: 1.8rem;
+}
+
+/* Estilo de botón reutilizable */
+.button-primary {
+  display: inline-block;
+  padding: 1.8rem 3.6rem;
+  border-radius: 8px;
+  background-color: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+/* ======================================================= */
+/* =      MEDIA QUERIES PARA LOS NUEVOS ESTILOS          = */
+/* ======================================================= */
+
+/* --- Tabletas --- */
+@media (max-width: 1024px) {
+  .service-details {
+    padding: 8rem 5rem;
+  }
+  .service-container {
+    grid-template-columns: 1fr; /* Apilamos las columnas */
+  }
+}
+
+/* --- Móviles --- */
+@media (max-width: 767px) {
+  .service-hero {
+    padding: 6rem 2rem;
+  }
+  .service-hero h1 {
+    font-size: 3.8rem;
+  }
+  .service-hero__subtitle {
+    font-size: 1.8rem;
+  }
+
+  .service-details {
+    padding: 6rem 2rem;
+  }
+  .service-container {
+    gap: 5rem;
+  }
+  .service-details__text h2,
+  .service-details__gallery h2 {
+    font-size: 3rem;
+  }
+
+  /* Ajustamos la galería para móviles */
+  .gallery-grid {
+    grid-template-rows: 1fr; /* En móvil, volvemos a 1 sola fila */
+    grid-auto-columns: 85%; /* Y hacemos las imágenes más grandes */
+  }
+}
+
+/* --- Interacción Hover (Solo para escritorio) --- */
+@media (hover: hover) {
+  .button-primary:hover {
+    background-color: var(--button-hover);
+    color: #fff;
+    transform: translateY(-3px);
+  }
+  .gallery-grid a:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
 }
 
 /* ======================================================= */
