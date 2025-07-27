@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // --- CÓDIGO PARA LAS CARDS DE BENEFICIOS ("¿Por qué elegir SG Cities?") ---
   const benefitsContainer = document.querySelector(".why-sg-cities__benefits");
 
   if (benefitsContainer) {
@@ -66,6 +65,44 @@ document.addEventListener("DOMContentLoaded", function () {
       "El contenedor de beneficios (.why-sg-cities__benefits) no fue encontrado.",
     );
   }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // ... tu código para cargar header/footer ...
+    // ... tu código para la galería de servicios ...
+
+    // --- INICIALIZACIÓN DEL CARRUSEL DE LOGOS ---
+    if (document.querySelector(".logo-swiper")) {
+      const logoSwiper = new Swiper(".logo-swiper", {
+        // Opciones del carrusel
+        loop: true, // Para que sea un bucle infinito
+        autoplay: {
+          delay: 2500, // Tiempo entre cada slide en milisegundos
+          disableOnInteraction: false, // El autoplay no se detiene si el usuario interactúa
+        },
+        slidesPerView: 2, // Logos visibles en pantallas muy pequeñas
+        spaceBetween: 30, // Espacio entre logos
+
+        // Puntos de ruptura para hacerlo responsivo
+        breakpoints: {
+          // Cuando el ancho de la pantalla sea >= 640px
+          640: {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+          // Cuando el ancho de la pantalla sea >= 768px
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 50,
+          },
+          // Cuando el ancho de la pantalla sea >= 1024px
+          1024: {
+            slidesPerView: 5,
+            spaceBetween: 60,
+          },
+        },
+      });
+    }
+  });
 });
 
 // --- CÓDIGO PARA LAS CARDS DE SOLUCIONES (MODIFICADO) ---
@@ -139,16 +176,38 @@ document.addEventListener("DOMContentLoaded", function () {
       "El contenedor de soluciones (.solutions__list) no fue encontrado.",
     );
   }
-});
 
-// Dentro de tu listener 'DOMContentLoaded'
+  // --- INICIALIZACIÓN DEL CARRUSEL DE LOGOS ---
+  if (document.querySelector(".logo-swiper")) {
+    const logoSwiper = new Swiper(".logo-swiper", {
+      loop: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      slidesPerView: 2,
+      spaceBetween: 30,
+      breakpoints: {
+        640: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 50,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 60,
+        },
+      },
+    });
+  }
 
-document.addEventListener("DOMContentLoaded", function () {
-  // ... tu código para cargar header/footer ...
-
-  // Solo se ejecuta si encontramos la nueva galería estática
+  // --- CÓDIGO PARA LA GALERÍA DE SERVICIOS (LIGHTBOX) ---
+  // Este código se aplica a las páginas de servicios, no al index,
+  // pero es bueno mantenerlo dentro del mismo listener para consistencia.
   if (document.getElementById("static-gallery")) {
-    // 1. Inicializamos ÚNICAMENTE el carrusel principal (el lightbox)
     var galleryLightboxSwiper = new Swiper(".gallery-main", {
       navigation: {
         nextEl: ".swiper-button-next",
@@ -156,28 +215,19 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     });
 
-    // 2. Lógica para abrir y cerrar el lightbox
     const lightbox = document.querySelector(".gallery-lightbox");
     const closeButton = document.querySelector(".gallery-lightbox__close");
     const gridImages = document.querySelectorAll("#static-gallery a");
 
-    // 3. Añadimos un listener a CADA imagen de la rejilla
     gridImages.forEach((imgLink) => {
       imgLink.addEventListener("click", function (event) {
-        event.preventDefault(); // Evitamos que el enlace '#' recargue la página
-
-        // Obtenemos el índice del 'data-index' que pusimos en el HTML
+        event.preventDefault();
         const slideIndex = parseInt(this.dataset.index, 10);
-
-        // Le decimos al swiper del lightbox que vaya a esa imagen específica
-        galleryLightboxSwiper.slideTo(slideIndex, 0); // El 0 es para que vaya instantáneamente
-
-        // Mostramos el lightbox
+        galleryLightboxSwiper.slideTo(slideIndex, 0);
         lightbox.classList.add("is-active");
       });
     });
 
-    // La lógica para cerrar se mantiene igual
     closeButton.addEventListener("click", function () {
       lightbox.classList.remove("is-active");
     });

@@ -674,6 +674,59 @@ button:hover {
 }
 
 /* ======================================================= */
+/* =     ESTILOS PARA CARRUSEL DE PARTNERS (NUEVO)       = */
+/* ======================================================= */
+
+.partners {
+  padding: 8rem 2rem;
+  background-color: #fff;
+  border-top: 1px solid #e2e8f0; /* Separador sutil */
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.partners-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.partners__title {
+  font-size: 3.2rem;
+  text-align: center;
+  margin-bottom: 4rem;
+  font-weight: 600;
+}
+
+.logo-swiper .swiper-wrapper {
+  /* Alineación vertical perfecta de todos los logos */
+  align-items: center;
+}
+
+.logo-swiper .swiper-slide {
+  text-align: center;
+}
+
+.logo-swiper img {
+  max-height: 80px; /* Ajusta esta altura según el tamaño de tus logos */
+  width: auto;
+  max-width: 100%;
+
+  /* Efecto profesional: escala de grises por defecto */
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
+}
+
+/* El logo recupera su color y opacidad al hacer hover */
+@media (hover: hover) {
+  .logo-swiper .swiper-slide a:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+}
+
+/* ======================================================= */
 /* =      MEDIA QUERIES PARA LOS NUEVOS ESTILOS          = */
 /* ======================================================= */
 

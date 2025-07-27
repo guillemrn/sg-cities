@@ -20,6 +20,10 @@
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:wght@400;600&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
     <!-- Etiquetas Open Graph -->
     <meta
       property="og:title"
@@ -56,10 +60,12 @@
   <body>
     <header>
       <figure>
-        <img
-          src="./images/sg-cities-logo.svg"
-          alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios"
-        />
+        <a href="/">
+          <img
+            src="./images/sg-cities-logo.svg"
+            alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios"
+          />
+        </a>
       </figure>
       <nav>
         <ul>
@@ -82,7 +88,7 @@
       </div>
       <div class="hero-form">
         <h2>Obtén asesoría experta para tu próximo proyecto</h2>
-        <form netlify>
+        <form name="hero-contact" netlify>
           <input type="text" name="nombre" placeholder="Nombre" required />
           <input
             type="email"
@@ -120,6 +126,67 @@
       <ul class="why-sg-cities__benefits"></ul>
     </section>
 
+    <section class="partners">
+      <div class="partners-container">
+        <h2 class="partners__title">Nuestros partners y clientes</h2>
+
+        <div class="swiper logo-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <a href="#!" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="./images/carrousel/gatsystem.png"
+                  alt="Logo de Gatsystem"
+                />
+              </a>
+            </div>
+
+            <div class="swiper-slide">
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="./images/carrousel/gpoukari.PNG"
+                  alt="Logo de Gpoukari"
+                />
+              </a>
+            </div>
+
+            <div class="swiper-slide">
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="./images/carrousel/logo eps.png" alt="Logo de EPS" />
+              </a>
+            </div>
+
+            <div class="swiper-slide">
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="./images/carrousel/logo4.png"
+                  alt="Logo de Partner 4"
+                />
+              </a>
+            </div>
+
+            <div class="swiper-slide">
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="./images/carrousel/polymetrix.png"
+                  alt="Logo de Polymetrix"
+                />
+              </a>
+            </div>
+
+            <div class="swiper-slide">
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="./images/carrousel/universidad-de-guadalajara.png"
+                  alt="Logo de Universidad de Guadalajara"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="solutions" id="solutions">
       <div>
         <h2 class="solutions__title">Soluciones inmobiliarias a tu medida</h2>
@@ -148,7 +215,7 @@
         <h3 class="contact-form__title">
           Contáctanos y recibe asesoría personalizada
         </h3>
-        <form class="contact-form__form" netlify>
+        <form name="cta-contact" class="contact-form__form" netlify>
           <input type="text" name="nombre" placeholder="Nombre" required />
           <input
             type="email"
@@ -177,10 +244,12 @@
 
     <footer class="main-footer">
       <figure>
-        <img
-          src="./images/sg-cities-logo.svg"
-          alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios"
-        />
+        <a href="/">
+          <img
+            src="./images/sg-cities-logo.svg"
+            alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios"
+          />
+        </a>
       </figure>
       <div class="main-footer__links">
         <a href="terminos-y-condiciones.html" class="main-footer__link"
@@ -202,6 +271,7 @@
         /></a> -->
       </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="./script.js" defer></script>
   </body>
 </html>
