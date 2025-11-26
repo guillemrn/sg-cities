@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     // Solo advertir si estamos en la página principal donde debería existir
     if (document.querySelector(".why-sg-cities")) {
-        console.warn("El contenedor de beneficios (.why-sg-cities__benefits) no fue encontrado.");
+      console.warn("El contenedor de beneficios (.why-sg-cities__benefits) no fue encontrado.");
     }
   }
 
@@ -121,9 +121,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     solutionsContainer.innerHTML = solutionsHTML;
   } else {
-      if (document.querySelector(".solutions")) {
-        console.warn("El contenedor de soluciones (.solutions__list) no fue encontrado.");
-      }
+    if (document.querySelector(".solutions")) {
+      console.warn("El contenedor de soluciones (.solutions__list) no fue encontrado.");
+    }
   }
 
   // --- 3. CARRUSEL DE LOGOS (SWIPER) ---
@@ -183,6 +183,26 @@ document.addEventListener("DOMContentLoaded", function () {
       if (e.key === "Escape") {
         lightbox.classList.remove("is-active");
       }
+    });
+  }
+
+  // --- MOBILE NAVIGATION ---
+  const hamburger = document.querySelector(".hamburger");
+  const nav = document.querySelector("nav");
+  const navLinks = document.querySelectorAll("nav ul li a");
+
+  if (hamburger && nav) {
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("is-active");
+      nav.classList.toggle("is-active");
+    });
+
+    // Close menu when a link is clicked
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        hamburger.classList.remove("is-active");
+        nav.classList.remove("is-active");
+      });
     });
   }
 });

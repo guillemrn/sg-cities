@@ -8,15 +8,14 @@
   --glass-border: rgba(255, 255, 255, 0.3);
   --button-hover: #0f5c64;
   --bg-color: rgba(97, 176, 188, 0.2);
-  --glass-gradient: linear-gradient(
-    93deg,
-    rgba(255, 255, 255, 0.09) -14.07%,
-    rgba(255, 255, 255, 0.49) 116.73%
-  );
+  --glass-gradient: linear-gradient(93deg,
+      rgba(255, 255, 255, 0.09) -14.07%,
+      rgba(255, 255, 255, 0.49) 116.73%);
 }
 
 html {
-  font-size: 62.5%; /* 1rem = 10px */
+  font-size: 62.5%;
+  /* 1rem = 10px */
   scroll-behavior: smooth;
 }
 
@@ -28,7 +27,8 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
-  font-size: 1.6rem; /* Default font size = 16px */
+  font-size: 1.6rem;
+  /* Default font size = 16px */
   line-height: 1.6;
   color: var(--text);
   background-color: white;
@@ -39,7 +39,8 @@ h2,
 h3 {
   font-family: "Outfit", sans-serif;
   color: var(--text);
-  font-weight: 700; /* Asignado en HTML como h2 */
+  font-weight: 700;
+  /* Asignado en HTML como h2 */
 }
 
 a {
@@ -49,7 +50,8 @@ a {
   line-height: 2.6rem;
   font-weight: bold;
   text-decoration: none;
-  transition: color 0.3s ease; /* Transición solo en color para eficiencia */
+  transition: color 0.3s ease;
+  /* Transición solo en color para eficiencia */
 }
 
 a:hover {
@@ -62,6 +64,169 @@ header {
   align-items: center;
   padding: 4rem 10rem;
   background-color: var(--bg-color);
+  position: relative;
+  /* Para posicionar el menú móvil absoluto si es necesario */
+  z-index: 100;
+}
+
+/* --- HAMBURGERS CSS (Slider) --- */
+.hamburger {
+  padding: 15px 15px;
+  display: inline-block;
+  cursor: pointer;
+  transition-property: opacity, filter;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  overflow: visible;
+  display: none;
+  /* Oculto en desktop por defecto */
+  width: auto;
+  /* Override generic button width */
+}
+
+.hamburger:hover {
+  opacity: 1;
+  background-color: transparent;
+  /* Override generic button hover */
+}
+
+.hamburger.is-active:hover {
+  opacity: 1;
+  background-color: transparent;
+  /* Override generic button hover */
+}
+
+.hamburger-box {
+  width: 40px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: -2px;
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  width: 40px;
+  height: 4px;
+  background-color: var(--text);
+  /* Usar variable de color */
+  border-radius: 4px;
+  position: absolute;
+  transition-property: transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+  content: "";
+  display: block;
+}
+
+.hamburger-inner::before {
+  top: -10px;
+}
+
+.hamburger-inner::after {
+  bottom: -10px;
+}
+
+/* Slider Animation */
+.hamburger--slider .hamburger-inner {
+  top: 2px;
+}
+
+.hamburger--slider .hamburger-inner::before {
+  top: 10px;
+  transition-property: transform, opacity;
+  transition-timing-function: ease;
+  transition-duration: 0.15s;
+}
+
+.hamburger--slider .hamburger-inner::after {
+  top: 20px;
+}
+
+.hamburger--slider.is-active .hamburger-inner {
+  transform: translate3d(0, 10px, 0) rotate(45deg);
+}
+
+.hamburger--slider.is-active .hamburger-inner::before {
+  transform: rotate(-45deg) translate3d(-5.71429px, -6px, 0);
+  opacity: 0;
+}
+
+.hamburger--slider.is-active .hamburger-inner::after {
+  transform: translate3d(0, -20px, 0) rotate(-90deg);
+}
+
+/* --- MOBILE MENU STYLES --- */
+@media (max-width: 768px) {
+  header {
+    padding: 2rem 2rem;
+    /* Reducir padding en móvil */
+    justify-content: space-between;
+  }
+
+  header figure img {
+    max-width: 140px;
+    /* Logo más pequeño en móvil */
+    height: auto;
+  }
+
+  .hamburger {
+    display: inline-block;
+    /* Mostrar hamburguesa en móvil */
+    z-index: 102;
+    /* Por encima del menú */
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.98);
+    /* Fondo casi opaco */
+    backdrop-filter: blur(10px);
+    z-index: 101;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Animación de entrada */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.3s ease-in-out;
+  }
+
+  nav.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+    font-size: 2.4rem;
+    /* Texto más grande en móvil */
+  }
 }
 
 nav ul {
@@ -80,10 +245,10 @@ nav ul {
   background-image: url("/images/building.png");
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: bottom right; /* Ajustado para más control */
-  min-height: calc(
-    100vh - 8rem
-  ); /* Ejemplo: altura del viewport menos altura del header */
+  background-position: bottom right;
+  /* Ajustado para más control */
+  min-height: calc(100vh - 8rem);
+  /* Ejemplo: altura del viewport menos altura del header */
 }
 
 .hero-text {
@@ -92,32 +257,40 @@ nav ul {
 
 .hero-text h1 {
   font-size: 6.4rem;
-  line-height: 1.1; /* Ajuste para fuentes grandes */
-  margin-bottom: 1.5rem; /* Ajustado */
+  line-height: 1.1;
+  /* Ajuste para fuentes grandes */
+  margin-bottom: 1.5rem;
+  /* Ajustado */
 }
 
 .hero-text p {
   font-size: 1.8rem;
-  margin-bottom: 2rem; /* Espacio antes del formulario en layout de dos columnas */
+  margin-bottom: 2rem;
+  /* Espacio antes del formulario en layout de dos columnas */
 }
+
 .highlight {
-  color: var(--secondary); /* Usando variable CSS */
+  color: var(--secondary);
+  /* Usando variable CSS */
   font-weight: bold;
 }
 
 .hero-form {
   display: flex;
-  padding: 4rem; /* Consistencia */
+  padding: 4rem;
+  /* Consistencia */
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 1.6rem;
   border-radius: 8px;
-  border: 2px solid var(--glass-border); /* Usando variable */
+  border: 2px solid var(--glass-border);
+  /* Usando variable */
   background: var(--glass-gradient);
   backdrop-filter: blur(17px);
   max-width: 450px;
-  width: 100%; /* Para ocupar espacio en layouts flexibles */
+  width: 100%;
+  /* Para ocupar espacio en layouts flexibles */
 }
 
 .hero-form h2 {
@@ -125,15 +298,19 @@ nav ul {
   color: var(--text);
   font-family: "Outfit", sans-serif;
   font-size: 2.4rem;
-  font-weight: 700; /* Ya está en h1,h2,h3 general */
-  line-height: 1.2; /* Ajuste */
+  font-weight: 700;
+  /* Ya está en h1,h2,h3 general */
+  line-height: 1.2;
+  /* Ajuste */
 }
+
 .hero-form form {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
   width: 100%;
 }
+
 input,
 textarea,
 select {
@@ -143,7 +320,8 @@ select {
   gap: 1rem;
   align-self: stretch;
   border-radius: 8px;
-  border: 2px solid var(--glass-border); /* Usando variable */
+  border: 2px solid var(--glass-border);
+  /* Usando variable */
   background: var(--glass-gradient);
   width: 100%;
   color: var(--text);
@@ -159,20 +337,27 @@ textarea::placeholder {
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 2.4rem; /* 150% */
+  line-height: 2.4rem;
+  /* 150% */
 }
+
 input:focus,
 textarea:focus,
 select:focus {
-  outline: none; /* Quitar outline por defecto */
-  border-color: var(--primary); /* Resaltar borde en focus */
-  box-shadow: 0 0 0 2px rgba(var(--primary), 0.3); /* Opcional: añadir un shadow sutil */
+  outline: none;
+  /* Quitar outline por defecto */
+  border-color: var(--primary);
+  /* Resaltar borde en focus */
+  box-shadow: 0 0 0 2px rgba(var(--primary), 0.3);
+  /* Opcional: añadir un shadow sutil */
 }
+
 .form__checkbox {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
+
 button {
   display: flex;
   padding: 1.8rem;
@@ -186,12 +371,15 @@ button {
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 700;
-  line-height: 2.4rem; /* 150% */
+  line-height: 2.4rem;
+  /* 150% */
   letter-spacing: 0.04px;
   cursor: pointer;
   border: none;
-  transition: background-color 0.3s ease; /* Transición en background */
-  width: 100%; /* Botones full-width por defecto */
+  transition: background-color 0.3s ease;
+  /* Transición en background */
+  width: 100%;
+  /* Botones full-width por defecto */
 }
 
 button:hover {
@@ -200,7 +388,8 @@ button:hover {
 
 .why-sg-cities,
 .solutions {
-  /* height: 100vh; */ /* Controlar con min-height o en media queries */
+  /* height: 100vh; */
+  /* Controlar con min-height o en media queries */
   min-height: 80vh;
   background-color: #fff;
   padding: 10rem;
@@ -209,51 +398,64 @@ button:hover {
   gap: 4.8rem;
   justify-content: center;
 }
+
 .why-sg-cities__title,
 .solutions__title {
   font-size: 4rem;
-  font-weight: 600; /* Un poco menos pesado que el 700 por defecto */
+  font-weight: 600;
+  /* Un poco menos pesado que el 700 por defecto */
   line-height: 1.2;
   letter-spacing: 0.5px;
 }
+
 .why-sg-cities__description,
 .solutions__description {
   font-size: 1.8rem;
   font-weight: 400;
-  line-height: 1.6; /* Mejorado */
+  line-height: 1.6;
+  /* Mejorado */
   letter-spacing: 0.5px;
-  max-width: 750px; /* Limitar ancho de descripciones largas */
+  max-width: 750px;
+  /* Limitar ancho de descripciones largas */
 }
 
 .why-sg-cities__benefits {
   display: grid;
   gap: 2.4rem;
-  grid-template-columns: repeat(3, 1fr); /* Simplificado minmax */
-  /* grid-template-rows: repeat(2, minmax(0, 1fr)); */ /* Dejar que el contenido defina la altura */
+  grid-template-columns: repeat(3, 1fr);
+  /* Simplificado minmax */
+  /* grid-template-rows: repeat(2, minmax(0, 1fr)); */
+  /* Dejar que el contenido defina la altura */
   width: 100%;
 }
+
 .why-sg-cities__benefit {
   display: flex;
   padding: 2.4rem;
   flex-direction: column;
-  align-items: flex-start; /* Contenido de la tarjeta a la izquierda */
+  align-items: flex-start;
+  /* Contenido de la tarjeta a la izquierda */
   gap: 1.6rem;
   border-radius: 8px;
   background: rgba(97, 176, 188, 0.1);
-  text-align: left; /* Texto de la tarjeta a la izquierda */
+  text-align: left;
+  /* Texto de la tarjeta a la izquierda */
 }
 
 .why-sg-cities__benefit-icon img {
-  height: 40px; /* Tamaño fijo para iconos */
+  height: 40px;
+  /* Tamaño fijo para iconos */
   width: auto;
 }
 
 .why-sg-cities__benefit-title {
-  font-size: 2rem; /* Ligeramente más grande */
+  font-size: 2rem;
+  /* Ligeramente más grande */
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: 0.5px;
 }
+
 /* .why-sg-cities__benefit-text ya hereda de body o p */
 
 .solutions__list {
@@ -262,15 +464,20 @@ button:hover {
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
 }
+
 .solutions__list li {
-  list-style: none; /* Quita los puntos de la lista */
+  list-style: none;
+  /* Quita los puntos de la lista */
   padding: 0;
   margin: 0;
 }
+
 .solutions__item {
-  display: flex; /* Cambiado de block a flex para alinear contenido */
+  display: flex;
+  /* Cambiado de block a flex para alinear contenido */
   flex-direction: column;
-  justify-content: flex-end; /* Alinea .solutions__content abajo */
+  justify-content: flex-end;
+  /* Alinea .solutions__content abajo */
   align-items: center;
   height: 450px;
   border-radius: 8px;
@@ -279,8 +486,10 @@ button:hover {
   background-position: center;
   overflow: hidden;
   position: relative;
-  text-decoration: none; /* Quita el subrayado del enlace */
-  color: var(--text); /* Hereda el color de texto del body */
+  text-decoration: none;
+  /* Quita el subrayado del enlace */
+  color: var(--text);
+  /* Hereda el color de texto del body */
 
   /* 3. AÑADIMOS LA TRANSICIÓN PARA EL EFECTO HOVER */
   transition:
@@ -291,8 +500,10 @@ button:hover {
 /* 4. AÑADIMOS EL EFECTO HOVER */
 .solutions__item:hover,
 .solutions__item:focus {
-  transform: translateY(-10px); /* La tarjeta "salta" un poco */
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+  transform: translateY(-10px);
+  /* La tarjeta "salta" un poco */
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+  /* Sombra más pronunciada */
 }
 
 /* 5. AÑADIMOS UN OVERLAY sutil en el hover para mejorar el efecto visual */
@@ -303,11 +514,13 @@ button:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Un poco más sutil */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Un poco más sutil */
   border-radius: 8px;
 
   /* --- LÍNEA AÑADIDA --- */
-  z-index: 1; /* Coloca el overlay en la capa 1 (en medio) */
+  z-index: 1;
+  /* Coloca el overlay en la capa 1 (en medio) */
 }
 
 .solutions__content {
@@ -326,23 +539,30 @@ button:hover {
   box-sizing: border-box;
 
   /* --- LÍNEAS AÑADIDAS --- */
-  position: relative; /* Necesario para que z-index funcione */
-  z-index: 2; /* Coloca el contenido en la capa 2 (la más alta) */
+  position: relative;
+  /* Necesario para que z-index funcione */
+  z-index: 2;
+  /* Coloca el contenido en la capa 2 (la más alta) */
 }
+
 .solutions__item-title {
-  font-size: 2rem; /* Consistente con benefits */
+  font-size: 2rem;
+  /* Consistente con benefits */
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: 0.5px;
-  transition: color 0.3s ease-in-out; /* <- Añadir esta línea */
+  transition: color 0.3s ease-in-out;
+  /* <- Añadir esta línea */
 }
+
 .solutions__item-text {
   /* Clase corregida/asumida */
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0.5px;
-  transition: color 0.3s ease-in-out; /* <- Añadir esta línea */
+  transition: color 0.3s ease-in-out;
+  /* <- Añadir esta línea */
 }
 
 .solutions__item:hover .solutions__item-title,
@@ -358,12 +578,14 @@ button:hover {
   align-items: center;
   background:
     linear-gradient(0deg, rgba(19, 33, 36, 0.6) 0%, rgba(19, 33, 36, 0.6) 100%),
-    url("./images/cta-image.jpg") center/cover no-repeat; /* Sintaxis corta */
+    url("./images/cta-image.jpg") center/cover no-repeat;
+  /* Sintaxis corta */
 }
 
 .start-project__left {
   display: flex;
-  flex-basis: 55%; /* Darle un poco más de espacio al texto */
+  flex-basis: 55%;
+  /* Darle un poco más de espacio al texto */
   flex-direction: column;
   align-items: flex-start;
   gap: 1.6rem;
@@ -371,9 +593,11 @@ button:hover {
 }
 
 .start-project__title {
-  color: #fff; /* Redundante si .start-project__left ya lo tiene, pero no daña */
+  color: #fff;
+  /* Redundante si .start-project__left ya lo tiene, pero no daña */
   font-family: "Outfit", sans-serif;
-  font-size: 5.6rem; /* Ligeramente ajustado */
+  font-size: 5.6rem;
+  /* Ligeramente ajustado */
   font-weight: 600;
   line-height: 1.15;
 }
@@ -399,8 +623,10 @@ button:hover {
   background: var(--glass-gradient);
   backdrop-filter: blur(17px);
   max-width: 450px;
-  width: 100%; /* Para que se ajuste en layouts flexibles */
-  flex-basis: 40%; /* Espacio para el formulario */
+  width: 100%;
+  /* Para que se ajuste en layouts flexibles */
+  flex-basis: 40%;
+  /* Espacio para el formulario */
 }
 
 .contact-form__title {
@@ -423,15 +649,20 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   padding: 4rem 10rem;
-  flex-wrap: wrap; /* Para que los elementos se ajusten mejor */
-  gap: 2rem; /* Espacio entre grupos si se envuelven */
+  flex-wrap: wrap;
+  /* Para que los elementos se ajusten mejor */
+  gap: 2rem;
+  /* Espacio entre grupos si se envuelven */
 }
 
 .main-footer__links {
-  display: inline-flex; /* O flex */
-  justify-content: center; /* Para centrar si se apilan */
+  display: inline-flex;
+  /* O flex */
+  justify-content: center;
+  /* Para centrar si se apilan */
   align-items: center;
-  gap: 4rem; /* Ajustado */
+  gap: 4rem;
+  /* Ajustado */
 }
 
 .main-footer__links a {
@@ -439,14 +670,18 @@ button:hover {
   font-weight: 400;
   text-decoration: underline;
 }
+
 /* main-footer__links a:hover ya está cubierto por a:hover general */
 
 .main-footer__social {
   display: flex;
-  gap: 2rem; /* Espacio entre iconos sociales */
+  gap: 2rem;
+  /* Espacio entre iconos sociales */
 }
+
 .main-footer__social img {
-  height: 24px; /* Tamaño para iconos sociales */
+  height: 24px;
+  /* Tamaño para iconos sociales */
   width: auto;
 }
 
@@ -457,9 +692,11 @@ button:hover {
   flex-direction: column;
   gap: 1rem;
 }
+
 .terms-conditions ul {
   padding-left: 2rem;
 }
+
 .link {
   font-size: 1.6rem;
   font-weight: 400;
@@ -498,7 +735,8 @@ button:hover {
 
 .service-container {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Layout de dos columnas */
+  grid-template-columns: 1fr 1fr;
+  /* Layout de dos columnas */
   gap: 6rem;
   align-items: start;
   max-width: 1200px;
@@ -542,14 +780,20 @@ button:hover {
   /* Le dice que cree columnas nuevas a la derecha en lugar de filas nuevas abajo */
   grid-auto-flow: column;
   /* Define el ancho de cada columna para que quepan 2 en la vista inicial */
-  grid-auto-columns: 45%; /* 50% del ancho menos la mitad del gap */
+  grid-auto-columns: 45%;
+  /* 50% del ancho menos la mitad del gap */
   gap: 1.5rem;
-  overflow-x: auto; /* Activa el scroll horizontal solo cuando es necesario */
-  scroll-snap-type: x mandatory; /* Mejora la experiencia de scroll */
-  scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
+  overflow-x: auto;
+  /* Activa el scroll horizontal solo cuando es necesario */
+  scroll-snap-type: x mandatory;
+  /* Mejora la experiencia de scroll */
+  scrollbar-width: none;
+  /* Oculta la barra de scroll en Firefox */
 }
+
 .gallery-grid::-webkit-scrollbar {
-  display: none; /* Oculta la barra de scroll en Chrome, Safari, etc. */
+  display: none;
+  /* Oculta la barra de scroll en Chrome, Safari, etc. */
 }
 
 .gallery-grid a {
@@ -560,7 +804,8 @@ button:hover {
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
-  scroll-snap-align: start; /* Cada imagen es un punto de "enganche" para el scroll */
+  scroll-snap-align: start;
+  /* Cada imagen es un punto de "enganche" para el scroll */
 }
 
 .gallery-grid img {
@@ -665,7 +910,8 @@ button:hover {
 .partners {
   padding: 8rem 2rem;
   background-color: #fff;
-  border-top: 1px solid #e2e8f0; /* Separador sutil */
+  border-top: 1px solid #e2e8f0;
+  /* Separador sutil */
   border-bottom: 1px solid #e2e8f0;
 }
 
@@ -691,7 +937,8 @@ button:hover {
 }
 
 .logo-swiper img {
-  max-height: 80px; /* Ajusta esta altura según el tamaño de tus logos */
+  max-height: 80px;
+  /* Ajusta esta altura según el tamaño de tus logos */
   width: auto;
   max-width: 100%;
 
@@ -720,8 +967,10 @@ button:hover {
   .service-details {
     padding: 8rem 5rem;
   }
+
   .service-container {
-    grid-template-columns: 1fr; /* Apilamos las columnas */
+    grid-template-columns: 1fr;
+    /* Apilamos las columnas */
   }
 }
 
@@ -730,9 +979,11 @@ button:hover {
   .service-hero {
     padding: 6rem 2rem;
   }
+
   .service-hero h1 {
     font-size: 3.8rem;
   }
+
   .service-hero__subtitle {
     font-size: 1.8rem;
   }
@@ -740,9 +991,11 @@ button:hover {
   .service-details {
     padding: 6rem 2rem;
   }
+
   .service-container {
     gap: 5rem;
   }
+
   .service-details__text h2,
   .service-details__gallery h2 {
     font-size: 3rem;
@@ -750,8 +1003,10 @@ button:hover {
 
   /* Ajustamos la galería para móviles */
   .gallery-grid {
-    grid-template-rows: 1fr; /* En móvil, volvemos a 1 sola fila */
-    grid-auto-columns: 85%; /* Y hacemos las imágenes más grandes */
+    grid-template-rows: 1fr;
+    /* En móvil, volvemos a 1 sola fila */
+    grid-auto-columns: 85%;
+    /* Y hacemos las imágenes más grandes */
   }
 }
 
@@ -762,6 +1017,7 @@ button:hover {
     color: #fff;
     transform: translateY(-3px);
   }
+
   .gallery-grid a:hover {
     transform: scale(1.02);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
@@ -776,6 +1032,7 @@ button:hover {
   .service-details {
     padding: 8rem 5rem;
   }
+
   .service-container {
     /* En tablet, apilamos las columnas */
     grid-template-columns: 1fr;
@@ -786,9 +1043,11 @@ button:hover {
   .service-hero {
     padding: 6rem 2rem;
   }
+
   .service-hero h1 {
     font-size: 3.8rem;
   }
+
   .service-hero__subtitle {
     font-size: 1.8rem;
   }
@@ -796,9 +1055,11 @@ button:hover {
   .service-details {
     padding: 6rem 2rem;
   }
+
   .service-container {
     gap: 5rem;
   }
+
   .service-details__text h2,
   .service-details__gallery h2 {
     font-size: 3rem;
@@ -811,6 +1072,7 @@ button:hover {
 
 /* --- Punto de ruptura para Tablets --- */
 @media (max-width: 1024px) {
+
   header,
   .main-footer {
     padding: 3rem 5rem;
@@ -818,8 +1080,10 @@ button:hover {
 
   .hero {
     padding: 3rem 5rem;
-    min-height: auto; /* Dejar que el contenido defina la altura */
+    min-height: auto;
+    /* Dejar que el contenido defina la altura */
   }
+
   .hero-text h1 {
     font-size: 5rem;
   }
@@ -827,12 +1091,14 @@ button:hover {
   .why-sg-cities,
   .solutions {
     padding: 8rem 5rem;
-    min-height: auto; /* Resetear min-height */
+    min-height: auto;
+    /* Resetear min-height */
   }
 
   .why-sg-cities__benefits,
   .solutions__list {
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet, perfecto */
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columnas en tablet, perfecto */
   }
 
   .start-project {
@@ -841,31 +1107,33 @@ button:hover {
     text-align: center;
     gap: 4rem;
   }
+
   .start-project__left,
   .start-project__right {
     flex-basis: auto;
     width: 100%;
     max-width: 600px;
-    align-items: center; /* Centrar elementos internos */
+    align-items: center;
+    /* Centrar elementos internos */
   }
 }
 
 /* --- Punto de ruptura para Móviles --- */
 @media (max-width: 767px) {
   html {
-    font-size: 58%; /* Ajuste fino para pantallas pequeñas, buena técnica */
+    font-size: 58%;
+    /* Ajuste fino para pantallas pequeñas, buena técnica */
   }
 
   /* RECOMENDACIÓN: Aquí deberíamos añadir estilos para un menú de hamburguesa */
   header {
-    flex-direction: column;
     padding: 2.5rem 2rem;
     gap: 2rem;
+    justify-content: space-between;
+    align-items: center;
   }
-  nav {
-    /* ADVERTENCIA UX: La navegación principal está oculta. Se necesita un menú móvil. */
-    display: none;
-  }
+
+
 
   .hero {
     flex-direction: column;
@@ -875,11 +1143,15 @@ button:hover {
     height: auto;
     background-position: bottom;
     background-size: 850px;
-    background-color: var(--bg-color); /* Fondo alternativo */
+    background-color: var(--bg-color);
+    /* Fondo alternativo */
   }
+
   .hero-text h1 {
-    font-size: 3.6rem; /* Ajustado para mejor legibilidad */
+    font-size: 3.6rem;
+    /* Ajustado para mejor legibilidad */
   }
+
   .hero-form {
     padding: 2.5rem;
     width: 100%;
@@ -892,26 +1164,33 @@ button:hover {
     padding: 6rem 2rem;
     text-align: center;
   }
+
   .why-sg-cities__title,
   .solutions__title {
-    font-size: 3rem; /* Ajustado */
+    font-size: 3rem;
+    /* Ajustado */
   }
 
   .why-sg-cities__benefits,
   .solutions__list {
-    grid-template-columns: 1fr; /* Una columna, perfecto */
+    grid-template-columns: 1fr;
+    /* Una columna, perfecto */
   }
+
   .why-sg-cities__benefit {
     align-items: center;
     text-align: center;
   }
+
   .solutions__item {
-    height: 400px; /* Es mejor mantener una altura fija para consistencia visual */
+    height: 400px;
+    /* Es mejor mantener una altura fija para consistencia visual */
   }
 
   .start-project {
     padding: 6rem 2rem;
   }
+
   .start-project__title {
     font-size: 3.4rem;
   }
@@ -921,12 +1200,15 @@ button:hover {
     padding: 4rem 2rem;
     gap: 3rem;
   }
+
   .main-footer figure {
     order: 1;
   }
+
   .main-footer__social {
     order: 2;
   }
+
   .main-footer__links {
     order: 3;
     flex-direction: column;
@@ -937,6 +1219,7 @@ button:hover {
 /* --- Media Query para Interacción (Hover) --- */
 /* Esto soluciona el problema del "hover pegajoso" en móviles */
 @media (hover: hover) {
+
   .solutions__item:hover,
   .solutions__item:focus {
     transform: translateY(-10px);
