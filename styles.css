@@ -8,6 +8,11 @@
   --glass-border: rgba(255, 255, 255, 0.3);
   --button-hover: #0f5c64;
   --bg-color: rgba(97, 176, 188, 0.2);
+  --glass-gradient: linear-gradient(
+    93deg,
+    rgba(255, 255, 255, 0.09) -14.07%,
+    rgba(255, 255, 255, 0.49) 116.73%
+  );
 }
 
 html {
@@ -109,15 +114,7 @@ nav ul {
   gap: 1.6rem;
   border-radius: 8px;
   border: 2px solid var(--glass-border); /* Usando variable */
-  background: var(
-    --Glass-input,
-    /* Esto parece una variable redundante, considera simplificar a var(--glass-bg) o un gradiente directo */
-      linear-gradient(
-        93deg,
-        rgba(255, 255, 255, 0.09) -14.07%,
-        rgba(255, 255, 255, 0.49) 116.73%
-      )
-  );
+  background: var(--glass-gradient);
   backdrop-filter: blur(17px);
   max-width: 450px;
   width: 100%; /* Para ocupar espacio en layouts flexibles */
@@ -147,11 +144,7 @@ select {
   align-self: stretch;
   border-radius: 8px;
   border: 2px solid var(--glass-border); /* Usando variable */
-  background: linear-gradient(
-    93deg,
-    rgba(255, 255, 255, 0.09) -14.07%,
-    rgba(255, 255, 255, 0.49) 116.73%
-  ); /* Simplificado */
+  background: var(--glass-gradient);
   width: 100%;
   color: var(--text);
   font-family: "Poppins", sans-serif;
@@ -326,11 +319,7 @@ button:hover {
   gap: 0.8rem;
   border-radius: 8px;
   border: 1px solid var(--glass-border);
-  background: linear-gradient(
-    93deg,
-    rgba(255, 255, 255, 0.09) -14.07%,
-    rgba(255, 255, 255, 0.49) 116.73%
-  );
+  background: var(--glass-gradient);
   backdrop-filter: blur(17px);
   width: calc(100% - 3.2rem);
   margin: 1.6rem;
@@ -407,11 +396,7 @@ button:hover {
   gap: 1.6rem;
   border-radius: 8px;
   border: 2px solid var(--glass-border);
-  background: linear-gradient(
-    93deg,
-    rgba(255, 255, 255, 0.09) -14.07%,
-    rgba(255, 255, 255, 0.49) 116.73%
-  );
+  background: var(--glass-gradient);
   backdrop-filter: blur(17px);
   max-width: 450px;
   width: 100%; /* Para que se ajuste en layouts flexibles */

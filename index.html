@@ -1,277 +1,217 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      SG Cities: Expertos en Derecho Urbano, Proyectos Inmobiliarios y
-      Factibilidad
-    </title>
-    <meta
-      name="description"
-      content="Asesoría especializada en materia inmobiliaria, administrativa - legal, proyecto urbano, arquitectónico, edificación, factibilidades técnicas, evaluación de impactos urbanos y ambientales."
-    />
-    <meta
-      name="keywords"
-      content="construcción, proyecto inmobiliario, derecho administrativo, derecho urbano, impacto ambiental, factibilidad proyectos, SG Cities"
-    />
-    <link rel="icon" href="./images/isotipo sg-cities.png" type="image/png" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-    <!-- Etiquetas Open Graph -->
-    <meta
-      property="og:title"
-      content="SG Cities – Expertos en Derecho Urbano, Proyectos Inmobiliarios y
-      Factibilidad"
-    />
-    <meta
-      property="og:description"
-      content="Facilitamos la compra de bienes, la construcción y el análisis del mercado inmobiliario con un enfoque estratégico."
-    />
-    <meta
-      property="og:image"
-      content="https://sgcities.com/images/social-image.png"
-    />
-    <meta property="og:url" content="https://sgcities.com/" />
-    <meta property="og:type" content="website" />
-    <link rel="stylesheet" href="styles.css" />
-    <script type="text/javascript">
-      (function (c, l, a, r, i, t, y) {
-        c[a] =
-          c[a] ||
-          function () {
-            (c[a].q = c[a].q || []).push(arguments);
-          };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, "clarity", "script", "rk3jfbm30q");
-    </script>
-  </head>
 
-  <body>
-    <header>
-      <figure>
-        <a href="/">
-          <img
-            src="./images/sg-cities-logo.svg"
-            alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios"
-          />
-        </a>
-      </figure>
-      <nav>
-        <ul>
-          <li><a href="#why-sg-cities">Nosotros</a></li>
-          <li><a href="#solutions">Servicios</a></li>
-          <li><a href="#start-project">Contacto</a></li>
-        </ul>
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    SG Cities: Expertos en Derecho Urbano, Proyectos Inmobiliarios y
+    Factibilidad
+  </title>
+  <meta name="description"
+    content="Asesoría especializada en materia inmobiliaria, administrativa - legal, proyecto urbano, arquitectónico, edificación, factibilidades técnicas, evaluación de impactos urbanos y ambientales." />
+  <meta name="keywords"
+    content="construcción, proyecto inmobiliario, derecho administrativo, derecho urbano, impacto ambiental, factibilidad proyectos, SG Cities" />
+  <link rel="icon" href="./images/isotipo sg-cities.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- Etiquetas Open Graph -->
+  <meta property="og:title" content="SG Cities – Expertos en Derecho Urbano, Proyectos Inmobiliarios y
+      Factibilidad" />
+  <meta property="og:description"
+    content="Facilitamos la compra de bienes, la construcción y el análisis del mercado inmobiliario con un enfoque estratégico." />
+  <meta property="og:image" content="https://sgcities.com/images/social-image.png" />
+  <meta property="og:url" content="https://sgcities.com/" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="text/javascript">
+    (function (c, l, a, r, i, t, y) {
+      c[a] =
+        c[a] ||
+        function () {
+          (c[a].q = c[a].q || []).push(arguments);
+        };
+      t = l.createElement(r);
+      t.async = 1;
+      t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0];
+      y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "rk3jfbm30q");
+  </script>
+</head>
 
-    <section class="hero">
-      <div class="hero-text">
-        <h1>Construimos tu visión, impulsamos tu futuro</h1>
-        <p>
-          Desde la compra de bienes hasta la construcción y el análisis de
-          mercado, en
-          <b class="highlight">SG Cities</b> te ofrecemos el respaldo que
-          necesitas para tomar decisiones seguras y estratégicas.
-        </p>
-      </div>
-      <div class="hero-form">
-        <h2>Obtén asesoría experta para tu próximo proyecto</h2>
-        <form name="hero-contact" netlify>
-          <input type="text" name="nombre" placeholder="Nombre" required />
-          <input
-            type="email"
-            name="email"
-            placeholder="Correo electrónico"
-            required
-          />
-          <select name="tipo-proyecto" required>
-            <option value="" disabled selected>
-              Selecciona el tipo de proyecto
-            </option>
-            <option value="compra">Comprar una propiedad</option>
-            <option value="construccion">Construir una propiedad</option>
-            <option value="estudio">Solicitar un estudio de mercado</option>
-          </select>
-          <textarea
-            name="mensaje"
-            placeholder="¿En qué te ayudamos?"
-            rows="4"
-            required
-          ></textarea>
-          <button type="submit">Enviar</button>
-        </form>
-      </div>
-    </section>
+<body>
+  <header>
+    <figure>
+      <a href="/">
+        <img src="./images/sg-cities-logo.svg"
+          alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios" />
+      </a>
+    </figure>
+    <nav>
+      <ul>
+        <li><a href="#why-sg-cities">Nosotros</a></li>
+        <li><a href="#solutions">Servicios</a></li>
+        <li><a href="#start-project">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <section class="why-sg-cities" id="why-sg-cities">
-      <div>
-        <h2 class="why-sg-cities__title">¿Por qué elegir SG Cities?</h2>
-        <p class="why-sg-cities__description">
-          Facilitamos la compra de bienes, la construcción y el análisis del
-          mercado inmobiliario con un enfoque estratégico y soluciones a medida.
-        </p>
-      </div>
-      <ul class="why-sg-cities__benefits"></ul>
-    </section>
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Construimos tu visión, impulsamos tu futuro</h1>
+      <p>
+        Desde la compra de bienes hasta la construcción y el análisis de
+        mercado, en
+        <b class="highlight">SG Cities</b> te ofrecemos el respaldo que
+        necesitas para tomar decisiones seguras y estratégicas.
+      </p>
+    </div>
+    <div class="hero-form">
+      <h2>Obtén asesoría experta para tu próximo proyecto</h2>
+      <form name="hero-contact" netlify netlify-honeypot="bot-field">
+        <input name="bot-field" style="display: none" />
+        <input type="text" name="nombre" placeholder="Nombre" required />
+        <input type="email" name="email" placeholder="Correo electrónico" required />
+        <select name="tipo-proyecto" required>
+          <option value="" disabled selected>
+            Selecciona el tipo de proyecto
+          </option>
+          <option value="compra">Comprar una propiedad</option>
+          <option value="construccion">Construir una propiedad</option>
+          <option value="estudio">Solicitar un estudio de mercado</option>
+        </select>
+        <textarea name="mensaje" placeholder="¿En qué te ayudamos?" rows="4" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+  </section>
 
-    <section class="partners">
-      <div class="partners-container">
-        <h2 class="partners__title">Nuestros partners y clientes</h2>
+  <section class="why-sg-cities" id="why-sg-cities">
+    <div>
+      <h2 class="why-sg-cities__title">¿Por qué elegir SG Cities?</h2>
+      <p class="why-sg-cities__description">
+        Facilitamos la compra de bienes, la construcción y el análisis del
+        mercado inmobiliario con un enfoque estratégico y soluciones a medida.
+      </p>
+    </div>
+    <ul class="why-sg-cities__benefits"></ul>
+  </section>
 
-        <div class="swiper logo-swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <a href="#!" target="_blank" rel="noopener noreferrer">
-                <img
-                  src="./images/carrousel/gatsystem.png"
-                  alt="Logo de Gatsystem"
-                />
-              </a>
-            </div>
+  <section class="partners">
+    <div class="partners-container">
+      <h2 class="partners__title">Nuestros partners y clientes</h2>
 
-            <div class="swiper-slide">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                <img
-                  src="./images/carrousel/gpoukari.PNG"
-                  alt="Logo de Gpoukari"
-                />
-              </a>
-            </div>
+      <div class="swiper logo-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <a href="#!" target="_blank" rel="noopener noreferrer">
+              <img src="./images/carrousel/gatsystem.png" alt="Logo de Gatsystem" />
+            </a>
+          </div>
 
-            <div class="swiper-slide">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                <img src="./images/carrousel/logo eps.png" alt="Logo de EPS" />
-              </a>
-            </div>
+          <div class="swiper-slide">
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <img src="./images/carrousel/gpoukari.PNG" alt="Logo de Gpoukari" />
+            </a>
+          </div>
 
-            <div class="swiper-slide">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                <img
-                  src="./images/carrousel/logo4.png"
-                  alt="Logo de Partner 4"
-                />
-              </a>
-            </div>
+          <div class="swiper-slide">
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <img src="./images/carrousel/logo eps.png" alt="Logo de EPS" />
+            </a>
+          </div>
 
-            <div class="swiper-slide">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                <img
-                  src="./images/carrousel/polymetrix.png"
-                  alt="Logo de Polymetrix"
-                />
-              </a>
-            </div>
+          <div class="swiper-slide">
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <img src="./images/carrousel/logo4.png" alt="Logo de Partner 4" />
+            </a>
+          </div>
 
-            <div class="swiper-slide">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                <img
-                  src="./images/carrousel/universidad-de-guadalajara.png"
-                  alt="Logo de Universidad de Guadalajara"
-                />
-              </a>
-            </div>
+          <div class="swiper-slide">
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <img src="./images/carrousel/polymetrix.png" alt="Logo de Polymetrix" />
+            </a>
+          </div>
+
+          <div class="swiper-slide">
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <img src="./images/carrousel/universidad-de-guadalajara.png" alt="Logo de Universidad de Guadalajara" />
+            </a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="solutions" id="solutions">
-      <div>
-        <h2 class="solutions__title">Soluciones inmobiliarias a tu medida</h2>
-        <p class="solutions__description">
-          Desde la compra de propiedades hasta la construcción y el análisis de
-          mercado, en <b class="highlight">SG Cities</b> te ofrecemos las
-          herramientas y el conocimiento para tomar decisiones seguras y
-          estratégicas.
-        </p>
-      </div>
-      <ul class="solutions__list"></ul>
-    </section>
+  <section class="solutions" id="solutions">
+    <div>
+      <h2 class="solutions__title">Soluciones inmobiliarias a tu medida</h2>
+      <p class="solutions__description">
+        Desde la compra de propiedades hasta la construcción y el análisis de
+        mercado, en <b class="highlight">SG Cities</b> te ofrecemos las
+        herramientas y el conocimiento para tomar decisiones seguras y
+        estratégicas.
+      </p>
+    </div>
+    <ul class="solutions__list"></ul>
+  </section>
 
-    <section class="start-project" id="start-project">
-      <div class="start-project__left">
-        <h2 class="start-project__title">
-          ¿Listo para comenzar tu proyecto con SG Cities?
-        </h2>
-        <p class="start-project__text">
-          Estamos aquí para ayudarte a dar el siguiente paso, ya sea en la
-          compra de bienes, la construcción o un análisis detallado del mercado.
-          Completa el formulario y obtén asesoría de nuestros expertos.
-        </p>
-      </div>
-      <div class="start-project__right">
-        <h3 class="contact-form__title">
-          Contáctanos y recibe asesoría personalizada
-        </h3>
-        <form name="cta-contact" class="contact-form__form" netlify>
-          <input type="text" name="nombre" placeholder="Nombre" required />
-          <input
-            type="email"
-            name="email"
-            placeholder="Correo electrónico"
-            required
-          />
-          <select name="tipo-proyecto" required>
-            <option value="" disabled selected>
-              Selecciona el tipo de proyecto
-            </option>
-            <option value="compra">Comprar una propiedad</option>
-            <option value="construccion">Construir una propiedad</option>
-            <option value="estudio">Solicitar un estudio de mercado</option>
-          </select>
-          <textarea
-            name="mensaje"
-            placeholder="¿En qué te ayudamos?"
-            rows="4"
-            required
-          ></textarea>
-          <button type="submit">Solicitar asesoría</button>
-        </form>
-      </div>
-    </section>
+  <section class="start-project" id="start-project">
+    <div class="start-project__left">
+      <h2 class="start-project__title">
+        ¿Listo para comenzar tu proyecto con SG Cities?
+      </h2>
+      <p class="start-project__text">
+        Estamos aquí para ayudarte a dar el siguiente paso, ya sea en la
+        compra de bienes, la construcción o un análisis detallado del mercado.
+        Completa el formulario y obtén asesoría de nuestros expertos.
+      </p>
+    </div>
+    <div class="start-project__right">
+      <h3 class="contact-form__title">
+        Contáctanos y recibe asesoría personalizada
+      </h3>
+      <form name="cta-contact" class="contact-form__form" netlify netlify-honeypot="bot-field">
+        <input name="bot-field" style="display: none" />
+        <input type="text" name="nombre" placeholder="Nombre" required />
+        <input type="email" name="email" placeholder="Correo electrónico" required />
+        <select name="tipo-proyecto" required>
+          <option value="" disabled selected>
+            Selecciona el tipo de proyecto
+          </option>
+          <option value="compra">Comprar una propiedad</option>
+          <option value="construccion">Construir una propiedad</option>
+          <option value="estudio">Solicitar un estudio de mercado</option>
+        </select>
+        <textarea name="mensaje" placeholder="¿En qué te ayudamos?" rows="4" required></textarea>
+        <button type="submit">Solicitar asesoría</button>
+      </form>
+    </div>
+  </section>
 
-    <footer class="main-footer">
-      <figure>
-        <a href="/">
-          <img
-            src="./images/sg-cities-logo.svg"
-            alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios"
-          />
-        </a>
-      </figure>
-      <div class="main-footer__links">
-        <a href="terminos-y-condiciones.html" class="main-footer__link"
-          >Términos y Condiciones</a
-        >
-        <a href="politica-de-privacidad.html" class="main-footer__link"
-          >Politica de privacidad</a
-        >
-      </div>
-      <div class="main-footer__social">
-        <a
-          href="https://www.facebook.com/SGcities/"
-          target="_blank"
-          class="main-footer__social-icon"
-          ><img src="./images/Social.svg" alt="Facebook icon"
-        /></a>
-        <!-- <a href="#" class="main-footer__social-icon"
+  <footer class="main-footer">
+    <figure>
+      <a href="/">
+        <img src="./images/sg-cities-logo.svg"
+          alt="Logo de SG Cities - Asesoría en derecho urbano y proyectos inmobiliarios" />
+      </a>
+    </figure>
+    <div class="main-footer__links">
+      <a href="terminos-y-condiciones.html" class="main-footer__link">Términos y Condiciones</a>
+      <a href="politica-de-privacidad.html" class="main-footer__link">Politica de privacidad</a>
+    </div>
+    <div class="main-footer__social">
+      <a href="https://www.facebook.com/SGcities/" target="_blank" class="main-footer__social-icon"><img
+          src="./images/Social.svg" alt="Facebook icon" /></a>
+      <!-- <a href="#" class="main-footer__social-icon"
           ><img src="./images/instagram.svg" alt="Instagram icon"
         /></a> -->
-      </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="./script.js" defer></script>
-  </body>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="./script.js" defer></script>
+</body>
+
 </html>
