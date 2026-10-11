@@ -1,0 +1,45 @@
+{
+  "scope": "surface",
+  "mode": "persuade",
+  "seedKey": "d0e8f487",
+  "targetPath": "components/sections/Hero.tsx",
+  "options": [
+    {
+      "id": "triptych",
+      "label": "Tríptico de Sectores y Proyectos",
+      "kicker": "THE ROLL (RECOMENDADO)",
+      "thesis": "El hero enfoca el 100% de la atención en invitar a ver los proyectos y segmenta de inmediato a los 3 perfiles clave del cliente.",
+      "palette": ["#61b0bc", "#71a850", "#132124", "#fcfdfd"],
+      "materials": ["glass-cards", "dock interactivo", "tipografía Outfit/Poppins"],
+      "viewport": "Titular de alto impacto enfocado en proyectos, botón primario 'Ver Portafolio de Proyectos', y dock inferior de 3 accesos directos: Obra Civil, Movilidad Escolar, Factibilidad Gubernamental.",
+      "risk": "Mueve el formulario de contacto más abajo (hacia el cierre o sección de cotización), lo cual prioriza que conozcan los proyectos primero tal como pidió el cliente.",
+      "html": ".impeccable/mocks/decision/triptych.html"
+    },
+    {
+      "id": "immersive",
+      "label": "Showcase Visual de Casos Reales",
+      "kicker": "ALTERNATIVA VISUAL",
+      "thesis": "Hero dividido con vitrina interactiva de proyectos destacados (Obra, Movilidad, Gobierno) a la derecha en lugar del formulario.",
+      "palette": ["#101c1e", "#61b0bc", "#8bc26e", "#ffffff"],
+      "materials": ["dark glass", "tarjetas preview de proyectos", "píldoras de estado"],
+      "viewport": "Columna izquierda con propuesta de valor y CTA a portafolio completo; columna derecha con 3 tarjetas dinámicas con preview de casos reales de movilidad y obra.",
+      "risk": "Requiere miniaturas o previews fotográficos atractivos de los proyectos desde el primer viewport.",
+      "html": ".impeccable/mocks/decision/immersive.html"
+    },
+    {
+      "id": "hybrid",
+      "label": "Híbrido Optimizado con Selector de Perfil",
+      "kicker": "ALTERNATIVA EQUILIBRADA",
+      "thesis": "Mantiene el formulario en el Hero pero adaptado a los 3 nuevos públicos y con CTA prioritario a explorar proyectos primero.",
+      "palette": ["#f4f8f8", "#61b0bc", "#71a850", "#132124"],
+      "materials": ["clean surface", "métrica strip", "formulario segmentado"],
+      "viewport": "Titular de autoridad con strip de experiencia territorial (+15 años, 3 sectores), botón a portafolio y formulario a la derecha con selector de tipo de cliente.",
+      "risk": "Conserva el formulario en el primer pliegue, lo que compite visualmente con el objetivo de que conozcan primero los proyectos.",
+      "html": ".impeccable/mocks/decision/hybrid.html"
+    }
+  ],
+  "buildPath": {
+    "value": "code",
+    "toggle": false
+  }
+}

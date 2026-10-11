@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Estructura 1: Tríptico de Autoridad</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1440px; height: 900px; overflow: hidden;
+    background: #fcfdfd; color: #132124; font-family: 'Poppins', sans-serif;
+    display: flex; flex-direction: column;
+  }
+  header {
+    height: 90px; padding: 0 80px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .logo { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 700; color: #132124; }
+  .logo span { color: #61b0bc; }
+  .nav { display: flex; gap: 36px; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #4a5568; }
+  .cta-btn {
+    background: #61b0bc; color: white; padding: 12px 28px; border-radius: 999px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+  }
+  main {
+    flex: 1; padding: 60px 80px 40px; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .hero-top { max-width: 900px; }
+  .badge {
+    display: inline-block; padding: 6px 16px; border-radius: 999px; background: rgba(113, 168, 80, 0.12);
+    color: #5a8640; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Outfit', sans-serif; font-size: 54px; line-height: 1.1; font-weight: 700; margin-bottom: 20px;
+  }
+  h1 em { color: #61b0bc; font-style: normal; }
+  p.lead { font-size: 20px; color: #4a5568; line-height: 1.5; max-width: 760px; margin-bottom: 30px; }
+  .action-row { display: flex; gap: 16px; align-items: center; }
+  .btn-primary { background: #61b0bc; color: white; padding: 16px 36px; border-radius: 14px; font-weight: 600; text-decoration: none; font-size: 16px; }
+  .btn-outline { border: 2px solid #61b0bc; color: #4a8d97; padding: 14px 32px; border-radius: 14px; font-weight: 600; text-decoration: none; font-size: 16px; }
+  .audience-dock {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px;
+  }
+  .dock-card {
+    background: white; border: 1px solid rgba(0,0,0,0.06); border-radius: 20px; padding: 28px;
+    box-shadow: 0 10px 30px -5px rgba(0,0,0,0.04);
+  }
+  .dock-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #61b0bc; margin-bottom: 8px; }
+  .dock-title { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .dock-desc { font-size: 14px; color: #4a5568; line-height: 1.4; margin-bottom: 16px; }
+  .dock-link { font-size: 13px; font-weight: 600; color: #71a850; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">SG<span>CITIES</span></div>
+    <div class="nav">
+      <span>Proyectos</span>
+      <span>Servicios</span>
+      <span>Sectores</span>
+      <span>Nosotros</span>
+    </div>
+    <a href="#contacto" class="cta-btn">WhatsApp Directo</a>
+  </header>
+  <main>
+    <div class="hero-top">
+      <span class="badge">Planeación Urbana · Movilidad · Obra Civil</span>
+      <h1>Estrategia urbana y certeza técnica para <em>proyectos de alto impacto</em></h1>
+      <p class="lead">Combinamos experiencia en movilidad escolar, factibilidad institucional y gestión de obra para urbanizadores, colegios y gobiernos locales.</p>
+      <div class="action-row">
+        <a href="#proyectos" class="btn-primary">Ver Portafolio de Proyectos ↓</a>
+        <a href="#contacto" class="btn-outline">Solicitar Asesoría</a>
+      </div>
+    </div>
+    <div class="audience-dock">
+      <div class="dock-card">
+        <div class="dock-tag">Para Urbanizadores e Inversores</div>
+        <div class="dock-title">Obra Civil y Suelo</div>
+        <div class="dock-desc">Supervisión en sitio, gestión de edificación y optimización del rendimiento territorial.</div>
+        <a href="#proyectos" class="dock-link">Ver casos de obra →</a>
+      </div>
+      <div class="dock-card">
+        <div class="dock-tag">Para Instituciones Educativas</div>
+        <div class="dock-title">Movilidad y Transporte Escolar</div>
+        <div class="dock-desc">Planes integrales de movilidad urbana, accesibilidad segura y logística de transporte.</div>
+        <a href="#proyectos" class="dock-link">Ver planes de movilidad →</a>
+      </div>
+      <div class="dock-card">
+        <div class="dock-tag">Para Gobiernos Locales</div>
+        <div class="dock-title">Factibilidad e Infraestructura</div>
+        <div class="dock-desc">Estudios técnicos, viabilidad legal-ambiental y esquemas de financiamiento público.</div>
+        <a href="#proyectos" class="dock-link">Ver proyectos urbanos →</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

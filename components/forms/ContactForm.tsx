@@ -61,6 +61,7 @@ export default function ContactForm({
             onSubmit={handleSubmit}
             className="flex flex-col gap-8 md:gap-6"
         >
+            <input type="hidden" name="form-name" value={formName} />
             <div className="text-left">
                 <h3 className={cn(
                     "text-2xl md:text-3xl mb-2",
@@ -146,12 +147,14 @@ export default function ContactForm({
                                             : "bg-white border-black/5 text-text focus:ring-primary/30 shadow-sm"
                                     )}
                                 >
-                                    <option value="" disabled>Selecciona una opción</option>
-                                    <option value="asesoria-inmobiliaria">Asesoría inmobiliaria</option>
-                                    <option value="gestion-construccion">Gestión de construcción</option>
-                                    <option value="estudios-mercado">Estudios de mercado</option>
-                                    <option value="estudios-factibilidad">Estudios de factibilidad</option>
-                                    <option value="derecho-administrativo">Derecho administrativo</option>
+                                    <option value="" disabled>Selecciona el tipo de proyecto o servicio</option>
+                                    <option value="obra-construccion" className="text-text">Obra Civil, Construcción y Edificación</option>
+                                    <option value="movilidad-escolar" className="text-text">Plan de Movilidad y Transporte Escolar</option>
+                                    <option value="factibilidad-gobierno" className="text-text">Factibilidad de Infraestructura Pública / Gobierno</option>
+                                    <option value="estudios-mercado" className="text-text">Estudio de Mercado y Potencial Territorial</option>
+                                    <option value="derecho-urbano" className="text-text">Derecho Administrativo, Urbano y Licencias</option>
+                                    <option value="asesoria-inmobiliaria" className="text-text">Asesoría Inmobiliaria Estratégica</option>
+                                    <option value="otro" className="text-text">Otro requerimiento técnico</option>
                                 </select>
                                 <div className={cn(
                                     "absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none",

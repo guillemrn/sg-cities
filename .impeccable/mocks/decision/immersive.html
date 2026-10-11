@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Estructura 2: Portafolio Inmersivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1440px; height: 900px; overflow: hidden;
+    background: #101c1e; color: #ffffff; font-family: 'Poppins', sans-serif;
+    display: flex; flex-direction: column;
+  }
+  header {
+    height: 90px; padding: 0 80px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 10;
+  }
+  .logo { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 700; }
+  .logo span { color: #61b0bc; }
+  .nav { display: flex; gap: 36px; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); }
+  .cta-btn { background: #61b0bc; color: #101c1e; padding: 12px 28px; border-radius: 999px; font-size: 14px; font-weight: 700; text-decoration: none; }
+  main {
+    flex: 1; padding: 50px 80px 40px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: center;
+  }
+  .left-col { max-width: 620px; }
+  .tag { color: #8bc26e; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; }
+  h1 { font-family: 'Outfit', sans-serif; font-size: 50px; line-height: 1.08; font-weight: 700; margin-bottom: 24px; }
+  h1 span { color: #61b0bc; }
+  p.lead { font-size: 18px; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 36px; }
+  .action-row { display: flex; gap: 16px; align-items: center; }
+  .btn-primary { background: #61b0bc; color: #101c1e; padding: 16px 36px; border-radius: 14px; font-weight: 700; text-decoration: none; font-size: 16px; }
+  .btn-ghost { border: 1px solid rgba(255,255,255,0.25); color: #ffffff; padding: 15px 30px; border-radius: 14px; font-weight: 600; text-decoration: none; font-size: 16px; }
+  .right-col { position: relative; height: 600px; display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+  .feature-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px;
+    padding: 24px; backdrop-filter: blur(16px); display: flex; gap: 20px; align-items: center;
+  }
+  .thumb-mock {
+    width: 140px; height: 100px; border-radius: 12px; background: linear-gradient(135deg, #234247, #132124);
+    display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #61b0bc;
+    border: 1px solid rgba(97, 176, 188, 0.3); shrink-0: 0;
+  }
+  .card-meta { flex: 1; }
+  .card-pill { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #8bc26e; letter-spacing: 0.1em; }
+  .card-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; margin: 4px 0 6px; }
+  .card-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.4; }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">SG<span>CITIES</span></div>
+    <div class="nav">
+      <span>Casos Destacados</span>
+      <span>Movilidad Urbana</span>
+      <span>Obra y Suelo</span>
+      <span>Gobiernos</span>
+    </div>
+    <a href="#contacto" class="cta-btn">WhatsApp Asesoría</a>
+  </header>
+  <main>
+    <div class="left-col">
+      <div class="tag">Evidencia y Trayectoria Comprobada</div>
+      <h1>Conoce los proyectos que definen nuestra <span>capacidad técnica</span></h1>
+      <p class="lead">Antes de cotizar, descubre nuestras intervenciones en obra civil, planes maestros de movilidad escolar e infraestructura institucional.</p>
+      <div class="action-row">
+        <a href="#proyectos" class="btn-primary">Explorar Portafolio Completo</a>
+        <a href="#contacto" class="btn-ghost">Contactar por WhatsApp</a>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="feature-card">
+        <div class="thumb-mock">PLANEACIÓN</div>
+        <div class="card-meta">
+          <div class="card-pill">Institucional & Movilidad</div>
+          <div class="card-title">Planes Integrales de Movilidad Escolar</div>
+          <div class="card-desc">Rediseño de flujos viales y transporte escolar seguro con visión metropolitana.</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="thumb-mock">OBRA CIVIL</div>
+        <div class="card-meta">
+          <div class="card-pill">Urbanizadores e Inversores</div>
+          <div class="card-title">Supervisión y Ejecución de Obra</div>
+          <div class="card-desc">Control técnico, aseguramiento de normatividad y gestión en campo.</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="thumb-mock">FACTIBILIDAD</div>
+        <div class="card-meta">
+          <div class="card-pill">Gobiernos Locales</div>
+          <div class="card-title">Dictámenes y Modelos Financieros</div>
+          <div class="card-desc">Factibilidad técnico-ambiental para infraestructura pública estatal y municipal.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
-import { LineChart, Target, PieChart } from 'lucide-react';
 import ServiceHero from '@/components/sections/ServiceHero';
-import ComparisonSection from '@/components/sections/ComparisonSection';
 import ServiceProcess from '@/components/sections/ServiceProcess';
 import ServiceFaqs from '@/components/sections/ServiceFaqs';
 import MarketDeliverables from '@/components/sections/MarketDeliverables';

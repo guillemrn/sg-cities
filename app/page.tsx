@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/sections/Hero';
+import Portfolio from '@/components/sections/Portfolio';
 import WhySGCities from '@/components/sections/WhySGCities';
-import PartnersCarousel from '@/components/sections/PartnersCarousel';
 import Solutions from '@/components/sections/Solutions';
 import CTASection from '@/components/sections/CTASection';
 
@@ -18,8 +18,8 @@ export default function Home() {
     return (
         <main>
             <Hero />
+            <Portfolio />
             <WhySGCities />
-            <PartnersCarousel />
             <Solutions />
             <CTASection />
         </main>

@@ -3,69 +3,75 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, FolderKanban } from 'lucide-react';
 
 const solutions = [
     {
         title: 'Asesoría Inmobiliaria',
-        text: 'Identificamos la propiedad ideal evaluando ubicación, precio y proyección de valor real.',
+        text: 'Identificamos la propiedad ideal evaluando ubicación, precio, potencial urbanístico y proyección de plusvalía real.',
         link: '/asesoria-inmobiliaria',
+        portfolioAnchor: '#portfolio',
         imageUrl: '/images/compra.jpg',
-        imageAlt: 'Asesoría inmobiliaria profesional para inversores en Guadalajara',
-        category: 'Estrategia',
+        imageAlt: 'Asesoría inmobiliaria profesional para inversionistas en México',
+        category: 'Estrategia & Suelo',
+        targetSector: 'Inversionistas & Desarrolladores',
     },
     {
         title: 'Gestión de Construcción',
-        text: 'Optimizamos cada etapa del proceso constructivo garantizando eficiencia y alta calidad.',
+        text: 'Supervisión en sitio, control de calidad y auditoría de estimaciones en cada etapa del proceso constructivo de obra civil.',
         link: '/gestion-construccion',
+        portfolioAnchor: '#portfolio',
         imageUrl: '/images/gestion.jpg',
         imageAlt: 'Gestión y supervisión de proyectos de construcción y obra civil',
-        category: 'Ejecución',
+        category: 'Ejecución & Obra',
+        targetSector: 'Empresas Urbanizadoras',
     },
     {
         title: 'Estudios de Mercado',
-        text: 'Análisis detallado de tendencias y demanda para respaldar cada decisión de inversión.',
+        text: 'Análisis cuantitativo de tendencias, oferta competitiva y demanda calificada para respaldar decisiones de inversión.',
         link: '/estudios-mercado',
+        portfolioAnchor: '#portfolio',
         imageUrl: '/images/estudios.jpg',
         imageAlt: 'Análisis de mercado inmobiliario y estudios de demanda en México',
-        category: 'Inteligencia',
+        category: 'Inteligencia Territorial',
+        targetSector: 'Desarrolladores & Fondos',
     },
     {
         title: 'Impacto & Factibilidad',
-        text: 'Estudios de impacto urbano, ambiental y factibilidades técnicas integrales.',
+        text: 'Estudios de impacto urbano, ambiental, movilidad y factibilidades técnicas integrales para infraestructura pública y privada.',
         link: '/estudios-factibilidad',
+        portfolioAnchor: '#portfolio',
         imageUrl: '/images/urban-map.jpg',
         imageAlt: 'Estudios de impacto urbano, movilidad y factibilidad técnica',
-        category: 'Viabilidad',
+        category: 'Viabilidad & Movilidad',
+        targetSector: 'Colegios & Gobiernos Locales',
     },
     {
-        title: 'Derecho Administrativo',
-        text: 'Soluciones legales a problemas administrativos y optimización del aprovechamiento de suelo.',
+        title: 'Derecho Administrativo y Urbano',
+        text: 'Soluciones legales a problemas administrativos, defensa normativa y optimización en licencias y aprovechamiento del suelo.',
         link: '/derecho-administrativo',
+        portfolioAnchor: '#portfolio',
         imageUrl: '/images/admin.jpg',
         imageAlt: 'Abogados especialistas en derecho administrativo y urbano',
-        category: 'Legal',
+        category: 'Marco Jurídico',
+        targetSector: 'Desarrolladores & Municipios',
     },
 ];
 
 export default function Solutions() {
     return (
-        <section id="solutions" className="bg-[#f8fafb]">
-            <div className="section-container">
+        <section id="solutions" className="bg-[#f8fafb] py-24 md:py-32 border-t border-black/5">
+            <div className="section-container !py-0">
                 <div className="max-w-3xl mb-16">
-                    <motion.span
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-primary font-bold uppercase tracking-widest text-xs mb-4 block"
-                    >
-                        Nuestras Soluciones
-                    </motion.span>
-                    <h2 className="text-4xl md:text-5xl mb-6">
-                        Soluciones inmobiliarias con visión de <span className="italic text-primary">futuro</span>
+                    <span className="inline-block px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary-dark font-bold text-xs uppercase tracking-widest mb-4">
+                        Servicios y Especialidades
+                    </span>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-text leading-tight mb-6">
+                        Soluciones técnicas y legales para{' '}
+                        <span className="italic text-primary font-normal">el desarrollo de ciudades</span>
                     </h2>
-                    <p className="text-xl">
-                        Herramientas y conocimiento experto para tomar decisiones seguras en el mundo inmobiliario y urbano.
+                    <p className="text-base sm:text-lg text-text/75 leading-relaxed">
+                        Mantenemos un portafolio de servicios integral que cubre desde la planeación y viabilidad jurídica hasta la supervisión y entrega final en obra.
                     </p>
                 </div>
 
@@ -73,47 +79,61 @@ export default function Solutions() {
                     {solutions.map((solution, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 25 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="group"
+                            transition={{ delay: index * 0.08, duration: 0.4 }}
+                            className="group flex flex-col justify-between relative h-[520px] overflow-hidden rounded-3xl bg-text shadow-premium transition-all hover:shadow-premium-hover"
                         >
-                            <Link
-                                href={solution.link}
-                                className="block relative h-[500px] overflow-hidden rounded-[2.5rem] bg-text shadow-premium transition-all hover:shadow-premium-hover active:scale-[0.98]"
-                            >
-                                {/* Background Image with Zoom */}
-                                <Image
-                                    src={solution.imageUrl}
-                                    alt={solution.imageAlt}
-                                    fill
-                                    className="object-cover opacity-60 transition-transform duration-700 group-hover:scale-110"
-                                />
+                            {/* Background Image with Zoom */}
+                            <Image
+                                src={solution.imageUrl}
+                                alt={solution.imageAlt}
+                                fill
+                                className="object-cover opacity-50 transition-transform duration-700 group-hover:scale-105"
+                            />
 
-                                {/* Gradient Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                            {/* Gradient Overlay for high-contrast legibility */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/20" />
 
-                                {/* Content */}
-                                <div className="absolute inset-0 p-10 flex flex-col justify-end">
-                                    <span className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white text-[10px] uppercase tracking-tighter mb-4 w-min">
-                                        {solution.category}
-                                    </span>
+                            {/* Top Sector Pill */}
+                            <div className="relative z-10 p-8 pb-0 flex items-center justify-between">
+                                <span className="inline-block px-3 py-1 rounded-full bg-white/15 border border-white/20 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider">
+                                    {solution.category}
+                                </span>
+                                <span className="text-[10px] text-white/60 font-semibold uppercase tracking-wider">
+                                    {solution.targetSector}
+                                </span>
+                            </div>
 
-                                    <h3 className="text-3xl text-white mb-4 group-hover:text-primary-light transition-colors leading-tight">
-                                        {solution.title}
-                                    </h3>
+                            {/* Bottom Content & Dual CTAs */}
+                            <div className="relative z-10 p-8 pt-0 flex flex-col justify-end">
+                                <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-3 group-hover:text-primary-light transition-colors leading-tight">
+                                    {solution.title}
+                                </h3>
 
-                                    <p className="text-white/70 text-lg mb-8 line-clamp-2 leading-snug">
-                                        {solution.text}
-                                    </p>
+                                <p className="text-white/75 text-sm md:text-base mb-6 line-clamp-3 leading-relaxed">
+                                    {solution.text}
+                                </p>
 
-                                    <div className="flex items-center gap-2 text-white font-bold group-hover:gap-4 transition-all">
-                                        Explorar Servicio
-                                        <ArrowRight className="w-5 h-5" />
-                                    </div>
+                                <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
+                                    <Link
+                                        href={solution.link}
+                                        className="flex-1 py-3 px-4 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider hover:bg-primary-dark transition-all flex items-center justify-center gap-2 group/btn"
+                                    >
+                                        <span>Conocer Servicio</span>
+                                        <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                                    </Link>
+
+                                    <a
+                                        href={solution.portfolioAnchor}
+                                        className="py-3 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 backdrop-blur-sm border border-white/15"
+                                    >
+                                        <FolderKanban className="w-4 h-4 text-secondary-light" />
+                                        <span>Ver Casos</span>
+                                    </a>
                                 </div>
-                            </Link>
+                            </div>
                         </motion.div>
                     ))}
                 </div>

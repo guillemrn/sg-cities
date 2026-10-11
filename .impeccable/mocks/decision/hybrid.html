@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Estructura 3: Flujo Híbrido Editorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1440px; height: 900px; overflow: hidden;
+    background: #f4f8f8; color: #132124; font-family: 'Poppins', sans-serif;
+    display: flex; flex-direction: column;
+  }
+  header {
+    height: 90px; padding: 0 80px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .logo { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 700; color: #132124; }
+  .logo span { color: #61b0bc; }
+  .nav { display: flex; gap: 36px; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #4a5568; }
+  .cta-btn { background: #61b0bc; color: white; padding: 12px 28px; border-radius: 999px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  main {
+    flex: 1; padding: 50px 80px 40px; display: grid; grid-template-columns: 1.2fr 0.9fr; gap: 60px; align-items: center;
+  }
+  .left-col { max-width: 660px; }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: white;
+    border: 1px solid rgba(97, 176, 188, 0.25); border-radius: 999px; font-size: 12px; font-weight: 600; color: #4a8d97; margin-bottom: 20px;
+  }
+  .status-dot { width: 8px; height: 8px; border-radius: 999px; background: #71a850; }
+  h1 { font-family: 'Outfit', sans-serif; font-size: 52px; line-height: 1.1; font-weight: 700; margin-bottom: 20px; }
+  h1 span { color: #61b0bc; }
+  p.lead { font-size: 19px; color: #4a5568; line-height: 1.5; margin-bottom: 32px; }
+  .actions { display: flex; gap: 16px; align-items: center; margin-bottom: 40px; }
+  .btn-primary { background: #61b0bc; color: white; padding: 16px 34px; border-radius: 14px; font-weight: 600; text-decoration: none; font-size: 15px; }
+  .btn-secondary { background: white; border: 1px solid rgba(0,0,0,0.1); color: #132124; padding: 15px 28px; border-radius: 14px; font-weight: 600; text-decoration: none; font-size: 15px; }
+  .stats-strip { display: flex; gap: 40px; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 24px; }
+  .stat-num { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 700; color: #132124; }
+  .stat-label { font-size: 12px; color: #4a5568; text-transform: uppercase; letter-spacing: 0.05em; }
+  .right-col {
+    background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 24px; padding: 36px;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.06);
+  }
+  .form-header { margin-bottom: 24px; }
+  .form-title { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .form-desc { font-size: 13px; color: #4a5568; }
+  .input-group { margin-bottom: 16px; }
+  .input-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #4a5568; margin-bottom: 6px; }
+  .input-mock {
+    width: 100%; height: 46px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fcfdfd;
+    padding: 0 14px; font-size: 13px; color: #a0aec0; display: flex; align-items: center;
+  }
+  .form-btn {
+    width: 100%; height: 48px; background: #61b0bc; color: white; border-radius: 10px; font-weight: 600;
+    font-size: 14px; display: flex; align-items: center; justify-content: center; margin-top: 20px;
+  }
+  .wa-note { text-align: center; font-size: 12px; color: #71a850; font-weight: 600; margin-top: 12px; }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">SG<span>CITIES</span></div>
+    <div class="nav">
+      <span>Proyectos</span>
+      <span>Servicios</span>
+      <span>Institucional</span>
+      <span>Contacto</span>
+    </div>
+    <a href="#contacto" class="cta-btn">WhatsApp</a>
+  </header>
+  <main>
+    <div class="left-col">
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span>Auditoría y Gestión Urbana en México</span>
+      </div>
+      <h1>Certeza legal y técnica para tu <span>inversión y ciudad</span></h1>
+      <p class="lead">Soluciones integradas para desarrolladores, colegios e instituciones gubernamentales. Conoce primero nuestra trayectoria en campo.</p>
+      <div class="actions">
+        <a href="#proyectos" class="btn-primary">Ver Casos y Proyectos ↓</a>
+        <a href="#contacto" class="btn-secondary">Contactar Especialista</a>
+      </div>
+      <div class="stats-strip">
+        <div>
+          <div class="stat-num">+15 Años</div>
+          <div class="stat-label">Experiencia Territorial</div>
+        </div>
+        <div>
+          <div class="stat-num">3 Sectores</div>
+          <div class="stat-label">Inversores, Colegios, Gobierno</div>
+        </div>
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Certeza Normativa</div>
+        </div>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="form-header">
+        <div class="form-title">Solicita Asesoría Directa</div>
+        <div class="form-desc">Respuesta técnica por nuestros consultores en menos de 24h.</div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Nombre Completo</label>
+        <div class="input-mock">Ej. Ing. Carlos Mendoza</div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Perfil de Organización</label>
+        <div class="input-mock">Urbanizadora / Inversor / Escuela / Gobierno</div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Teléfono / WhatsApp</label>
+        <div class="input-mock">+52 (33) 1234 5678</div>
+      </div>
+      <div class="form-btn">Solicitar Asesoría Personalizada</div>
+      <div class="wa-note">También disponible atención rápida por WhatsApp</div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Target, Search, Zap } from 'lucide-react';
 import ServiceHero from '@/components/sections/ServiceHero';
 import ComparisonSection from '@/components/sections/ComparisonSection';
 import ServiceProcess from '@/components/sections/ServiceProcess';

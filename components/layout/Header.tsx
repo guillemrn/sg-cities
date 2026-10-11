@@ -20,6 +20,7 @@ export default function Header() {
     }, []);
 
     const navLinks = [
+        { name: 'Proyectos', href: '/#portfolio' },
         { name: 'Nosotros', href: '/#why-sg-cities' },
         { name: 'Servicios', href: '/#solutions' },
         { name: 'Contacto', href: '/#start-project' },

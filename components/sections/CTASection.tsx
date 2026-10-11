@@ -65,16 +65,11 @@ export default function CTASection() {
                         <div className="glass-card p-10 md:p-14 border-white/10 bg-white/5">
                             <ContactForm
                                 formName="cta-contact"
-                                titleText="¿Listo para desarrollar tu proyecto?"
-                                subtitleText="Cuéntanos más sobre tu proyecto y un consultor senior se pondrá en contacto contigo."
-                                buttonText="Reservar Consulta Gratuita"
+                                titleText="Solicita asesoría o cotización"
+                                subtitleText="Compártenos los requerimientos de tu proyecto y un consultor técnico se pondrá en contacto contigo."
+                                buttonText="Enviar Solicitud"
                                 variant="dark"
                             />
-                        </div>
-
-                        {/* Badge decoration */}
-                        <div className="absolute -top-6 -right-6 bg-secondary px-6 py-3 rounded-2xl shadow-2xl rotate-12 hidden md:block border-2 border-white/20">
-                            <p className="text-white font-bold text-sm">Respuesta Rápida ⚡</p>
                         </div>
                     </motion.div>
                 </div>
