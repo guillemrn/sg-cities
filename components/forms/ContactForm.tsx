@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Send, Loader2, Zap } from 'lucide-react';
+import { Send, Loader2, ShieldCheck, MessageCircle, ChevronDown } from 'lucide-react';
 
 interface ContactFormProps {
     formName: string;
@@ -20,35 +20,32 @@ interface ContactFormProps {
 
 export default function ContactForm({
     formName,
-    titleText = '¿Hablamos de tu proyecto?',
-    subtitleText = 'Déjanos tus datos y nos pondremos en contacto contigo.',
-    buttonText = 'Comenzar Proyecto',
+    titleText = 'Solicita asesoría o cotización',
+    subtitleText = 'Cuéntanos sobre tu proyecto territorial, normativo o constructivo.',
+    buttonText = 'Enviar Solicitud',
     variant = 'light',
     isMinimal = false,
-    defaultProjectType,
+    defaultProjectType = '',
     reinforcementText,
     useWhatsAppOnMobile = false,
     phoneNumber = '521234567890'
 }: ContactFormProps) {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [projectType, setProjectType] = useState<string>(defaultProjectType);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Mobile WhatsApp redirect logic
         if (useWhatsAppOnMobile && window.innerWidth < 768) {
             const formData = new FormData(e.currentTarget);
             const name = formData.get('name') as string;
-            const message = `Hola, soy ${name}. Me gustaría solicitar asesoría personalizada.`;
+            const message = `Hola, soy ${name}. Me gustaría solicitar información sobre un proyecto de ${projectType || 'consultoría urbana'}.`;
             window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
             return;
         }
 
         setIsSubmitting(true);
-
-        // Here you would typically send the data to your new backend
-        // For now, we'll just simulate a successful submission
         setTimeout(() => {
             router.push('/gracias');
         }, 1000);
@@ -57,162 +54,217 @@ export default function ContactForm({
     const isDark = variant === 'dark';
 
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-8 md:gap-6"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <input type="hidden" name="form-name" value={formName} />
-            <div className="text-left">
+            
+            {/* Honeypot field for anti-spam (invisible to users) */}
+            <input
+                type="text"
+                name="website_url_hp"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden pointer-events-none"
+            />
+
+            <div>
                 <h3 className={cn(
-                    "text-2xl md:text-3xl mb-2",
+                    "text-2xl md:text-3xl font-display font-bold mb-2 tracking-tight",
                     isDark ? "text-white" : "text-text"
                 )}>
                     {titleText}
                 </h3>
                 <p className={cn(
-                    "text-sm mb-4 leading-relaxed",
-                    isDark ? "text-white/60" : "text-text-muted"
+                    "text-sm leading-relaxed",
+                    isDark ? "text-white/70" : "text-text-muted"
                 )}>
                     {subtitleText}
                 </p>
             </div>
 
+            {/* Inputs Grid */}
             <div className={cn(
-                "grid gap-6 md:gap-4",
+                "grid gap-4",
                 isMinimal ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"
             )}>
-                <div className="space-y-3 md:space-y-2">
+                <div className="space-y-1.5">
                     <label className={cn(
                         "text-xs font-bold uppercase tracking-wider ml-1",
-                        isDark ? "text-white/50" : "text-text/50"
+                        isDark ? "text-white/60" : "text-text/60"
                     )}>
                         Nombre Completo
                     </label>
                     <input
                         type="text"
                         name="name"
-                        placeholder="Ej. Juan Pérez"
+                        placeholder="Ej. Ing. Roberto Mendoza"
                         required
                         className={cn(
-                            "w-full rounded-xl border px-5 py-4 text-base md:text-sm transition-all focus:outline-none focus:ring-2",
+                            "w-full rounded-xl border px-4 py-3.5 text-sm transition-all focus:outline-none focus:ring-2",
                             isDark
-                                ? "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:ring-primary/50"
-                                : "bg-white border-black/5 text-text placeholder:text-text/40 focus:ring-primary/30 shadow-sm"
+                                ? "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:ring-primary/50 focus:border-primary/50"
+                                : "bg-white border-black/10 text-text placeholder:text-text/40 focus:ring-primary/30 focus:border-primary/40 shadow-sm"
                         )}
                     />
                 </div>
-                <div className="space-y-3 md:space-y-2">
+
+                <div className="space-y-1.5">
                     <label className={cn(
                         "text-xs font-bold uppercase tracking-wider ml-1",
-                        isDark ? "text-white/50" : "text-text/50"
+                        isDark ? "text-white/60" : "text-text/60"
                     )}>
-                        {isMinimal ? "WhatsApp" : "Correo Electrónico"}
+                        Teléfono / WhatsApp
                     </label>
                     <input
-                        type={isMinimal ? "tel" : "email"}
-                        name={isMinimal ? "whatsapp" : "email"}
-                        placeholder={isMinimal ? "Ej. +52 33 1234 5678" : "Ej. juan@empresa.com"}
+                        type="tel"
+                        name="phone"
+                        placeholder="Ej. +52 33 1234 5678"
                         required
                         className={cn(
-                            "w-full rounded-xl border px-5 py-4 text-base md:text-sm transition-all focus:outline-none focus:ring-2",
+                            "w-full rounded-xl border px-4 py-3.5 text-sm transition-all focus:outline-none focus:ring-2",
                             isDark
-                                ? "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:ring-primary/50"
-                                : "bg-white border-black/5 text-text placeholder:text-text/40 focus:ring-primary/30 shadow-sm"
+                                ? "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:ring-primary/50 focus:border-primary/50"
+                                : "bg-white border-black/10 text-text placeholder:text-text/40 focus:ring-primary/30 focus:border-primary/40 shadow-sm"
                         )}
                     />
                 </div>
             </div>
 
             {!isMinimal && (
-                <>
-                    {defaultProjectType ? (
-                        <input type="hidden" name="project-type" value={defaultProjectType} />
-                    ) : (
-                        <div className="space-y-3 md:space-y-2 relative">
-                            <label className={cn(
-                                "text-xs font-bold uppercase tracking-wider ml-1",
-                                isDark ? "text-white/50" : "text-text/50"
-                            )}>
-                                Tipo de Proyecto
-                            </label>
-                            <div className="relative">
-                                <select
-                                    name="project-type"
-                                    required
-                                    defaultValue=""
-                                    className={cn(
-                                        "w-full rounded-xl border px-5 py-4 text-base md:text-sm transition-all focus:outline-none focus:ring-2 appearance-none cursor-pointer",
-                                        isDark
-                                            ? "bg-white/5 border-white/10 text-white focus:ring-primary/50"
-                                            : "bg-white border-black/5 text-text focus:ring-primary/30 shadow-sm"
-                                    )}
-                                >
-                                    <option value="" disabled>Selecciona el tipo de proyecto o servicio</option>
-                                    <option value="obra-construccion" className="text-text">Obra Civil, Construcción y Edificación</option>
-                                    <option value="movilidad-escolar" className="text-text">Plan de Movilidad y Transporte Escolar</option>
-                                    <option value="factibilidad-gobierno" className="text-text">Factibilidad de Infraestructura Pública / Gobierno</option>
-                                    <option value="estudios-mercado" className="text-text">Estudio de Mercado y Potencial Territorial</option>
-                                    <option value="derecho-urbano" className="text-text">Derecho Administrativo, Urbano y Licencias</option>
-                                    <option value="asesoria-inmobiliaria" className="text-text">Asesoría Inmobiliaria Estratégica</option>
-                                    <option value="otro" className="text-text">Otro requerimiento técnico</option>
-                                </select>
-                                <div className={cn(
-                                    "absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none",
-                                    isDark ? "text-white/40" : "text-text/40"
-                                )}>
-                                    <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    <div className="space-y-3 md:space-y-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
                         <label className={cn(
                             "text-xs font-bold uppercase tracking-wider ml-1",
-                            isDark ? "text-white/50" : "text-text/50"
+                            isDark ? "text-white/60" : "text-text/60"
                         )}>
-                            Mensaje / Detalles
+                            Correo Electrónico
                         </label>
-                        <textarea
-                            name="message"
-                            rows={4}
-                            placeholder="Ej. Me interesa cotizar una gestión de obra para un edificio de departamentos..."
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Ej. rmendoza@empresa.com"
                             required
                             className={cn(
-                                "w-full rounded-xl border px-5 py-4 text-base md:text-sm transition-all focus:outline-none focus:ring-2 resize-none",
+                                "w-full rounded-xl border px-4 py-3.5 text-sm transition-all focus:outline-none focus:ring-2",
                                 isDark
-                                    ? "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:ring-primary/50"
-                                    : "bg-white border-black/5 text-text placeholder:text-text/40 focus:ring-primary/30 shadow-sm"
+                                    ? "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:ring-primary/50 focus:border-primary/50"
+                                    : "bg-white border-black/10 text-text placeholder:text-text/40 focus:ring-primary/30 focus:border-primary/40 shadow-sm"
                             )}
-                        ></textarea>
+                        />
                     </div>
-                </>
+
+                    <div className="space-y-1.5">
+                        <label className={cn(
+                            "text-xs font-bold uppercase tracking-wider ml-1",
+                            isDark ? "text-white/60" : "text-text/60"
+                        )}>
+                            Servicio o Categoría de Interés
+                        </label>
+                        <div className="relative">
+                            <select
+                                name="project-type"
+                                value={projectType}
+                                onChange={(e) => setProjectType(e.target.value)}
+                                required
+                                className={cn(
+                                    "w-full rounded-xl border px-4 py-3.5 pr-10 text-sm transition-all focus:outline-none focus:ring-2 appearance-none cursor-pointer",
+                                    isDark
+                                        ? "bg-[#18272a] border-white/10 text-white focus:ring-primary/50"
+                                        : "bg-white border-black/10 text-text focus:ring-primary/30 shadow-sm"
+                                )}
+                            >
+                                <option value="" disabled>Selecciona una opción</option>
+                                <optgroup label="Construcción e Inversión">
+                                    <option value="gestion-construccion">Gestión de Construcción y Supervisión de Obra</option>
+                                    <option value="asesoria-inmobiliaria">Asesoría Inmobiliaria y Gestión de Suelo</option>
+                                    <option value="estudios-mercado">Estudios de Mercado y Demanda Territorial</option>
+                                </optgroup>
+                                <optgroup label="Movilidad y Planeación Urbana">
+                                    <option value="movilidad-escolar">Planes de Movilidad y Transporte Escolar</option>
+                                    <option value="redisenyo-vial">Rediseño Vial y Accesibilidad de Entornos</option>
+                                    <option value="impacto-urbano">Estudios de Impacto Urbano y Vial</option>
+                                </optgroup>
+                                <optgroup label="Gobierno y Marco Normativo">
+                                    <option value="factibilidad-tecnica">Factibilidades Técnicas, Ambientales y Económicas</option>
+                                    <option value="modelos-financiamiento">Modelos de Financiamiento para Infraestructura</option>
+                                    <option value="derecho-administrativo">Derecho Administrativo, Urbano y Licencias</option>
+                                </optgroup>
+                                <optgroup label="Otros">
+                                    <option value="otro">Otro requerimiento multidisciplinario</option>
+                                </optgroup>
+                            </select>
+                            <ChevronDown
+                                size={16}
+                                className={cn(
+                                    "absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none",
+                                    isDark ? "text-white/40" : "text-text/40"
+                                )}
+                            />
+                        </div>
+                    </div>
+                </div>
             )}
 
+            {!isMinimal && (
+                <div className="space-y-1.5">
+                    <label className={cn(
+                        "text-xs font-bold uppercase tracking-wider ml-1",
+                        isDark ? "text-white/60" : "text-text/60"
+                    )}>
+                        Mensaje o descripción del proyecto
+                    </label>
+                    <textarea
+                        name="message"
+                        rows={3}
+                        placeholder="Ej. Ubicación del predio, requerimientos de obra, plazo estimado o necesidades de factibilidad..."
+                        required
+                        className={cn(
+                            "w-full rounded-xl border px-4 py-3.5 text-sm transition-all focus:outline-none focus:ring-2 resize-none",
+                            isDark
+                                ? "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:ring-primary/50"
+                                : "bg-white border-black/10 text-text placeholder:text-text/40 focus:ring-primary/30 shadow-sm"
+                        )}
+                    />
+                </div>
+            )}
+
+            {/* Submit Action */}
             <button
                 type="submit"
                 disabled={isSubmitting}
-                className={cn(
-                    "premium-button w-full flex items-center justify-center gap-3 group relative overflow-hidden",
-                    isDark && "bg-white text-primary hover:bg-white/90 hover:text-primary-dark"
-                )}
+                className="w-full py-4 px-6 rounded-xl font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-3 cursor-pointer shadow-premium bg-primary text-white hover:bg-primary-dark"
             >
-                <span className="relative z-10">{isSubmitting ? 'Enviando...' : buttonText}</span>
                 {isSubmitting ? (
-                    <Loader2 className="w-5 h-5 animate-spin relative z-10" />
+                    <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <span>Procesando...</span>
+                    </>
                 ) : (
-                    <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform relative z-10" />
+                    <>
+                        <span>{buttonText}</span>
+                        <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </>
                 )}
             </button>
 
-            <div className={cn(
-                "flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest",
-                isDark ? "text-white/40" : "text-text/40"
-            )}>
-                <Zap size={14} className="text-secondary" />
-                {reinforcementText ? reinforcementText : (isMinimal ? "Respuesta rápida y confidencial" : "Un consultor senior te contactará personalmente")}
+            {/* Trust and WhatsApp Fast Action */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs">
+                <div className={cn(
+                    "flex items-center gap-2",
+                    isDark ? "text-white/60" : "text-text/60"
+                )}>
+                    <ShieldCheck size={16} className="text-secondary shrink-0" />
+                    <span>{reinforcementText || "Información tratada bajo estricta confidencialidad"}</span>
+                </div>
+
+                <a
+                    href={`https://wa.me/${phoneNumber}?text=Hola%2C%20quisiera%20solicitar%20asesor%C3%ADa%20t%C3%A9cnica%20directa.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 font-bold text-secondary-light hover:underline"
+                >
+                    <MessageCircle size={15} />
+                    <span>O escribe directo a WhatsApp</span>
+                </a>
             </div>
         </form>
     );
