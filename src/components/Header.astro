@@ -1,0 +1,14 @@
+---
+interface Props { current?: string; }
+const { current = '' } = Astro.props;
+const links = [
+  { href: '/#why-sg-cities', label: 'Nosotros', id: 'about' },
+  { href: '/#solutions', label: 'Servicios', id: 'solutions' },
+  { href: '/#start-project', label: 'Contacto', id: 'contact' },
+];
+---
+<header>
+  <figure><a href="/"><img src="/images/sg-cities-logo.svg" alt="SG Cities" /></a></figure>
+  <button class="hamburger hamburger--slider" type="button" aria-label="Abrir menú" aria-controls="navigation" aria-expanded="false"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button>
+  <nav id="navigation" aria-label="Navegación principal"><ul>{links.map((link) => <li><a href={link.href} aria-current={current === link.id ? 'page' : undefined}>{link.label}</a></li>)}</ul></nav>
+</header>

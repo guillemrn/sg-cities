@@ -8,9 +8,11 @@
   --glass-border: rgba(255, 255, 255, 0.3);
   --button-hover: #0f5c64;
   --bg-color: rgba(97, 176, 188, 0.2);
-  --glass-gradient: linear-gradient(93deg,
-      rgba(255, 255, 255, 0.09) -14.07%,
-      rgba(255, 255, 255, 0.49) 116.73%);
+  --glass-gradient: linear-gradient(
+    93deg,
+    rgba(255, 255, 255, 0.09) -14.07%,
+    rgba(255, 255, 255, 0.49) 116.73%
+  );
 }
 
 html {
@@ -578,7 +580,7 @@ button:hover {
   align-items: center;
   background:
     linear-gradient(0deg, rgba(19, 33, 36, 0.6) 0%, rgba(19, 33, 36, 0.6) 100%),
-    url("./images/cta-image.jpg") center/cover no-repeat;
+    url("/images/cta-image.jpg") center/cover no-repeat;
   /* Sintaxis corta */
 }
 
@@ -1072,7 +1074,6 @@ button:hover {
 
 /* --- Punto de ruptura para Tablets --- */
 @media (max-width: 1024px) {
-
   header,
   .main-footer {
     padding: 3rem 5rem;
@@ -1132,8 +1133,6 @@ button:hover {
     justify-content: space-between;
     align-items: center;
   }
-
-
 
   .hero {
     flex-direction: column;
@@ -1219,7 +1218,6 @@ button:hover {
 /* --- Media Query para Interacción (Hover) --- */
 /* Esto soluciona el problema del "hover pegajoso" en móviles */
 @media (hover: hover) {
-
   .solutions__item:hover,
   .solutions__item:focus {
     transform: translateY(-10px);

@@ -3,6 +3,12 @@
     "prettier": "^3.5.3"
   },
   "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
     "format": "prettier --write ."
+  },
+  "dependencies": {
+    "astro": "^7.4.7"
   }
 }

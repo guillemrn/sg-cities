@@ -1,0 +1,22 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { services } from '../../data/services';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { slug } = Astro.params;
+const service = Astro.props.service ?? services.find((item) => item.slug === slug);
+if (!service) throw new Error('Servicio no encontrado');
+---
+<Layout title={`${service.title} | SG Cities`} description={service.description}>
+  <Header current="portfolio" />
+  <main>
+    <section class="portfolio-intro"><p class="section-kicker">{service.area}</p><h1>{service.title}</h1><p>{service.description}</p></section>
+    <section class="service-detail"><div><h2>Cómo podemos abordarlo</h2><p>Definimos el alcance a partir del contexto real del proyecto y de la información disponible.</p></div><ul>{service.bullets.map((bullet) => <li>{bullet}</li>)}</ul><a class="button button--primary" href="/#start-project">Consultar este servicio</a></section>
+  </main>
+  <Footer />
+</Layout>

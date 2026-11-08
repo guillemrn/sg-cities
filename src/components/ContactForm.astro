@@ -1,0 +1,9 @@
+<form class="contact-form__form js-make-form" data-success-url="/gracias">
+  <label for="contact-name">Nombre<input id="contact-name" type="text" name="nombre" autocomplete="name" required /></label>
+  <label for="contact-email">Correo electrónico<input id="contact-email" type="email" name="email" autocomplete="email" required /></label>
+  <label for="contact-area">Área de interés<select id="contact-area" name="area" required><option value="" disabled selected>Selecciona una opción</option><option>Proyecto y obra de edificación</option><option>Estudios y factibilidades</option><option>Planeación y gestión</option><option>Proyecto y obra de urbanización</option></select></label>
+  <label for="contact-message">Cuéntanos brevemente<textarea id="contact-message" name="mensaje" rows="4" required></textarea></label>
+  <input class="hp-field" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <button class="button button--primary" type="submit">Enviar solicitud</button>
+  <p class="form-status" role="status" aria-live="polite"></p>
+</form>

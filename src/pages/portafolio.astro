@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { portfolioAreas } from '../data/portfolio';
+import { services } from '../data/services';
+
+const serviceSlug = (title: string) => services.find((service) => service.title === title)?.slug ?? '';
+---
+<Layout title="Portafolio de servicios | SG Cities" description="Conoce las áreas de trabajo y servicios de SG Cities para proyectos urbanos, inmobiliarios y de construcción.">
+  <Header current="portfolio" />
+  <main><section class="portfolio-intro"><p class="section-kicker">Portafolio</p><h1>Un proyecto puede necesitar más de una respuesta.</h1><p>Explora las cuatro áreas que organizan nuestro trabajo y sus servicios relacionados.</p></section><section class="portfolio-groups" aria-label="Áreas de trabajo">{portfolioAreas.map((area) => <article id={area.id} class="portfolio-group"><div><h2>{area.title}</h2><p>{area.summary}</p></div>{area.services.length ? <ul>{area.services.map((service) => <li><a href={`/servicios/${serviceSlug(service)}`}>{service}</a></li>)}</ul> : <a class="button button--quiet" href="/#start-project">Consultar un proyecto</a>}</article>)}</section></main>
+  <Footer />
+  <script src="/site.js" is:inline></script>
+</Layout>
