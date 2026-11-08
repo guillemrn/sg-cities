@@ -1,16 +1,25 @@
+export type Project = {
+  name: string;
+  meta: string; // Cliente, ciudad, año
+};
+
 export type Service = {
   slug: string;
   title: string;
   area: string;
   description: string;
   bullets: string[];
+  // Se muestran en el portafolio solo cuando tengan contenido real.
+  projects?: Project[];
+  stats?: { value: string; label: string }[];
+  gallery?: string[];
 };
 
 export const services: Service[] = [
   {
     slug: "analisis-costo-beneficio",
     title: "Análisis costo-beneficio",
-    area: "Estudios y factibilidades",
+    area: "Estudios y factibilidades en proyectos de infraestructura",
     description:
       "Ordenamos los costos, beneficios y condiciones de una iniciativa para apoyar una decisión informada.",
     bullets: [
@@ -22,7 +31,7 @@ export const services: Service[] = [
   {
     slug: "evaluacion-integral",
     title: "Evaluación económica, ambiental, legal, técnica y social",
-    area: "Estudios y factibilidades",
+    area: "Estudios y factibilidades en proyectos de infraestructura",
     description:
       "Integramos los ángulos que pueden favorecer o limitar la viabilidad de un proyecto.",
     bullets: [
@@ -34,7 +43,7 @@ export const services: Service[] = [
   {
     slug: "gestion-de-recursos",
     title: "Gestión de recursos",
-    area: "Estudios y factibilidades",
+    area: "Estudios y factibilidades en proyectos de infraestructura",
     description:
       "Ayudamos a ordenar los recursos necesarios para que la planeación pueda convertirse en acciones.",
     bullets: [
@@ -46,7 +55,7 @@ export const services: Service[] = [
   {
     slug: "derecho-administrativo-y-urbano",
     title: "Derecho administrativo y urbano",
-    area: "Planeación y gestión",
+    area: "Planificación y gestión",
     description:
       "Revisamos las condiciones normativas y administrativas que inciden en el aprovechamiento del suelo.",
     bullets: [
@@ -58,7 +67,7 @@ export const services: Service[] = [
   {
     slug: "estudios-de-mercado-inmobiliario",
     title: "Estudios del mercado inmobiliario",
-    area: "Planeación y gestión",
+    area: "Planificación y gestión",
     description:
       "Analizamos el contexto de mercado para entender oportunidades, demanda y condiciones de una inversión.",
     bullets: [
@@ -70,7 +79,7 @@ export const services: Service[] = [
   {
     slug: "gestion-y-planificacion-de-obra",
     title: "Gestión y planificación de obra",
-    area: "Proyecto y obra de edificación",
+    area: "Planificación y gestión",
     description:
       "Acompañamos la organización de etapas, recursos y decisiones que sostienen una obra.",
     bullets: [
@@ -82,7 +91,7 @@ export const services: Service[] = [
   {
     slug: "asesoria-inmobiliaria",
     title: "Asesoría inmobiliaria",
-    area: "Planeación y gestión",
+    area: "Planificación y gestión",
     description:
       "Acompañamos decisiones relacionadas con propiedades, suelo y oportunidades inmobiliarias.",
     bullets: [

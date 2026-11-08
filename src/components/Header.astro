@@ -1,14 +1,25 @@
 ---
+import Icon from './Icon.astro';
+import { whatsappUrl } from '../data/site';
+
 interface Props { current?: string; }
 const { current = '' } = Astro.props;
 const links = [
-  { href: '/#why-sg-cities', label: 'Nosotros', id: 'about' },
-  { href: '/#solutions', label: 'Servicios', id: 'solutions' },
-  { href: '/#start-project', label: 'Contacto', id: 'contact' },
+  { href: '/#nosotros', label: 'Nosotros', id: 'about' },
+  { href: '/#areas', label: 'Áreas de trabajo', id: 'areas' },
+  { href: '/portafolio', label: 'Portafolio', id: 'portfolio' },
+  { href: '/#contacto', label: 'Contacto', id: 'contact' },
 ];
 ---
-<header>
-  <figure><a href="/"><img src="/images/sg-cities-logo.svg" alt="SG Cities" /></a></figure>
-  <button class="hamburger hamburger--slider" type="button" aria-label="Abrir menú" aria-controls="navigation" aria-expanded="false"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button>
-  <nav id="navigation" aria-label="Navegación principal"><ul>{links.map((link) => <li><a href={link.href} aria-current={current === link.id ? 'page' : undefined}>{link.label}</a></li>)}</ul></nav>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href="/"><img src="/images/sg-cities-logo.svg" alt="SG Cities" width="160" height="40" /></a>
+    <button class="hamburger hamburger--slider" type="button" aria-label="Abrir menú" aria-controls="navigation" aria-expanded="false"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button>
+    <nav id="navigation" class="site-nav" aria-label="Navegación principal">
+      <ul>
+        {links.map((link) => <li><a href={link.href} aria-current={current === link.id ? 'page' : undefined}>{link.label}</a></li>)}
+        {whatsappUrl && <li><a class="pill-button" href={whatsappUrl} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" />WhatsApp</a></li>}
+      </ul>
+    </nav>
+  </div>
 </header>

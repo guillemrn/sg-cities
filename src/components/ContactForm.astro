@@ -1,9 +1,14 @@
-<form class="contact-form__form js-make-form" data-success-url="/gracias">
-  <label for="contact-name">Nombre<input id="contact-name" type="text" name="nombre" autocomplete="name" required /></label>
-  <label for="contact-email">Correo electrónico<input id="contact-email" type="email" name="email" autocomplete="email" required /></label>
-  <label for="contact-area">Área de interés<select id="contact-area" name="area" required><option value="" disabled selected>Selecciona una opción</option><option>Proyecto y obra de edificación</option><option>Estudios y factibilidades</option><option>Planeación y gestión</option><option>Proyecto y obra de urbanización</option></select></label>
-  <label for="contact-message">Cuéntanos brevemente<textarea id="contact-message" name="mensaje" rows="4" required></textarea></label>
+---
+import { portfolioAreas } from '../data/portfolio';
+---
+<form class="contact-form js-make-form" name="contacto" data-success-url="/gracias">
+  <label>Nombre<input type="text" name="nombre" autocomplete="name" required /></label>
+  <label>Correo electrónico<input type="email" name="email" autocomplete="email" required /></label>
+  <label>Teléfono / WhatsApp<input type="tel" name="telefono" autocomplete="tel" /></label>
+  <label>Tipo de organización<select name="tipo-organizacion" required><option value="" disabled selected>Selecciona una opción</option><option>Urbanizadora / desarrolladora</option><option>Inversionista</option><option>Institución educativa</option><option>Gobierno local</option><option>Otro</option></select></label>
+  <label class="contact-form__full">Área de interés<select name="area" required><option value="" disabled selected>Selecciona una opción</option>{portfolioAreas.map((area) => <option>{area.title}</option>)}<option>Aún no lo sé</option></select></label>
+  <label class="contact-form__full">Cuéntanos brevemente<textarea name="mensaje" rows="4" required></textarea></label>
   <input class="hp-field" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
-  <button class="button button--primary" type="submit">Enviar solicitud</button>
-  <p class="form-status" role="status" aria-live="polite"></p>
+  <button class="button button--primary contact-form__full" type="submit">Enviar solicitud</button>
+  <p class="form-status contact-form__full" role="status" aria-live="polite"></p>
 </form>

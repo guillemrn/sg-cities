@@ -2,14 +2,101 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { portfolioAreas } from '../data/portfolio';
+import Icon from '../components/Icon.astro';
+import { portfolioAreas, featuredProject } from '../data/portfolio';
 import { services } from '../data/services';
+import { whatsappUrl } from '../data/site';
 
-const serviceSlug = (title: string) => services.find((service) => service.title === title)?.slug ?? '';
+const bySlug = (slug: string) => services.find((s) => s.slug === slug)!;
 ---
-<Layout title="Portafolio de servicios | SG Cities" description="Conoce las áreas de trabajo y servicios de SG Cities para proyectos urbanos, inmobiliarios y de construcción.">
+<Layout title="Portafolio | SG Cities" description="Proyectos de SG Cities en edificación, estudios y factibilidades de infraestructura, planificación y gestión, y urbanización.">
   <Header current="portfolio" />
-  <main><section class="portfolio-intro"><p class="section-kicker">Portafolio</p><h1>Un proyecto puede necesitar más de una respuesta.</h1><p>Explora las cuatro áreas que organizan nuestro trabajo y sus servicios relacionados.</p></section><section class="portfolio-groups" aria-label="Áreas de trabajo">{portfolioAreas.map((area) => <article id={area.id} class="portfolio-group"><div><h2>{area.title}</h2><p>{area.summary}</p></div>{area.services.length ? <ul>{area.services.map((service) => <li><a href={`/servicios/${serviceSlug(service)}`}>{service}</a></li>)}</ul> : <a class="button button--quiet" href="/#start-project">Consultar un proyecto</a>}</article>)}</section></main>
+  <main>
+    <section class="page-intro">
+      <div class="container">
+        <a class="text-link" href="/"><Icon name="arrow-left" size={16} /> Volver al inicio</a>
+        <h1>Portafolio de proyectos</h1>
+        <p class="section-lead">Experiencia en planeación, infraestructura y obra, organizada en cuatro áreas y nueve líneas de trabajo.</p>
+      </div>
+      {featuredProject && (
+        <div class="container">
+          <article class="featured">
+            <img class="featured__img" src={featuredProject.image} alt="" />
+            <div class="featured__body">
+              <span class="featured__tag">Proyecto destacado · Planeación urbana y movilidad</span>
+              <h2>{featuredProject.title}</h2>
+              <p class="featured__meta">{featuredProject.meta}</p>
+              <p>{featuredProject.text}</p>
+              {featuredProject.stats.length > 0 && <ul class="featured__stats">{featuredProject.stats.map((s) => <li><p class="featured__value">{s.value}</p><p>{s.label}</p></li>)}</ul>}
+              {featuredProject.pdf && <a class="button button--light" href={featuredProject.pdf} target="_blank" rel="noopener">Descargar ficha (PDF)</a>}
+            </div>
+          </article>
+        </div>
+      )}
+    </section>
+
+    <nav class="area-nav" aria-label="Áreas del portafolio">
+      <div class="container area-nav__inner">
+        <span class="muted">Ir a:</span>
+        {portfolioAreas.map((area) => <a href={`#${area.id}`}>{area.num} · {area.title}</a>)}
+      </div>
+    </nav>
+
+    {portfolioAreas.map((area) => (
+      <section class="portfolio-area" id={area.id}>
+        <div class="container">
+          <div class="portfolio-area__head">
+            <div>
+              <p class="area-card__num">Área {area.num}</p>
+              <h2 class="section-title">{area.title}</h2>
+              <p class="section-lead">{area.summary}</p>
+            </div>
+            <p class="muted">{area.services.length === 1 ? '1 sección' : `${area.services.length} secciones`}</p>
+          </div>
+          <div class="portfolio-area__items">
+            {area.services.map((slug, i) => {
+              const s = bySlug(slug);
+              const code = area.services.length > 1 ? `${area.num}.${i + 1}` : area.num;
+              const gallery = s.gallery?.length ? s.gallery : [area.image];
+              return (
+                <article class="project" id={s.slug}>
+                  <div class="project__text">
+                    <span class="project__code">{code}</span>
+                    <h3>{s.title}</h3>
+                    <p>{s.description}</p>
+                    <ul class="project__bullets">{s.bullets.map((b) => <li>{b}</li>)}</ul>
+                    {s.projects?.length ? (
+                      <div class="project__list">
+                        <p class="project__label">Proyectos realizados</p>
+                        <ul>{s.projects.map((p) => <li>{p.name} · <span class="muted">{p.meta}</span></li>)}</ul>
+                      </div>
+                    ) : null}
+                    {s.stats?.length ? <ul class="project__stats">{s.stats.map((st) => <li><p class="project__value">{st.value}</p><p>{st.label}</p></li>)}</ul> : null}
+                    <a class="text-link" href={`/servicios/${s.slug}`}>Más sobre este servicio <Icon name="arrow" size={16} /></a>
+                  </div>
+                  <div class={`project__gallery project__gallery--${Math.min(gallery.length, 3)}`}>
+                    {gallery.slice(0, 3).map((src) => <img src={src} alt="" loading="lazy" />)}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <section class="cta-band">
+      <div class="container cta-band__inner">
+        <div>
+          <h2 class="section-title">¿Tienes un proyecto parecido?</h2>
+          <p class="section-lead">Cuéntanos en qué etapa estás y te decimos por dónde empezar.</p>
+        </div>
+        <div class="button-row">
+          <a class="button button--light" href="/#contacto">Enviar solicitud</a>
+          {whatsappUrl && <a class="button button--outline-light" href={whatsappUrl} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" /> WhatsApp</a>}
+        </div>
+      </div>
+    </section>
+  </main>
   <Footer />
-  <script src="/site.js" is:inline></script>
 </Layout>

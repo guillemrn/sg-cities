@@ -1,5 +1,36 @@
-<footer class="main-footer">
-  <figure><a href="/"><img src="/images/sg-cities-logo.svg" alt="SG Cities" loading="lazy" /></a></figure>
-  <div class="main-footer__links"><a href="/terminos-y-condiciones">Términos y condiciones</a><a href="/politica-de-privacidad">Política de privacidad</a></div>
-  <div class="main-footer__social"><a href="https://www.facebook.com/SGcities/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="/images/Social.svg" alt="Facebook icon" loading="lazy" /></a></div>
+---
+import Icon from './Icon.astro';
+import { site, whatsappUrl } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container site-footer__top">
+    <div class="site-footer__brand">
+      <a href="/"><img src="/images/sg-cities-logo.svg" alt="SG Cities" width="160" height="40" loading="lazy" /></a>
+      <p>Planeación, infraestructura y obra para proyectos urbanos.{site.location && <><br />{site.location}</>}</p>
+    </div>
+    <div class="site-footer__col">
+      <p class="site-footer__heading">Sitio</p>
+      <a href="/#nosotros">Nosotros</a>
+      <a href="/#areas">Áreas de trabajo</a>
+      <a href="/portafolio">Portafolio</a>
+      <a href="/#contacto">Contacto</a>
+    </div>
+    <div class="site-footer__col">
+      <p class="site-footer__heading">Síguenos</p>
+      <div class="site-footer__social">
+        {site.facebook && <a href={site.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Icon name="facebook" /></a>}
+        {site.linkedin && <a href={site.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Icon name="linkedin" /></a>}
+        {whatsappUrl && <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><Icon name="whatsapp" /></a>}
+      </div>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <div class="site-footer__legal">
+      <span>© {year} SG Cities</span>
+      <a href="/terminos-y-condiciones">Términos y condiciones</a>
+      <a href="/politica-de-privacidad">Política de privacidad</a>
+    </div>
+    <span>Diseño y desarrollo web: <a class="site-footer__credit" href={site.credit.url} target="_blank" rel="noopener">{site.credit.name}</a></span>
+  </div>
 </footer>
