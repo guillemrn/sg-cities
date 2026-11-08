@@ -17,7 +17,7 @@ export const portfolioAreas: PortfolioArea[] = [
     title: "Proyecto y obra de edificación",
     summary:
       "Coordinación y gestión para llevar un proyecto de edificación hacia una ejecución ordenada.",
-    image: "/images/gestion.jpg",
+    image: "/portfolio/edificacion/living-segovia/fachada-exterior.webp",
     services: ["proyecto-y-obra-de-edificacion"],
   },
   {
@@ -26,7 +26,7 @@ export const portfolioAreas: PortfolioArea[] = [
     title: "Estudios y factibilidades en proyectos de infraestructura",
     summary:
       "La información que ayuda a valorar una oportunidad antes de comprometer recursos.",
-    image: "/images/urban-map.jpg",
+    image: "/images/urban-map.webp",
     services: [
       "analisis-costo-beneficio",
       "evaluacion-integral",
@@ -39,7 +39,7 @@ export const portfolioAreas: PortfolioArea[] = [
     title: "Planificación y gestión",
     summary:
       "Lectura de mercado, territorio y normativa para orientar la toma de decisiones.",
-    image: "/images/estudios.jpg",
+    image: "/images/estudios.webp",
     services: [
       "derecho-administrativo-y-urbano",
       "estudios-de-mercado-inmobiliario",
@@ -53,20 +53,10 @@ export const portfolioAreas: PortfolioArea[] = [
     title: "Proyecto y obra de urbanización",
     summary:
       "Planeación de intervenciones que deben responder al territorio y a su infraestructura.",
-    image: "/images/admin.jpg",
+    image: "/images/admin.webp",
     services: ["proyecto-y-obra-de-urbanizacion"],
   },
 ];
 
-// Proyecto destacado (planeación urbana y movilidad). Déjalo en null
-// hasta tener la información real; con datos, aparece arriba del portafolio.
-export type FeaturedProject = {
-  title: string;
-  meta: string; // Cliente · Ubicación · Año
-  text: string;
-  image: string;
-  stats: { value: string; label: string }[];
-  pdf?: string;
-};
-
-export const featuredProject: FeaturedProject | null = null;
+// Proyecto destacado del portafolio: slug de un proyecto en projects.ts (o null).
+export const featuredProjectSlug: string | null = "living-segovia";

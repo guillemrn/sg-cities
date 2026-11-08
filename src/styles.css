@@ -252,3 +252,33 @@ h1, h2, h3 { font-family: var(--font-head); color: inherit; letter-spacing: -0.0
   .button-row .button { flex: 1 1 100%; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+/* Tarjetas de proyecto */
+.project-cards { flex: 1 1 100%; }
+.project-cards__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 16px; margin-top: 8px; }
+.project-card { display: flex; flex-direction: column; height: 100%; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); background: var(--surface); transition: border-color .2s, box-shadow .2s; }
+.project-card:hover { color: var(--ink); border-color: var(--border-strong); box-shadow: 0 10px 24px rgba(23, 63, 71, .1); }
+.project-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.project-card__body { display: flex; flex-direction: column; gap: 6px; padding: 18px; flex-grow: 1; }
+.project-card__meta { font-size: 13px; color: var(--text-3); }
+.project-card__name { font-family: var(--font-head); font-weight: 600; font-size: 20px; line-height: 1.2; }
+.project-card__summary { font-size: 14px; color: var(--text-2); }
+.project-card__cta { margin-top: auto; padding-top: 8px; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--primary); font-size: 14px; }
+.area-card__img { object-position: center 30%; }
+
+/* Página de proyecto */
+.case-meta { display: flex; flex-wrap: wrap; gap: 32px; margin-top: 24px; font-size: 15px; }
+.case-meta span { display: block; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); }
+.case { padding: 56px 0 88px; background: var(--surface); }
+.case__cover { width: 100%; max-height: 640px; object-fit: cover; border-radius: 20px; }
+.case__stats { margin-top: 24px; }
+.case__body { display: flex; flex-wrap: wrap; gap: 48px; margin-top: 56px; }
+.case__text { flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 16px; font-size: 17px; line-height: 1.7; color: #33454b; }
+.case__aside { flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+.case__video video { width: 100%; max-height: 560px; border-radius: 14px; background: #000; }
+.case__video figcaption { margin-top: 8px; }
+.case__gallery-title { margin: 64px 0 18px; }
+.case__gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+.case__gallery img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 12px; transition: opacity .2s; }
+.case__gallery a:hover img { opacity: .9; }
+.case__others { margin-top: 72px; }

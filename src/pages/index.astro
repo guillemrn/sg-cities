@@ -8,9 +8,24 @@ import { portfolioAreas } from '../data/portfolio';
 import { services } from '../data/services';
 import { site, whatsappUrl, stats, audiences, clients } from '../data/site';
 
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': 'https://sgcities.com/#organizacion',
+  name: 'SG Cities',
+  url: 'https://sgcities.com/',
+  logo: 'https://sgcities.com/images/sg-cities-logo.svg',
+  image: 'https://sgcities.com/images/social-image.png',
+  description: 'Planeación urbana, estudios y factibilidades de infraestructura, planificación y gestión, edificación y urbanización en Guadalajara, Jalisco.',
+  address: { '@type': 'PostalAddress', addressLocality: 'Guadalajara', addressRegion: 'Jalisco', addressCountry: 'MX' },
+  areaServed: { '@type': 'State', name: 'Jalisco' },
+  ...(site.email ? { email: site.email } : {}),
+  sameAs: [site.facebook, site.linkedin].filter(Boolean),
+  knowsAbout: services.map((s) => s.title),
+};
 const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?? slug;
 ---
-<Layout title="SG Cities: Planeación urbana, factibilidades, edificación y urbanización" description="Acompañamos proyectos urbanos, de infraestructura y de construcción: estudios y factibilidades, planificación y gestión, edificación y urbanización.">
+<Layout title="SG Cities | Planeación urbana, factibilidades y obra en Guadalajara" description="Acompañamos proyectos urbanos, de infraestructura y de construcción en Jalisco: estudios y factibilidades, planificación y gestión, edificación y urbanización." jsonLd={schema}>
   <Header current="about" />
   <main>
     <!-- 1. Portada -->
@@ -26,7 +41,7 @@ const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?
           </div>
         </div>
         <div class="hero__media">
-          <img src="/images/cta-image.jpg" alt="Vista aérea de una zona urbana" width="720" height="520" />
+          <img src="/images/cta-image.webp" alt="Vista aérea de una zona urbana" width="720" height="520" />
           <div class="hero__badge"><p class="hero__badge-title">Del análisis a la ejecución</p><p>Una ruta clara para cada etapa del proyecto.</p></div>
         </div>
       </div>

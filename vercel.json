@@ -5,5 +5,16 @@
     "api/contact.js": {
       "runtime": "nodejs24.x"
     }
-  }
+  },
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/asesoria-inmobiliaria.html", "destination": "/servicios/asesoria-inmobiliaria/", "permanent": true },
+    { "source": "/derecho-administrativo.html", "destination": "/servicios/derecho-administrativo-y-urbano/", "permanent": true },
+    { "source": "/estudios-factibilidad.html", "destination": "/servicios/evaluacion-integral/", "permanent": true },
+    { "source": "/estudios-mercado.html", "destination": "/servicios/estudios-de-mercado-inmobiliario/", "permanent": true },
+    { "source": "/gestion-construccion.html", "destination": "/servicios/gestion-y-planificacion-de-obra/", "permanent": true },
+    { "source": "/gracias.html", "destination": "/gracias/", "permanent": true },
+    { "source": "/politica-de-privacidad.html", "destination": "/politica-de-privacidad/", "permanent": true },
+    { "source": "/terminos-y-condiciones.html", "destination": "/terminos-y-condiciones/", "permanent": true }
+  ]
 }

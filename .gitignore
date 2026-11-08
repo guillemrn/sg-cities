@@ -9,3 +9,6 @@ dist/
 .env.*
 !.env.example
 next-env.d.ts
+
+# Material original del cliente (pesado). Las versiones optimizadas viven en public/portfolio/
+material-original/

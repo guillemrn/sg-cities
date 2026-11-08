@@ -13,9 +13,19 @@ export function getStaticPaths() {
 const { slug } = Astro.params;
 const service = Astro.props.service ?? services.find((item) => item.slug === slug);
 if (!service) throw new Error('Servicio no encontrado');
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.title,
+  description: service.description,
+  serviceType: service.area,
+  areaServed: { '@type': 'State', name: 'Jalisco' },
+  provider: { '@type': 'ProfessionalService', name: 'SG Cities', url: 'https://sgcities.com' },
+  url: `https://sgcities.com/servicios/${service.slug}/`,
+};
 const area = portfolioAreas.find((a) => a.services.includes(service.slug));
 ---
-<Layout title={`${service.title} | SG Cities`} description={service.description}>
+<Layout title={service.title.length > 38 ? `${service.title} | SG Cities` : `${service.title} en Guadalajara | SG Cities`} description={service.description} jsonLd={schema}>
   <Header current="portfolio" />
   <main>
     <section class="page-intro">
