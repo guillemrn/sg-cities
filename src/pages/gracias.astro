@@ -2,5 +2,21 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { whatsappUrl } from '../data/site';
 ---
-<Layout title="Solicitud recibida | SG Cities" description="Tu solicitud fue recibida por SG Cities." noindex><Header /><main class="portfolio-intro"><p class="section-kicker">Gracias</p><h1>Recibimos tu solicitud.</h1><p>Revisaremos la información y nos pondremos en contacto contigo.</p><a class="button button--primary" href="/">Volver al inicio</a></main><Footer /></Layout>
+<Layout title="Solicitud recibida | SG Cities" description="Tu solicitud fue recibida por SG Cities." noindex>
+  <Header />
+  <main class="page-intro thanks">
+    <div class="container">
+      <p class="marker"><span class="marker__num">✓</span> Solicitud recibida</p>
+      <h1>Gracias, ya tenemos tu proyecto.</h1>
+      <p class="section-lead">Revisaremos la información y nos pondremos en contacto contigo para conocer el contexto y proponerte por dónde empezar.</p>
+      <div class="button-row thanks__actions">
+        <a class="button button--primary" href="/portafolio">Mientras tanto, ve nuestros proyectos <Icon name="arrow" /></a>
+        {whatsappUrl && <a class="button button--secondary" href={whatsappUrl} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" /> ¿Es urgente? Escríbenos</a>}
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

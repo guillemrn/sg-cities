@@ -43,7 +43,7 @@ const others = projects.filter((x) => x.service === project.service && x.slug !=
     <section class="page-intro">
       <div class="container">
         <a class="text-link" href={area ? `/portafolio#${area.id}` : '/portafolio'}><Icon name="arrow-left" size={16} /> Volver al portafolio</a>
-        <p class="eyebrow">{service?.title}</p>
+        <p class="marker"><span class="marker__num">{area?.num}</span> {service?.title}</p>
         <h1>{project.name}</h1>
         <p class="section-lead">{project.summary}</p>
         <ul class="case-meta">
@@ -72,9 +72,9 @@ const others = projects.filter((x) => x.service === project.service && x.slug !=
             )}
           </aside>
         </div>
-        <h2 class="subsection-title case__gallery-title">Galería</h2>
-        <ul class="case__gallery">
-          {project.gallery.map((img) => <li><a href={img.src} target="_blank" rel="noopener"><img src={img.src} alt={img.alt} loading="lazy" /></a></li>)}
+        <h2 class="subsection-title case__gallery-title">Galería <span class="case__count">{project.gallery.length} fotos</span></h2>
+        <ul class="case__gallery" data-lightbox={project.name}>
+          {project.gallery.map((img, i) => <li><a href={img.src} data-caption={img.alt} aria-label={`Ampliar foto ${i + 1}: ${img.alt}`}><img src={img.src} alt={img.alt} loading="lazy" /></a></li>)}
         </ul>
         {others.length > 0 && (
           <div class="case__others">
@@ -96,7 +96,7 @@ const others = projects.filter((x) => x.service === project.service && x.slug !=
           <p class="section-lead">Cuéntanos en qué etapa estás y te decimos por dónde empezar.</p>
         </div>
         <div class="button-row">
-          <a class="button button--light" href="/#contacto">Enviar solicitud</a>
+          <a class="button button--light" href={area ? `/?area=${area.id}#contacto` : "/#contacto"}>Hablar sobre un proyecto así</a>
           {whatsappUrl && <a class="button button--outline-light" href={whatsappUrl} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" /> WhatsApp</a>}
         </div>
       </div>

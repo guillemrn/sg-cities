@@ -33,7 +33,7 @@ const schema = {
           <article class="featured">
             <img class="featured__img" src={featured.cover} alt={featured.name} />
             <div class="featured__body">
-              <span class="featured__tag">Proyecto destacado · {featuredService?.title}</span>
+              <p class="marker marker--light"><span class="marker__num">★</span> Proyecto destacado · {featuredService?.title}</p>
               <h2>{featured.name}</h2>
               <p class="featured__meta">{featured.period} · {featured.location}</p>
               <p>{featured.summary}</p>
@@ -57,7 +57,7 @@ const schema = {
         <div class="container">
           <div class="portfolio-area__head">
             <div>
-              <p class="area-card__num">Área {area.num}</p>
+              <p class="marker"><span class="marker__num">{area.num}</span> Área de trabajo</p>
               <h2 class="section-title">{area.title}</h2>
               <p class="section-lead">{area.summary}</p>
             </div>

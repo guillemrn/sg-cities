@@ -32,18 +32,21 @@ const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?
     <section class="hero" id="inicio">
       <div class="container hero__inner">
         <div class="hero__text">
-          <p class="eyebrow">Planeación · Infraestructura · Edificación · Urbanización</p>
+          <p class="marker">SG Cities <span class="marker__sep">/</span> Guadalajara, Jalisco</p>
           <h1>Decisiones urbanas con dirección.</h1>
           <p class="hero__lead">Acompañamos proyectos urbanos, de infraestructura y de construcción desde el primer análisis hasta la obra terminada.</p>
           <div class="button-row">
             <a class="button button--primary" href="/portafolio">Ver nuestros proyectos <Icon name="arrow" /></a>
             <a class="button button--secondary" href="#contacto">Hablar sobre un proyecto</a>
           </div>
+          <ol class="hero__index" aria-label="Áreas de trabajo">
+            {portfolioAreas.map((area) => <li><a href={`/portafolio#${area.id}`}><span>{area.num}</span>{area.title}</a></li>)}
+          </ol>
         </div>
-        <div class="hero__media">
-          <img src="/images/cta-image.webp" alt="Vista aérea de una zona urbana" width="720" height="520" />
-          <div class="hero__badge"><p class="hero__badge-title">Del análisis a la ejecución</p><p>Una ruta clara para cada etapa del proyecto.</p></div>
-        </div>
+        <figure class="hero__media">
+          <img src="/portfolio/edificacion/silly-billy-house/render-perspectiva-aerea.webp" alt="Vista aérea de Silly Billy House y su entorno urbano en Guadalajara" width="1600" height="895" fetchpriority="high" />
+          <figcaption><span>Fig. 01</span><p><a href="/proyectos/silly-billy-house">Silly Billy House</a>: del análisis a la ejecución, una ruta clara para cada etapa del proyecto.</p></figcaption>
+        </figure>
       </div>
       {stats.length > 0 && (
         <div class="container">
@@ -56,7 +59,7 @@ const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?
     <section class="about" id="nosotros">
       <div class="container about__inner">
         <div class="about__heading">
-          <p class="eyebrow">Quiénes somos</p>
+          <p class="marker"><span class="marker__num">01</span> Quiénes somos</p>
           <h2 class="section-title">Una mirada integral para proyectos que importan.</h2>
         </div>
         <div class="about__body">
@@ -86,26 +89,25 @@ const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?
       <div class="container">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Cómo podemos ayudarte</p>
+            <p class="marker"><span class="marker__num">02</span> Áreas de trabajo</p>
             <h2 class="section-title">Cuatro áreas para ordenar el proyecto.</h2>
             <p class="section-lead">Cada área tiene su propia sección en el portafolio, con proyectos, fotos y resultados.</p>
           </div>
           <a class="button button--primary" href="/portafolio">Ver portafolio completo <Icon name="arrow" /></a>
         </div>
-        <div class="areas__grid">
+        <ol class="area-list">
           {portfolioAreas.map((area) => (
-            <article class="area-card">
-              <img class="area-card__img" src={area.image} alt="" loading="lazy" />
-              <div class="area-card__body">
-                <p class="area-card__num">{area.num}</p>
-                <h3>{area.title}</h3>
+            <li class="area-row">
+              <span class="area-row__num" aria-hidden="true">{area.num}</span>
+              <div class="area-row__body">
+                <h3><a href={`/portafolio#${area.id}`}>{area.title}</a></h3>
                 <p>{area.summary}</p>
-                {area.services.length > 1 && <ul class="chips">{area.services.map((slug) => <li>{titleOf(slug)}</li>)}</ul>}
-                <a class="text-link" href={`/portafolio#${area.id}`}>Ver proyectos <Icon name="arrow" size={16} /></a>
+                {area.services.length > 1 && <ul class="tags">{area.services.map((slug) => <li>{titleOf(slug)}</li>)}</ul>}
               </div>
-            </article>
+              <img class="area-row__img" src={area.image} alt="" loading="lazy" />
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
 
@@ -113,7 +115,7 @@ const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?
     <section class="contact" id="contacto">
       <div class="container contact__inner">
         <div class="contact__text">
-          <p class="eyebrow eyebrow--light">Siguiente paso</p>
+          <p class="marker marker--light"><span class="marker__num">03</span> Contacto</p>
           <h2 class="section-title">Cuéntanos qué estás evaluando.</h2>
           <p class="contact__lead">Comparte el contexto de tu proyecto y te ayudamos a identificar el punto de partida.</p>
           <div class="contact__alt">
