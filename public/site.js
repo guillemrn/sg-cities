@@ -28,28 +28,36 @@ document.addEventListener("DOMContentLoaded", function () {
     form.elements.t && (form.elements.t.value = String(Date.now()));
     form.elements.origen && (form.elements.origen.value = location.pathname + location.search);
 
+    // Fecha de la "hoja" y pista del mensaje según el área
+    const sheet = form.closest(".sheet");
+    const dateEl = sheet?.querySelector(".js-sheet-date");
+    if (dateEl) dateEl.textContent = new Date().toLocaleDateString("es-MX", { day: "2-digit", month: "short", year: "numeric" });
+    const hints = form.dataset.hints ? JSON.parse(form.dataset.hints) : null;
+    const areaSelect = form.elements.area;
+    const updateHint = () => {
+      if (!hints || !areaSelect || !form.elements.mensaje) return;
+      const id = areaSelect.selectedOptions[0]?.dataset.id || "";
+      form.elements.mensaje.placeholder = hints[id] || hints[""];
+    };
+    areaSelect?.addEventListener("change", updateHint);
+
     // Preselecciona el área si viene de un servicio o proyecto (?area=planificacion)
     const area = new URLSearchParams(location.search).get("area");
     if (area) {
-      const opt = form.querySelector(`input[name="area"][data-id="${CSS.escape(area)}"]`);
-      if (opt) opt.checked = true;
+      const opt = form.querySelector(`select[name="area"] option[data-id="${CSS.escape(area)}"]`);
+      if (opt) opt.selected = true;
     }
+    updateHint();
 
     const setError = (el, msgEl, show) => {
       if (msgEl) msgEl.hidden = !show;
-      if (el.matches("fieldset")) el.classList.toggle("is-invalid", show);
-      else el.setAttribute("aria-invalid", String(show));
+      el.setAttribute("aria-invalid", String(show));
+      el.closest(".cell")?.classList.toggle("is-invalid", show);
     };
 
     function validate() {
       const invalid = [];
-      form.querySelectorAll("fieldset[data-required]").forEach((fs) => {
-        const name = fs.querySelector("input").name;
-        const ok = !!form.querySelector(`input[name="${name}"]:checked`);
-        setError(fs, form.querySelector(`#err-${name}`), !ok);
-        if (!ok) invalid.push(fs.querySelector("input"));
-      });
-      ["nombre", "email"].forEach((name) => {
+      ["nombre", "email", "mensaje"].forEach((name) => {
         const input = form.elements[name];
         const ok = name === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(input.value.trim()) : input.value.trim().length > 1;
         setError(input, form.querySelector(`#err-${name}`), !ok);
@@ -59,10 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Limpia el error en cuanto la persona corrige
-    form.addEventListener("change", (e) => {
-      const fs = e.target.closest("fieldset[data-required]");
-      if (fs) setError(fs, form.querySelector(`#err-${e.target.name}`), false);
-    });
     form.addEventListener("input", (e) => {
       if (e.target.getAttribute("aria-invalid") === "true") setError(e.target, form.querySelector(`#err-${e.target.name}`), false);
     });
@@ -90,7 +94,11 @@ document.addEventListener("DOMContentLoaded", function () {
           body: JSON.stringify(payload),
         });
         if (!response.ok) throw new Error("contact request failed");
-        window.location.href = form.dataset.successUrl || "/gracias";
+        const go = () => (window.location.href = form.dataset.successUrl || "/gracias");
+        if (sheet) {
+          sheet.classList.add("is-sent");
+          setTimeout(go, matchMedia("(prefers-reduced-motion: reduce)").matches ? 300 : 1100);
+        } else go();
       } catch {
         submit.disabled = false;
         submit.classList.remove("is-loading");

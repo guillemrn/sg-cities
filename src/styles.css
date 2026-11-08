@@ -371,3 +371,44 @@ h1, h2, h3 { font-family: var(--font-head); color: inherit; letter-spacing: -0.0
 .thanks { padding: 96px 0 120px; }
 .thanks__actions { margin-top: 32px; }
 @media (max-width: 640px) { .contact-form__submit .button { flex: 1 1 100%; } }
+.form-status:empty { display: none; }
+
+/* Formulario como hoja de plano: cajetín con celdas y marcas de registro */
+.contact__card { padding: 0; background: transparent; }
+.sheet { position: relative; background: var(--surface); color: var(--ink); border-radius: var(--radius-media); overflow: hidden; box-shadow: 0 24px 60px rgba(0, 0, 0, .18); }
+.sheet__head { display: flex; justify-content: space-between; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--ink); font-family: var(--font-mono); font-size: 12px; color: var(--text-3); }
+.sheet__title { color: var(--ink); }
+.js-sheet-date:not(:empty)::before { content: "· "; }
+.sheet .contact-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--rule); }
+.cell { position: relative; background: var(--surface); padding: 14px 20px 12px; gap: 2px; transition: background-color .2s; }
+.cell .field__label { font-family: var(--font-mono); font-size: 12px; font-weight: 400; color: var(--text-3); transition: color .2s; }
+.contact-form .cell input, .contact-form .cell select, .contact-form .cell textarea { border: 0; border-radius: 0; background: transparent; padding: 0; min-height: 36px; font-size: 17px; box-shadow: none; }
+.contact-form .cell textarea { padding-top: 6px; resize: vertical; line-height: 1.5; }
+.contact-form .cell select { appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 28px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232e7d88' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") right center no-repeat; }
+.contact-form .cell textarea::placeholder { color: #8a989c; transition: opacity .2s; }
+.cell::before, .cell::after { content: ""; position: absolute; width: 10px; height: 10px; border: 0 solid var(--primary); opacity: 0; transition: opacity .2s, transform .25s; pointer-events: none; }
+.cell::before { top: 6px; left: 6px; border-width: 2px 0 0 2px; transform: translate(5px, 5px); }
+.cell::after { bottom: 6px; right: 6px; border-width: 0 2px 2px 0; transform: translate(-5px, -5px); }
+.cell:focus-within { background: #fbfdfd; }
+.cell:focus-within::before, .cell:focus-within::after, .cell.is-invalid::before, .cell.is-invalid::after { opacity: 1; transform: none; }
+.cell:focus-within .field__label { color: var(--primary); }
+.cell.is-invalid::before, .cell.is-invalid::after { border-color: #b42318; }
+.cell.is-invalid .field__label { color: #b42318; }
+.contact-form .cell [aria-invalid="true"] { background: transparent; }
+.sheet__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; padding: 18px 20px; background: var(--surface); }
+.sheet__foot .contact-form__legal { flex: 1 1 220px; }
+.sheet__foot .button { min-width: 0; }
+.sheet__foot .form-status { flex: 1 1 100%; }
+.sheet__stamp { position: absolute; inset: 0; display: none; place-items: center; background: rgba(255, 255, 255, .82); }
+.sheet__stamp span { font-family: var(--font-mono); font-size: 22px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--green); border: 3px solid var(--green); border-radius: 4px; padding: 10px 20px; opacity: 0; transform: rotate(-8deg) scale(1.8); }
+.sheet.is-sent .sheet__stamp { display: grid; }
+.sheet.is-sent .sheet__stamp span { animation: stamp .45s cubic-bezier(.2, 1.5, .4, 1) forwards; }
+@keyframes stamp { to { opacity: 1; transform: rotate(-8deg) scale(1); } }
+@media (max-width: 640px) {
+  .sheet .contact-form { grid-template-columns: minmax(0, 1fr); }
+  .sheet__head { flex-direction: column; gap: 2px; }
+  .sheet__foot .button { flex: 1 1 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .sheet.is-sent .sheet__stamp span { opacity: 1; transform: rotate(-8deg); } }
+.contact-form .cell input, .contact-form .cell textarea { border-bottom: 1px dashed var(--rule-strong); transition: border-color .2s; }
+.contact-form .cell input:focus, .contact-form .cell textarea:focus { border-bottom: 1px solid var(--primary); }

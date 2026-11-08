@@ -1,37 +1,53 @@
 ---
 import { portfolioAreas } from '../data/portfolio';
+
+// Pista del mensaje según el área elegida (la lee site.js).
+const hints: Record<string, string> = {
+  '': 'Unas líneas bastan: qué es, dónde está y en qué etapa va.',
+  edificacion: 'Ej. Edificio de 4 niveles en Zapopan; ya tenemos el predio y buscamos quién construya.',
+  infraestructura: 'Ej. Necesitamos la factibilidad de una vialidad para presentarla al municipio.',
+  planificacion: 'Ej. Queremos saber qué se puede construir en un terreno antes de comprarlo.',
+  urbanizacion: 'Ej. Fraccionamiento de 3 ha; nos falta el proyecto de redes y vialidades.',
+};
 ---
-<form class="contact-form js-make-form" name="contacto" data-success-url="/gracias" novalidate>
-  <label class="field">
-    <span class="field__label">Nombre</span>
-    <input type="text" name="nombre" autocomplete="name" required aria-describedby="err-nombre" />
-    <span class="field-error" id="err-nombre" hidden>Escribe tu nombre.</span>
-  </label>
-  <label class="field">
-    <span class="field__label">Correo electrónico</span>
-    <input type="email" name="email" autocomplete="email" inputmode="email" required aria-describedby="err-email" />
-    <span class="field-error" id="err-email" hidden>Revisa tu correo, parece incompleto.</span>
-  </label>
-  <label class="field contact-form__full">
-    <span class="field__label">Área de interés</span>
-    <select name="area">
-      <option value="">Aún no lo sé</option>
-      {portfolioAreas.map((area) => <option value={area.title} data-id={area.id}>{area.title}</option>)}
-    </select>
-  </label>
-  <label class="field contact-form__full">
-    <span class="field__label">¿Qué proyecto tienes en mente?</span>
-    <textarea name="mensaje" rows="4" required aria-describedby="err-mensaje" placeholder="Unas líneas bastan: qué es, dónde está y en qué etapa va."></textarea>
-    <span class="field-error" id="err-mensaje" hidden>Cuéntanos aunque sea en una línea.</span>
-  </label>
-
-  <input class="hp-field" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
-  <input type="hidden" name="origen" value="" />
-  <input type="hidden" name="t" value="" />
-
-  <div class="contact-form__submit contact-form__full">
-    <button class="button button--primary" type="submit"><span class="button__text">Enviar solicitud</span></button>
-    <p class="contact-form__legal">Tus datos solo se usan para responderte. <a href="/politica-de-privacidad">Aviso de privacidad</a></p>
+<div class="sheet">
+  <div class="sheet__head" aria-hidden="true">
+    <span class="sheet__title">Solicitud de proyecto</span>
+    <span>Hoja 01/01 <span class="js-sheet-date"></span></span>
   </div>
-  <p class="form-status contact-form__full" role="status" aria-live="polite"></p>
-</form>
+  <form class="contact-form js-make-form" name="contacto" data-success-url="/gracias" data-hints={JSON.stringify(hints)} novalidate>
+    <label class="field cell">
+      <span class="field__label">Nombre</span>
+      <input type="text" name="nombre" autocomplete="name" required aria-describedby="err-nombre" />
+      <span class="field-error" id="err-nombre" hidden>Escribe tu nombre.</span>
+    </label>
+    <label class="field cell">
+      <span class="field__label">Correo electrónico</span>
+      <input type="email" name="email" autocomplete="email" inputmode="email" required aria-describedby="err-email" />
+      <span class="field-error" id="err-email" hidden>Revisa tu correo, parece incompleto.</span>
+    </label>
+    <label class="field cell contact-form__full">
+      <span class="field__label">Área de interés</span>
+      <select name="area">
+        <option value="" data-id="">Aún no lo sé</option>
+        {portfolioAreas.map((area) => <option value={area.title} data-id={area.id}>{area.num} · {area.title}</option>)}
+      </select>
+    </label>
+    <label class="field cell contact-form__full">
+      <span class="field__label">¿Qué proyecto tienes en mente?</span>
+      <textarea name="mensaje" rows="4" required aria-describedby="err-mensaje" placeholder={hints['']}></textarea>
+      <span class="field-error" id="err-mensaje" hidden>Cuéntanos aunque sea en una línea.</span>
+    </label>
+
+    <input class="hp-field" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <input type="hidden" name="origen" value="" />
+    <input type="hidden" name="t" value="" />
+
+    <div class="sheet__foot contact-form__full">
+      <p class="contact-form__legal">Tus datos solo se usan para responderte. <a href="/politica-de-privacidad">Aviso de privacidad</a></p>
+      <button class="button button--primary" type="submit"><span class="button__text">Enviar solicitud</span> <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+  <div class="sheet__stamp" aria-hidden="true"><span>Recibido ✓</span></div>
+</div>
