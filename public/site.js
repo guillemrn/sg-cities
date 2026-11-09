@@ -93,17 +93,30 @@ document.addEventListener("DOMContentLoaded", function () {
           headers: { "content-type": "application/json" },
           body: JSON.stringify(payload),
         });
-        if (!response.ok) throw new Error("contact request failed");
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          const error = new Error(result.error || "contact request failed");
+          error.status = response.status;
+          throw error;
+        }
         const go = () => (window.location.href = form.dataset.successUrl || "/gracias");
         if (sheet) {
           sheet.classList.add("is-sent");
           setTimeout(go, matchMedia("(prefers-reduced-motion: reduce)").matches ? 300 : 1100);
         } else go();
-      } catch {
+      } catch (error) {
         submit.disabled = false;
         submit.classList.remove("is-loading");
         submitText.textContent = defaultText;
-        status.textContent = "No pudimos enviar la solicitud. Intenta de nuevo o escríbenos por WhatsApp.";
+        status.textContent = error.status === 400
+          ? "La sesión del formulario expiró. Recarga la página e inténtalo de nuevo."
+          : error.status === 429
+            ? "Recibimos demasiados intentos desde esta conexión. Espera unos minutos e inténtalo de nuevo."
+            : error.status === 502
+              ? "No pudimos conectar con el servicio de recepción. Intenta de nuevo en unos minutos."
+              : error.status === 503
+                ? "El formulario está temporalmente fuera de servicio. Escríbenos por WhatsApp."
+                : "No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.";
         status.className = "form-status is-error";
       }
     });
