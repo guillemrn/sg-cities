@@ -412,3 +412,6 @@ h1, h2, h3 { font-family: var(--font-head); color: inherit; letter-spacing: -0.0
 @media (prefers-reduced-motion: reduce) { .sheet.is-sent .sheet__stamp span { opacity: 1; transform: rotate(-8deg); } }
 .contact-form .cell input, .contact-form .cell textarea { border-bottom: 1px dashed var(--rule-strong); transition: border-color .2s; }
 .contact-form .cell input:focus, .contact-form .cell textarea:focus { border-bottom: 1px solid var(--primary); }
+.area-row--text { grid-template-columns: 96px minmax(0, 1fr); }
+@media (max-width: 1000px) { .area-row--text { grid-template-columns: 56px minmax(0, 1fr); } }
+@media (max-width: 640px) { .area-row--text { grid-template-columns: minmax(0, 1fr); } }

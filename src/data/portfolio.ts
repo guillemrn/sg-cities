@@ -6,7 +6,7 @@ export type PortfolioArea = {
   num: string;
   title: string;
   summary: string;
-  image: string;
+  image?: string; // vacío = sin foto real todavía
   services: string[]; // slugs de services.ts
 };
 
@@ -26,7 +26,7 @@ export const portfolioAreas: PortfolioArea[] = [
     title: "Estudios y factibilidades en proyectos de infraestructura",
     summary:
       "La información que ayuda a valorar una oportunidad antes de comprometer recursos.",
-    image: "/images/urban-map.webp",
+    // image: "/images/urban-map.webp", // STOCK: reemplazar cuando el cliente mande fotos reales
     services: [
       "analisis-costo-beneficio",
       "evaluacion-integral",
@@ -39,7 +39,7 @@ export const portfolioAreas: PortfolioArea[] = [
     title: "Planificación y gestión",
     summary:
       "Lectura de mercado, territorio y normativa para orientar la toma de decisiones.",
-    image: "/images/estudios.webp",
+    // image: "/images/estudios.webp", // STOCK: reemplazar cuando el cliente mande fotos reales
     services: [
       "derecho-administrativo-y-urbano",
       "estudios-de-mercado-inmobiliario",
@@ -53,10 +53,17 @@ export const portfolioAreas: PortfolioArea[] = [
     title: "Proyecto y obra de urbanización",
     summary:
       "Planeación de intervenciones que deben responder al territorio y a su infraestructura.",
-    image: "/images/admin.webp",
+    // image: "/images/admin.webp", // STOCK: reemplazar cuando el cliente mande fotos reales
     services: ["proyecto-y-obra-de-urbanizacion"],
   },
 ];
 
 // Proyecto destacado del portafolio: slug de un proyecto en projects.ts (o null).
 export const featuredProjectSlug: string | null = "living-segovia";
+
+// Un área se muestra en el portafolio solo si tiene proyectos reales (projects.ts).
+// En cuanto se agregue un proyecto a uno de sus servicios, aparece sola.
+import { projectsFor } from "./projects";
+export const servicesWithProjects = (area: PortfolioArea) =>
+  area.services.filter((slug) => projectsFor(slug).length > 0);
+export const hasProjects = (area: PortfolioArea) => servicesWithProjects(area).length > 0;

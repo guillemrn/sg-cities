@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Icon from '../components/Icon.astro';
-import { portfolioAreas } from '../data/portfolio';
+import { portfolioAreas, hasProjects } from '../data/portfolio';
 import { services } from '../data/services';
 import { site, whatsappUrl, stats, audiences, clients } from '../data/site';
 
@@ -40,7 +40,7 @@ const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?
             <a class="button button--secondary" href="#contacto">Hablar sobre un proyecto</a>
           </div>
           <ol class="hero__index" aria-label="Áreas de trabajo">
-            {portfolioAreas.map((area) => <li><a href={`/portafolio#${area.id}`}><span>{area.num}</span>{area.title}</a></li>)}
+            {portfolioAreas.map((area) => <li><a href={hasProjects(area) ? `/portafolio#${area.id}` : `/?area=${area.id}#contacto`}><span>{area.num}</span>{area.title}</a></li>)}
           </ol>
         </div>
         <figure class="hero__media">
@@ -91,20 +91,20 @@ const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?
           <div>
             <p class="marker"><span class="marker__num">02</span> Áreas de trabajo</p>
             <h2 class="section-title">Cuatro áreas para ordenar el proyecto.</h2>
-            <p class="section-lead">Cada área tiene su propia sección en el portafolio, con proyectos, fotos y resultados.</p>
+            <p class="section-lead">Conoce en el portafolio algunos de los proyectos que hemos realizado.</p>
           </div>
           <a class="button button--primary" href="/portafolio">Ver portafolio completo <Icon name="arrow" /></a>
         </div>
         <ol class="area-list">
           {portfolioAreas.map((area) => (
-            <li class="area-row">
+            <li class={area.image ? "area-row" : "area-row area-row--text"}>
               <span class="area-row__num" aria-hidden="true">{area.num}</span>
               <div class="area-row__body">
-                <h3><a href={`/portafolio#${area.id}`}>{area.title}</a></h3>
+                <h3>{hasProjects(area) ? <a href={`/portafolio#${area.id}`}>{area.title}</a> : area.title}</h3>
                 <p>{area.summary}</p>
                 {area.services.length > 1 && <ul class="tags">{area.services.map((slug) => <li>{titleOf(slug)}</li>)}</ul>}
               </div>
-              <img class="area-row__img" src={area.image} alt="" loading="lazy" />
+              {area.image && <img class="area-row__img" src={area.image} alt="" loading="lazy" />}
             </li>
           ))}
         </ol>

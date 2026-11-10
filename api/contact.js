@@ -3,7 +3,6 @@ const MAX_BODY_BYTES = 16 * 1024;
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 5;
 const MIN_FORM_AGE_MS = 3000;
-const MAX_FORM_AGE_MS = 30 * 60 * 1000;
 const MAKE_TIMEOUT_MS = 8000;
 
 // Best-effort limiter for serverless instances. A durable limiter should be
@@ -15,6 +14,10 @@ const isEmail = (value) =>
 
 const text = (value, maxLength) =>
   typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+
+// Evita inyección de fórmulas en Google Sheets / CSV: un texto que empieza con
+// = + - @ (o tab/retorno) se guarda como texto anteponiendo un apóstrofo.
+const sheetSafe = (value) => (/^[=+\-@\t\r]/.test(value) ? `'${value}` : value);
 
 const getClientIp = (request) => {
   const forwarded = request.headers["x-forwarded-for"];
@@ -64,16 +67,16 @@ export default async function handler(request, response) {
   // Keep the honeypot response indistinguishable from a successful request.
   if (text(website, 200)) return response.status(200).json({ ok: true });
 
-  const submittedAt = Number(t);
-  const formAge = Date.now() - submittedAt;
-  if (
-    !Number.isSafeInteger(submittedAt) ||
-    formAge < MIN_FORM_AGE_MS ||
-    formAge > MAX_FORM_AGE_MS
-  ) {
+  // Solo se descartan envíos demasiado rápidos (bots). Un formulario abierto
+  // por mucho tiempo es una persona real y nunca se rechaza.
+  const openedAt = Number(t);
+  if (!Number.isSafeInteger(openedAt)) {
     return response
       .status(400)
       .json({ error: "No fue posible validar la solicitud" });
+  }
+  if (Date.now() - openedAt < MIN_FORM_AGE_MS) {
+    return response.status(200).json({ ok: true });
   }
 
   if (isRateLimited(getClientIp(request))) {
@@ -97,18 +100,23 @@ export default async function handler(request, response) {
   }
 
   try {
+    const headers = { "content-type": "application/json" };
+    // Secreto compartido: Make solo acepta leads que traen este header.
+    if (process.env.MAKE_WEBHOOK_SECRET)
+      headers["x-sgc-secret"] = process.env.MAKE_WEBHOOK_SECRET;
+
     const makeResponse = await fetch(process.env.MAKE_WEBHOOK_URL, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers,
       signal: AbortSignal.timeout(MAKE_TIMEOUT_MS),
       body: JSON.stringify({
-        nombre,
-        email,
-        area,
-        mensaje,
-        origen,
+        nombre: sheetSafe(nombre),
+        email: sheetSafe(email),
+        area: sheetSafe(area),
+        mensaje: sheetSafe(mensaje),
+        origen: sheetSafe(origen),
         source: "sgcities.com",
-        submittedAt: new Date(submittedAt).toISOString(),
+        submittedAt: new Date().toISOString(),
       }),
     });
     if (!makeResponse.ok) throw new Error("Make webhook failed");
