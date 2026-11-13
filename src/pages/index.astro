@@ -15,12 +15,13 @@ const schema = {
   name: 'SG Cities',
   url: 'https://sgcities.com/',
   logo: 'https://sgcities.com/images/sg-cities-logo.svg',
-  image: 'https://sgcities.com/images/social-image.png',
+  image: 'https://sgcities.com/images/og-sgcities.jpg',
+  slogan: 'El valor de trascender la ciudad',
   description: 'Planeación urbana, estudios y factibilidades de infraestructura, planificación y gestión, edificación y urbanización en Guadalajara, Jalisco.',
   address: { '@type': 'PostalAddress', addressLocality: 'Guadalajara', addressRegion: 'Jalisco', addressCountry: 'MX' },
   areaServed: { '@type': 'State', name: 'Jalisco' },
   ...(site.email ? { email: site.email } : {}),
-  sameAs: [site.facebook, site.linkedin].filter(Boolean),
+  sameAs: [site.facebook, site.linkedin, site.instagram].filter(Boolean),
   knowsAbout: services.map((s) => s.title),
 };
 const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?? slug;

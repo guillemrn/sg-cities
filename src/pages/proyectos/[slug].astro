@@ -37,7 +37,7 @@ const crumbs = {
 };
 const others = projects.filter((x) => x.service === project.service && x.slug !== project.slug);
 ---
-<Layout title={`${project.name} | Proyecto de SG Cities`} description={`${project.summary} ${project.location}, ${project.period.toLowerCase()}.`} image={project.cover.replace(/[^/]+\.webp$/, 'og.jpg')} type="article" jsonLd={[schema, crumbs]}>
+<Layout title={`${project.name} | Proyecto de SG Cities`} description={`${project.summary} ${project.location}, ${project.period.toLowerCase()}.`} image={project.cover.replace(/[^/]+\.webp$/, 'og.jpg')} imageAlt={`${project.name}, proyecto de SG Cities`} type="article" jsonLd={[schema, crumbs]}>
   <Header current="portfolio" />
   <main>
     <section class="page-intro">

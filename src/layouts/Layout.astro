@@ -4,12 +4,13 @@ import '../styles.css';
 interface Props {
   title: string;
   description: string;
-  image?: string; // ruta absoluta del sitio, p. ej. /images/social-image.png
+  image?: string; // ruta del sitio a una imagen de 1200×630 para redes sociales
+  imageAlt?: string;
   type?: 'website' | 'article';
   noindex?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
-const { title, description, image = '/images/social-image.png', type = 'website', noindex = false, jsonLd } = Astro.props;
+const { title, description, image = '/images/og-sgcities.jpg', imageAlt = 'SG Cities: El valor de trascender la ciudad', type = 'website', noindex = false, jsonLd } = Astro.props;
 const site = Astro.site ?? new URL('https://sgcities.com');
 const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 const canonical = new URL(path, site).href;
@@ -39,12 +40,18 @@ const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:image:alt" content={imageAlt} />
 
-    <link rel="icon" href="/images/isotipo sg-cities.png" type="image/png" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" href="/sitemap.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
