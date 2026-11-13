@@ -26,6 +26,11 @@ const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#173f47" />
+    <script is:inline>
+      // Activa las animaciones solo si el usuario no pidió reducir movimiento
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window)
+        document.documentElement.classList.add("js-motion");
+    </script>
 
     <meta property="og:site_name" content="SG Cities" />
     <meta property="og:locale" content="es_MX" />

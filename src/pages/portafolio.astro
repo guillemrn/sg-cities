@@ -96,7 +96,7 @@ const schema = {
                         {related.map((x) => (
                           <li>
                             <a class="project-card" href={`/proyectos/${x.slug}`}>
-                              <img src={x.cover} alt="" loading="lazy" />
+                              <span class="project-card__media"><img src={x.cover} alt="" loading="lazy" style={`view-transition-name: proyecto-${x.slug}`} /></span>
                               <span class="project-card__body">
                                 <span class="project-card__meta">{x.period}</span>
                                 <span class="project-card__name">{x.name}</span>

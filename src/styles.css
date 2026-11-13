@@ -81,7 +81,7 @@ h1, h2, h3 { font-family: var(--font-head); color: inherit; letter-spacing: -0.0
 .tags li, .chips li { font-family: var(--font-mono); font-size: 12px; padding: 5px 10px; border: 1px solid var(--rule-strong); border-radius: 2px; color: var(--text-2); background: transparent; }
 
 /* Header */
-.site-header { background: rgba(255, 255, 255, .92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 100; }
+.site-header { background: rgba(255, 255, 255, .92); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 100; }
 .site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; }
 .site-header__logo img { height: 38px; width: auto; }
 .site-nav ul { display: flex; align-items: center; gap: 28px; }
@@ -415,3 +415,117 @@ h1, h2, h3 { font-family: var(--font-head); color: inherit; letter-spacing: -0.0
 .area-row--text { grid-template-columns: 96px minmax(0, 1fr); }
 @media (max-width: 1000px) { .area-row--text { grid-template-columns: 56px minmax(0, 1fr); } }
 @media (max-width: 640px) { .area-row--text { grid-template-columns: minmax(0, 1fr); } }
+
+/* =========================================================
+   Microinteracciones (complementan el diseño, no lo cambian)
+   Todo lo que se mueve depende de .js-motion, que solo se activa
+   si el usuario no pidió "reducir movimiento".
+   ========================================================= */
+
+/* 1. Transiciones entre páginas: la foto de la tarjeta se convierte en la portada */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .25s; }
+  ::view-transition-group(*) { animation-duration: .45s; animation-timing-function: cubic-bezier(.2, .7, .2, 1); }
+}
+
+/* 2. Líneas que se trazan y contenido que entra al aparecer */
+.js-motion .marker::after { transform: scaleX(0); transform-origin: left; transition: transform .8s cubic-bezier(.2, .7, .2, 1) .15s; }
+.js-motion .marker.is-in::after { transform: scaleX(1); }
+.js-motion .area-list, .js-motion .portfolio-area__items { border-top-color: transparent; position: relative; }
+.js-motion .area-list::before, .js-motion .portfolio-area__items::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(.2, .7, .2, 1); }
+.js-motion .area-list.is-in::before, .js-motion .portfolio-area__items.is-in::before { transform: scaleX(1); }
+.js-motion .area-row { border-bottom-color: transparent; position: relative; }
+.js-motion .area-row::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--rule-strong); transform: scaleX(0); transform-origin: left; transition: transform .9s cubic-bezier(.2, .7, .2, 1) .1s; }
+.js-motion .area-row.is-in::after { transform: scaleX(1); }
+.js-motion [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s cubic-bezier(.2, .7, .2, 1); }
+.js-motion [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* 3. Cifras que cuentan: ancho fijo por dígito para que no "bailen" */
+.stats__value, .featured__value, .project__value { font-variant-numeric: tabular-nums; }
+
+/* 4. Marcas de registro en las tarjetas de proyecto */
+.project-card__media { display: block; position: relative; overflow: hidden; border-radius: var(--radius-media); }
+.project-card__media img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; filter: saturate(.9); transition: transform .5s cubic-bezier(.2, .7, .2, 1), filter .3s; }
+.project-card:hover .project-card__media img, .project-card:focus-visible .project-card__media img { filter: none; transform: scale(1.03); }
+.project-card__media::before, .project-card__media::after { content: ""; position: absolute; z-index: 1; width: 16px; height: 16px; border: 0 solid #fff; opacity: 0; pointer-events: none; filter: drop-shadow(0 0 2px rgba(0, 0, 0, .4)); transition: opacity .2s, transform .35s cubic-bezier(.2, .7, .2, 1); }
+.project-card__media::before { top: 12px; left: 12px; border-width: 2px 0 0 2px; transform: translate(10px, 10px); }
+.project-card__media::after { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; transform: translate(-10px, -10px); }
+.project-card:hover .project-card__media::before, .project-card:hover .project-card__media::after,
+.project-card:focus-visible .project-card__media::before, .project-card:focus-visible .project-card__media::after { opacity: 1; transform: none; }
+
+/* 5. Header que se compacta + regla de progreso en proyectos */
+.site-header__inner { transition: min-height .25s ease; }
+.site-header__logo img { transition: height .25s ease; }
+.site-header { transition: box-shadow .25s ease; }
+.site-header.is-compact .site-header__inner { min-height: 58px; }
+.site-header.is-compact .site-header__logo img { height: 30px; }
+.site-header.is-compact { box-shadow: 0 6px 20px rgba(20, 32, 35, .06); }
+.area-nav { transition: top .25s ease; }
+html.header-compact .area-nav { top: 58px; }
+.read-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; pointer-events: none; background: var(--primary); background-image: repeating-linear-gradient(90deg, transparent 0 39px, rgba(255, 255, 255, .55) 39px 40px); transform: scaleX(var(--progress, 0)); transform-origin: left; }
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card__media::before, .project-card__media::after { transform: none; }
+}
+
+/* =========================================================
+   Menú móvil: "plano nocturno"
+   Panel teal oscuro con retícula, enlaces numerados grandes y
+   contacto directo abajo. En escritorio el menú no cambia.
+   ========================================================= */
+.site-nav__marker, .site-nav__num, .site-nav__arrow, .site-nav__foot { display: none; }
+/* El desenfoque del header va solo en escritorio: en móvil convertiría al header
+   en contenedor del menú fijo y lo recortaría. */
+@media (min-width: 901px) { .site-header { backdrop-filter: blur(8px); } }
+
+@media (max-width: 900px) {
+  .site-header { background: #fff; }
+  .site-nav {
+    position: fixed; inset: var(--nav-top, 73px) 0 0 0; z-index: 99;
+    display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start;
+    padding: 28px 24px calc(24px + env(safe-area-inset-bottom));
+    overflow-y: auto; overscroll-behavior: contain;
+    background-color: var(--dark);
+    background-image: linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    color: #fff; opacity: 1; visibility: hidden; transform: none;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path .45s cubic-bezier(.7, 0, .2, 1), visibility 0s linear .45s;
+  }
+  .site-nav.is-active { visibility: visible; clip-path: inset(0); transition: clip-path .45s cubic-bezier(.7, 0, .2, 1), visibility 0s; }
+  .site-nav__marker { display: flex; margin: 0 0 8px; }
+  .site-nav ul { flex-direction: column; align-items: stretch; gap: 0; }
+  .site-nav li { position: relative; }
+  .site-nav li:not(.site-nav__pill)::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgba(255, 255, 255, .16); transform: scaleX(0); transform-origin: left; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+  .site-nav ul a:not(.pill-button) { display: flex; align-items: baseline; gap: 16px; padding: 18px 0; min-height: 64px; font-family: var(--font-head); font-size: clamp(28px, 8vw, 38px); font-weight: 500; letter-spacing: -0.02em; color: #fff; opacity: 0; transform: translateY(16px); transition: opacity .4s ease, transform .5s cubic-bezier(.2, .7, .2, 1), color .2s; }
+  .site-nav ul a:not(.pill-button)::after { display: none; }
+  .site-nav ul a:hover, .site-nav ul a:focus-visible, .site-nav ul a[aria-current="page"] { color: var(--on-dark-accent); }
+  .site-nav__num { display: inline; font-family: var(--font-mono); font-size: 13px; font-weight: 400; letter-spacing: 0; color: var(--on-dark-accent); min-width: 24px; }
+  .site-nav__label { flex: 1; }
+  .site-nav__arrow { display: inline-flex; align-self: center; color: var(--on-dark-accent); opacity: 0; transform: translateX(-8px); transition: opacity .2s, transform .25s; }
+  .site-nav ul a:hover .site-nav__arrow, .site-nav ul a:focus-visible .site-nav__arrow, .site-nav ul a[aria-current="page"] .site-nav__arrow { opacity: 1; transform: none; }
+  .site-nav__pill { display: none; }
+  .site-nav__foot { display: flex; flex-direction: column; align-items: stretch; gap: 14px; margin-top: auto; padding-top: 32px; opacity: 0; transition: opacity .4s ease; }
+  .site-nav__foot .button { width: 100%; }
+  .site-nav__mail { color: #fff; font-size: 15px; text-align: center; }
+  .site-nav__place { font-family: var(--font-mono); font-size: 12px; color: var(--on-dark); text-align: center; }
+  .site-nav__place span { color: rgba(255, 255, 255, .35); }
+
+  /* Al abrir: los enlaces entran escalonados y sus líneas se trazan */
+  .site-nav.is-active ul a:not(.pill-button) { opacity: 1; transform: none; }
+  .site-nav.is-active li:not(.site-nav__pill)::after { transform: scaleX(1); }
+  .site-nav.is-active li:nth-child(1) a, .site-nav.is-active li:nth-child(1)::after { transition-delay: .12s; }
+  .site-nav.is-active li:nth-child(2) a, .site-nav.is-active li:nth-child(2)::after { transition-delay: .18s; }
+  .site-nav.is-active li:nth-child(3) a, .site-nav.is-active li:nth-child(3)::after { transition-delay: .24s; }
+  .site-nav.is-active li:nth-child(4) a, .site-nav.is-active li:nth-child(4)::after { transition-delay: .30s; }
+  .site-nav.is-active .site-nav__foot { opacity: 1; transition-delay: .36s; }
+  html.menu-open { overflow: hidden; }
+  html.menu-open .site-header { box-shadow: none; }
+}
+@media (max-width: 900px) and (prefers-reduced-motion: reduce) {
+  .site-nav, .site-nav.is-active { clip-path: none; transition: none; }
+  .site-nav ul a:not(.pill-button), .site-nav__foot { opacity: 1; transform: none; }
+  .site-nav li:not(.site-nav__pill)::after { transform: none; }
+}
+@media (max-width: 900px) { .site-nav__foot .button { font-size: 16px; } .site-nav:focus { outline: none; } }

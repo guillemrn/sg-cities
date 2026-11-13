@@ -3,20 +3,31 @@ document.addEventListener("DOMContentLoaded", function () {
   const hamburger = document.querySelector(".hamburger");
   const nav = document.querySelector(".site-nav");
   if (hamburger && nav) {
-    const close = () => {
-      hamburger.classList.remove("is-active");
-      nav.classList.remove("is-active");
-      hamburger.setAttribute("aria-expanded", "false");
+    const header = document.querySelector(".site-header");
+    const outside = () => document.querySelectorAll("main, footer");
+    const setOpen = (open, { returnFocus = true } = {}) => {
+      if (open) nav.style.setProperty("--nav-top", `${Math.round(header.getBoundingClientRect().bottom)}px`);
+      hamburger.classList.toggle("is-active", open);
+      nav.classList.toggle("is-active", open);
+      document.documentElement.classList.toggle("menu-open", open);
+      hamburger.setAttribute("aria-expanded", String(open));
+      hamburger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+      // Mientras el menú está abierto, el resto de la página no es navegable
+      outside().forEach((el) => (open ? el.setAttribute("inert", "") : el.removeAttribute("inert")));
+      if (open) {
+        // El foco va al panel (sin marco visible); con Tab se recorren los enlaces
+        nav.setAttribute("tabindex", "-1");
+        setTimeout(() => nav.focus({ preventScroll: true }), 150);
+      }
+      else if (returnFocus) hamburger.focus({ preventScroll: true });
     };
-    hamburger.addEventListener("click", () => {
-      const isOpen = hamburger.classList.toggle("is-active");
-      nav.classList.toggle("is-active", isOpen);
-      hamburger.setAttribute("aria-expanded", String(isOpen));
-    });
-    nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", close));
+    hamburger.addEventListener("click", () => setOpen(!nav.classList.contains("is-active")));
+    nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false, { returnFocus: false })));
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && nav.classList.contains("is-active")) close();
+      if (e.key === "Escape" && nav.classList.contains("is-active")) setOpen(false);
     });
+    // Si se gira la pantalla o se agranda a escritorio, se cierra
+    matchMedia("(min-width: 901px)").addEventListener("change", (e) => e.matches && setOpen(false, { returnFocus: false }));
   }
 
   // Formularios → /api/contact → Make
@@ -211,4 +222,100 @@ document.addEventListener("DOMContentLoaded", function () {
     if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
     startX = null;
   });
+})();
+
+// Microinteracciones: líneas que se trazan, contenido que entra, cifras que cuentan,
+// header compacto y regla de progreso. Todo es opcional: si falla, el sitio se ve igual.
+(function () {
+  const root = document.documentElement;
+  const motion = root.classList.contains("js-motion");
+
+  // Header compacto al hacer scroll
+  const header = document.querySelector(".site-header");
+  // Regla de progreso solo en páginas de proyecto
+  let bar = null;
+  if (header && document.querySelector(".case")) {
+    bar = document.createElement("span");
+    bar.className = "read-progress";
+    bar.setAttribute("aria-hidden", "true");
+    header.appendChild(bar);
+  }
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      const compact = y > 24;
+      header?.classList.toggle("is-compact", compact);
+      root.classList.toggle("header-compact", compact);
+      if (bar) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.setProperty("--progress", max > 0 ? Math.min(1, y / max).toFixed(4) : "0");
+      }
+      ticking = false;
+    });
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  if (!motion) return;
+
+  // Cifras que cuentan: "1,190 m²" → anima el número y respeta prefijo/sufijo
+  const countUp = (el) => {
+    const original = el.textContent;
+    const m = original.match(/^(\D*)([\d.,]+)(.*)$/);
+    if (!m) return;
+    const target = parseFloat(m[2].replace(/,/g, ""));
+    if (!isFinite(target) || target === 0) return;
+    const decimals = (m[2].split(".")[1] || "").length;
+    const fmt = new Intl.NumberFormat("es-MX", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    const duration = 1100;
+    const start = performance.now();
+    const step = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = m[1] + fmt.format(target * eased) + m[3];
+      if (t < 1) requestAnimationFrame(step);
+      else el.textContent = original;
+    };
+    requestAnimationFrame(step);
+  };
+
+  // Elementos que entran con un leve desplazamiento, escalonados dentro de su grupo
+  const revealGroups = [".area-row", ".project-card", ".audiences__grid li", ".stats li", ".case__gallery li", ".featured"];
+  revealGroups.forEach((sel) => {
+    document.querySelectorAll(sel).forEach((el) => {
+      el.setAttribute("data-reveal", "");
+      const i = Array.prototype.indexOf.call(el.parentElement.children, el);
+      el.style.transitionDelay = `${Math.min(i, 5) * 70}ms`;
+    });
+  });
+
+  const counters = document.querySelectorAll(".stats__value, .featured__value, .project__value");
+  const watched = document.querySelectorAll(".marker, .area-list, .portfolio-area__items, .area-row, [data-reveal]");
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-in");
+        io.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.1 },
+  );
+  watched.forEach((el) => io.observe(el));
+
+  const counterIO = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        countUp(entry.target);
+        counterIO.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.6 },
+  );
+  counters.forEach((el) => counterIO.observe(el));
 })();

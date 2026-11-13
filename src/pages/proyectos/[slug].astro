@@ -55,7 +55,7 @@ const others = projects.filter((x) => x.service === project.service && x.slug !=
 
     <section class="case">
       <div class="container">
-        <img class="case__cover" src={project.cover} alt={`${project.name}`} />
+        <img class="case__cover" src={project.cover} alt={`${project.name}`} style={`view-transition-name: proyecto-${project.slug}`} />
         {project.stats.length > 0 && <ul class="stats case__stats">{project.stats.map((st) => <li><p class="stats__value">{st.value}</p><p class="stats__label">{st.label}</p></li>)}</ul>}
         <div class="case__body">
           <div class="case__text">
@@ -81,7 +81,7 @@ const others = projects.filter((x) => x.service === project.service && x.slug !=
             <p class="project__label">Otros proyectos de {service?.title.toLowerCase()}</p>
             <ul class="project-cards__grid">
               {others.map((x) => (
-                <li><a class="project-card" href={`/proyectos/${x.slug}`}><img src={x.cover} alt="" loading="lazy" /><span class="project-card__body"><span class="project-card__meta">{x.period}</span><span class="project-card__name">{x.name}</span><span class="project-card__cta">Ver proyecto <Icon name="arrow" size={16} /></span></span></a></li>
+                <li><a class="project-card" href={`/proyectos/${x.slug}`}><span class="project-card__media"><img src={x.cover} alt="" loading="lazy" style={`view-transition-name: proyecto-${x.slug}`} /></span><span class="project-card__body"><span class="project-card__meta">{x.period}</span><span class="project-card__name">{x.name}</span><span class="project-card__cta">Ver proyecto <Icon name="arrow" size={16} /></span></span></a></li>
               ))}
             </ul>
           </div>
