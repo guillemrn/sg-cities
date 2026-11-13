@@ -13,6 +13,8 @@ const visibleAreas = portfolioAreas.filter(hasProjects);
 const bySlug = (slug: string) => services.find((s) => s.slug === slug)!;
 const featured = projects.find((x) => x.slug === featuredProjectSlug);
 const featuredService = featured ? bySlug(featured.service) : undefined;
+// Fotos de la franja de intro: una portada de cada proyecto real (máx. 3)
+const stripShots = projects.slice(0, 3).map((x) => x.cover);
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
@@ -22,15 +24,28 @@ const schema = {
 };
 ---
 <Layout title="Portafolio de proyectos | SG Cities" description="Proyectos de SG Cities en Guadalajara: edificación, estudios y factibilidades de infraestructura, planificación y gestión, y urbanización." jsonLd={schema}>
-  <Header current="portfolio" />
+  <Header current="portfolio" overlay />
   <main>
-    <section class="page-intro">
-      <div class="container">
-        <a class="text-link" href="/"><Icon name="arrow-left" size={16} /> Volver al inicio</a>
-        <h1>Portafolio de proyectos</h1>
-        <p class="section-lead">Proyectos reales de SG Cities, con fotos de obra, datos y el proceso de cada uno.</p>
+    <!-- Intro: franja fotográfica corta, misma regla que el hero -->
+    <section class="page-band" aria-labelledby="portafolio-titulo">
+      <div class="page-band__media" aria-hidden="true">
+        {stripShots.map((src, i) => <img class={`page-band__shot page-band__shot--${i + 1}`} src={src} alt="" fetchpriority={i === 1 ? 'high' : undefined} />)}
+        <span class="page-band__veil"></span>
+        <span class="page-band__grid"></span>
       </div>
-      {featured && (
+      <div class="container case-hero__back-wrap">
+        <a class="case-hero__back" href="/"><Icon name="arrow-left" size={16} /> Inicio</a>
+      </div>
+      <div class="container page-band__inner">
+        <div class="page-band__text">
+          <p class="feature-band__kicker">Portafolio <span>·</span> {projects.length} {projects.length === 1 ? 'proyecto' : 'proyectos'}</p>
+          <h1 id="portafolio-titulo">Proyectos reales, de la obra al resultado</h1>
+        </div>
+      </div>
+    </section>
+
+    {featured && (
+      <section class="portfolio-featured">
         <div class="container">
           <article class="featured">
             <img class="featured__img" src={featured.cover} alt={featured.name} />
@@ -44,8 +59,8 @@ const schema = {
             </div>
           </article>
         </div>
-      )}
-    </section>
+      </section>
+    )}
 
     {visibleAreas.length > 1 && (
     <nav class="area-nav" aria-label="Áreas del portafolio">
