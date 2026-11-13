@@ -29,7 +29,7 @@ const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?
   <Header current="about" />
   <main>
     <!-- 1. Portada -->
-    <section class="hero" id="inicio">
+    <section class="hero" id="inicio" data-cad={site.cadCursor ? "" : undefined}>
       <div class="container hero__inner">
         <div class="hero__text">
           <p class="marker">SG Cities <span class="marker__sep">/</span> Guadalajara, Jalisco</p>

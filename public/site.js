@@ -391,3 +391,54 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   h1.classList.add("is-split");
 })();
+
+// Experimental: cursor tipo CAD en el hero (solo escritorio con mouse).
+// Líneas finas que siguen el puntero, se "imantan" a la retícula y muestran coordenadas.
+(function () {
+  const hero = document.querySelector(".hero[data-cad]");
+  if (!hero || !matchMedia("(hover: hover) and (pointer: fine) and (min-width: 1001px)").matches) return;
+
+  const cad = document.createElement("div");
+  cad.className = "cad";
+  cad.setAttribute("aria-hidden", "true");
+  cad.innerHTML = '<span class="cad__h"></span><span class="cad__v"></span><span class="cad__point"></span><span class="cad__label"></span>';
+  hero.appendChild(cad);
+  hero.classList.add("has-cad");
+  const h = cad.querySelector(".cad__h"), v = cad.querySelector(".cad__v");
+  const point = cad.querySelector(".cad__point"), label = cad.querySelector(".cad__label");
+
+  const GRID = 80, SNAP = 10;
+  // Centro de referencia: Guadalajara
+  const LAT = 20.6597, LNG = -103.3496;
+  let raf = null, pos = null;
+
+  const render = () => {
+    raf = null;
+    if (!pos) return;
+    const r = hero.getBoundingClientRect();
+    let x = pos.x - r.left, y = pos.y - r.top;
+    // Imán a la retícula, como en un programa de CAD
+    const gx = Math.round((x + 1) / GRID) * GRID - 1, gy = Math.round((y + 1) / GRID) * GRID - 1;
+    const snapX = Math.abs(x - gx) < SNAP, snapY = Math.abs(y - gy) < SNAP;
+    if (snapX) x = gx;
+    if (snapY) y = gy;
+    h.style.transform = `translateY(${y}px)`;
+    v.style.transform = `translateX(${x}px)`;
+    point.style.transform = `translate(${x}px, ${y}px)`;
+    cad.classList.toggle("is-snapped", snapX && snapY);
+    const lat = LAT + (0.5 - y / r.height) * 0.012;
+    const lng = LNG + (x / r.width - 0.5) * 0.018;
+    label.textContent = `${lat.toFixed(4)}° N  ${Math.abs(lng).toFixed(4)}° O`;
+    // La etiqueta se voltea cerca de los bordes para no salirse
+    const flipX = x > r.width - 240, flipY = y < 48;
+    label.style.transform = `translate(${x + (flipX ? -14 : 14)}px, ${y + (flipY ? 14 : -30)}px) translateX(${flipX ? "-100%" : "0"})`;
+  };
+
+  hero.addEventListener("pointermove", (e) => {
+    pos = { x: e.clientX, y: e.clientY };
+    cad.classList.add("is-on");
+    if (!raf) raf = requestAnimationFrame(render);
+  });
+  hero.addEventListener("pointerleave", () => cad.classList.remove("is-on"));
+  window.addEventListener("scroll", () => { if (pos && !raf) raf = requestAnimationFrame(render); }, { passive: true });
+})();

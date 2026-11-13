@@ -557,3 +557,17 @@ html.header-compact .area-nav { top: 58px; }
 /* Respaldo: si el JS no corre, el título aparece igual */
 .js-motion .hero h1:not(.is-split) { animation: hero-fallback 0s 1.2s forwards; }
 @keyframes hero-fallback { to { opacity: 1; } }
+
+/* 9. Experimental: cursor CAD en el hero (se apaga con site.cadCursor = false) */
+.hero.has-cad { cursor: crosshair; }
+.hero.has-cad a, .hero.has-cad button { cursor: pointer; }
+/* Sin z-index ni opacidad en .cad: así las líneas quedan detrás del contenido
+   (z 0) y la etiqueta de coordenadas por encima (z 2). */
+.cad { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.cad__h, .cad__v, .cad__point, .cad__label { position: absolute; top: 0; left: 0; z-index: 0; opacity: 0; transition: opacity .25s ease; will-change: transform; }
+.cad.is-on > * { opacity: 1; }
+.cad__h { width: 100%; height: 1px; background: rgba(46, 125, 136, .35); }
+.cad__v { width: 1px; height: 100%; background: rgba(46, 125, 136, .35); }
+.cad__point { width: 9px; height: 9px; margin: -4px 0 0 -4px; border: 1px solid var(--primary); background: var(--paper); transition: width .15s, height .15s, margin .15s, background-color .15s; }
+.cad.is-snapped .cad__point { width: 13px; height: 13px; margin: -6px 0 0 -6px; background: var(--primary); }
+.cad__label { z-index: 2; white-space: nowrap; padding: 3px 6px; font-family: var(--font-mono); font-size: 11px; color: var(--primary); background: rgba(243, 246, 245, .9); border: 1px solid var(--rule); border-radius: 2px; }

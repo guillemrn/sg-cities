@@ -2,6 +2,8 @@
 // que dependen de un dato vacío no se muestran en la página.
 
 export const site = {
+  // Experimental: cursor tipo CAD en el hero (solo escritorio). false para apagarlo.
+  cadCursor: true,
   // Número en formato internacional sin "+" ni espacios, p. ej. "5213312345678"
   whatsapp: "5213300000000", // TODO: reemplazar por el número real
   facebook: "https://www.facebook.com/SGcities/",
