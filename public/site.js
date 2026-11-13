@@ -379,7 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
 (function () {
   const h1 = document.querySelector(".hero h1");
   if (!h1 || !document.documentElement.classList.contains("js-motion")) return;
-  const words = h1.textContent.trim().split(/\s+/);
+  const words = h1.textContent.trim().split(/[ \t\n]+/); // respeta los espacios no separables (&nbsp;)
   h1.setAttribute("aria-label", h1.textContent.trim());
   h1.innerHTML = words.map((w) => `<span class="hero__word" aria-hidden="true"><span>${w}</span></span>`).join(" ");
   // Agrupa las palabras por renglón real (depende del ancho de pantalla)

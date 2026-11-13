@@ -2,8 +2,9 @@
 import Icon from './Icon.astro';
 import { site, whatsappUrl } from '../data/site';
 
-interface Props { current?: string; }
-const { current = '' } = Astro.props;
+interface Props { current?: string; overlay?: boolean; }
+// overlay: header transparente sobre la portada (solo Home); se vuelve sólido al hacer scroll
+const { current = '', overlay = false } = Astro.props;
 const links = [
   { href: '/#nosotros', label: 'Nosotros', id: 'about' },
   { href: '/#areas', label: 'Áreas de trabajo', id: 'areas' },
@@ -11,7 +12,7 @@ const links = [
   { href: '/#contacto', label: 'Contacto', id: 'contact' },
 ];
 ---
-<header class="site-header">
+<header class:list={["site-header", { "site-header--overlay": overlay }]}>
   <div class="container site-header__inner">
     <a class="site-header__logo" href="/"><img src="/images/sg-cities-logo.svg" alt="SG Cities" width="160" height="40" /></a>
     <button class="hamburger hamburger--slider" type="button" aria-label="Abrir menú" aria-controls="navigation" aria-expanded="false"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button>

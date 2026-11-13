@@ -8,6 +8,7 @@ export const site = {
   whatsapp: "5213300000000", // TODO: reemplazar por el número real
   facebook: "https://www.facebook.com/SGcities/",
   linkedin: "https://www.linkedin.com/company/sg-cities", // TODO: reemplazar por la URL real
+  instagram: "", // TODO: el cliente lo pidió en la portada; vacío = no se muestra
   email: "enrique.delacruz@sgcities.com",
   location: "Guadalajara, Jalisco",
   credit: { name: "Guillermo Moreno", url: "https://guillermoml.com" },

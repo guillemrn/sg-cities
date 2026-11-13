@@ -26,28 +26,31 @@ const schema = {
 const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?? slug;
 ---
 <Layout title="SG Cities | Planeación urbana, factibilidades y obra en Guadalajara" description="Acompañamos proyectos urbanos, de infraestructura y de construcción en Jalisco: estudios y factibilidades, planificación y gestión, edificación y urbanización." jsonLd={schema}>
-  <Header current="about" />
+  <Header current="about" overlay />
   <main>
-    <!-- 1. Portada -->
-    <section class="hero" id="inicio" data-cad={site.cadCursor ? "" : undefined}>
+    <!-- 1. Portada: collage de obras reales + frase del cliente -->
+    <section class="hero hero--collage" id="inicio" data-cad={site.cadCursor ? "" : undefined}>
+      <div class="hero__collage" aria-hidden="true">
+        <img class="hero__shot hero__shot--1" src="/portfolio/edificacion/living-segovia/cubo-de-luz-interior.webp" alt="" fetchpriority="high" />
+        <img class="hero__shot hero__shot--2" src="/portfolio/edificacion/silly-billy-house/patio-acceso.webp" alt="" />
+        <img class="hero__shot hero__shot--3" src="/portfolio/edificacion/silly-billy-house/fachada-terminada.webp" alt="" fetchpriority="high" />
+        <span class="hero__veil"></span>
+        <span class="hero__grid"></span>
+      </div>
       <div class="container hero__inner">
         <div class="hero__text">
-          <p class="marker">SG Cities <span class="marker__sep">/</span> Guadalajara, Jalisco</p>
-          <h1>Decisiones urbanas con dirección.</h1>
-          <p class="hero__lead">Acompañamos proyectos urbanos, de infraestructura y de construcción desde el primer análisis hasta la obra terminada.</p>
-          <div class="button-row">
-            <a class="button button--primary" href="/portafolio">Ver nuestros proyectos <Icon name="arrow" /></a>
-            <a class="button button--secondary" href="#contacto">Hablar sobre un proyecto</a>
-          </div>
-          <ol class="hero__index" aria-label="Áreas de trabajo">
-            {portfolioAreas.map((area) => <li><a href={hasProjects(area) ? `/portafolio#${area.id}` : `/?area=${area.id}#contacto`}><span>{area.num}</span>{area.title}</a></li>)}
-          </ol>
+          <h1>El valor de trascender la&nbsp;ciudad</h1>
+          <p class="hero__tagline">Planeación, infraestructura y obra <span>·</span> Guadalajara</p>
+          <a class="button button--light" href="/portafolio">Ver proyectos <Icon name="arrow" /></a>
         </div>
-        <figure class="hero__media">
-          <img src="/portfolio/edificacion/silly-billy-house/render-perspectiva-aerea.webp" alt="Vista aérea de Silly Billy House y su entorno urbano en Guadalajara" width="1600" height="895" fetchpriority="high" />
-          <figcaption><span>Fig. 01</span><p><a href="/proyectos/silly-billy-house">Silly Billy House</a>: del análisis a la ejecución, una ruta clara para cada etapa del proyecto.</p></figcaption>
-        </figure>
       </div>
+      <p class="hero__credit">En la imagen: <a href="/proyectos/living-segovia">Living Segovia</a> · <a href="/proyectos/silly-billy-house">Silly Billy House</a></p>
+      <ul class="hero__social" aria-label="Redes sociales">
+        {whatsappUrl && <li><a href={whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><Icon name="whatsapp" size={20} /></a></li>}
+        {site.facebook && <li><a href={site.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Icon name="facebook" size={20} /></a></li>}
+        {site.linkedin && <li><a href={site.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Icon name="linkedin" size={20} /></a></li>}
+        {site.instagram && <li><a href={site.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Icon name="instagram" size={20} /></a></li>}
+      </ul>
       {stats.length > 0 && (
         <div class="container">
           <ul class="stats">{stats.map((s) => <li><p class="stats__value">{s.value}</p><p class="stats__label">{s.label}</p></li>)}</ul>
