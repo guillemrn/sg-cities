@@ -529,3 +529,31 @@ html.header-compact .area-nav { top: 58px; }
   .site-nav li:not(.site-nav__pill)::after { transform: none; }
 }
 @media (max-width: 900px) { .site-nav__foot .button { font-size: 16px; } .site-nav:focus { outline: none; } }
+
+/* 6. Entrada del hero (solo al cargar) */
+.js-motion .hero::after { content: ""; position: absolute; inset: 0; background: var(--paper); transform-origin: right; animation: hero-grid .9s cubic-bezier(.7, 0, .2, 1) .05s both; pointer-events: none; }
+.hero__inner { z-index: 1; }
+@keyframes hero-grid { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+.js-motion .hero h1 { opacity: 0; }
+.js-motion .hero h1.is-split { opacity: 1; }
+.hero__word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+.hero__word > span { display: inline-block; }
+.js-motion .hero h1.is-split .hero__word > span { animation: hero-line .6s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes hero-line { from { transform: translateY(105%); } to { transform: none; } }
+.js-motion .hero__text > :not(h1), .js-motion .hero__media { animation: hero-fade .6s ease both; }
+.js-motion .hero__text > .marker { animation-delay: 0s; }
+.js-motion .hero__lead { animation-delay: .3s; }
+.js-motion .hero__text > .button-row { animation-delay: .4s; }
+.js-motion .hero__index { animation-delay: .5s; }
+.js-motion .hero__media { animation-delay: .2s; }
+@keyframes hero-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* 8. Aviso de copiado */
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); z-index: 300; transform: translate(-50%, 16px); opacity: 0; pointer-events: none; padding: 10px 16px; border-radius: var(--radius); background: var(--dark); color: #fff; font-family: var(--font-mono); font-size: 13px; box-shadow: 0 10px 30px rgba(20, 32, 35, .2); transition: opacity .2s ease, transform .3s cubic-bezier(.2, .7, .2, 1); }
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+[data-copy] { cursor: copy; }
+.site-footer__mail { color: var(--ink); font-size: 14px; text-decoration-color: var(--rule-strong); text-underline-offset: 3px; align-self: flex-start; }
+@media (prefers-reduced-motion: reduce) { .toast { transition: opacity .2s ease; transform: translate(-50%, 0); } }
+/* Respaldo: si el JS no corre, el título aparece igual */
+.js-motion .hero h1:not(.is-split) { animation: hero-fallback 0s 1.2s forwards; }
+@keyframes hero-fallback { to { opacity: 1; } }

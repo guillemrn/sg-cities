@@ -8,6 +8,7 @@ const year = new Date().getFullYear();
     <div class="site-footer__brand">
       <a href="/"><img src="/images/sg-cities-logo.svg" alt="SG Cities" width="160" height="40" loading="lazy" /></a>
       <p>Planeación, infraestructura y obra para proyectos urbanos.{site.location && <><br />{site.location}</>}</p>
+      {site.email && <a class="site-footer__mail" href={`mailto:${site.email}`} data-copy={site.email}>{site.email}</a>}
     </div>
     <div class="site-footer__col">
       <p class="site-footer__heading">Sitio</p>

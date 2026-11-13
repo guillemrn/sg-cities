@@ -172,12 +172,36 @@ document.addEventListener("DOMContentLoaded", function () {
     if (it) new Image().src = it.src;
   };
 
-  function show(i) {
+  const calm = matchMedia("(prefers-reduced-motion: reduce)");
+  // dir: 1 = siguiente, -1 = anterior, 0 = al abrir
+  function show(i, dir = 0) {
     index = (i + items.length) % items.length;
     const it = items[index];
-    img.classList.add("is-loading");
-    img.onload = () => img.classList.remove("is-loading");
-    img.src = it.src;
+    const swap = () => {
+      img.classList.add("is-loading");
+      img.onload = () => {
+        img.classList.remove("is-loading");
+        if (!calm.matches && img.animate)
+          img.animate(
+            dir
+              ? [{ opacity: 0, transform: `translateX(${dir * 48}px)` }, { opacity: 1, transform: "none" }]
+              : [{ opacity: 0, transform: "scale(.97)" }, { opacity: 1, transform: "none" }],
+            { duration: 320, easing: "cubic-bezier(.2,.7,.2,1)" },
+          );
+      };
+      img.src = it.src;
+    };
+    // La foto actual sale hacia el lado contrario antes de entrar la nueva
+    if (dir && !calm.matches && img.animate && img.getAttribute("src")) {
+      img.getAnimations().forEach((a) => a.cancel());
+      img
+        .animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: `translateX(${dir * -48}px)` }], { duration: 160, easing: "ease-in", fill: "forwards" })
+        .finished.then(() => {
+          img.getAnimations().forEach((a) => a.cancel());
+          swap();
+        })
+        .catch(() => {});
+    } else swap();
     img.alt = it.caption;
     caption.textContent = it.caption;
     count.textContent = `${String(index + 1).padStart(2, "0")} / ${String(items.length).padStart(2, "0")}`;
@@ -201,13 +225,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  dialog.querySelector(".lightbox__prev").addEventListener("click", () => show(index - 1));
-  dialog.querySelector(".lightbox__next").addEventListener("click", () => show(index + 1));
+  dialog.querySelector(".lightbox__prev").addEventListener("click", () => show(index - 1, -1));
+  dialog.querySelector(".lightbox__next").addEventListener("click", () => show(index + 1, 1));
   dialog.querySelector(".lightbox__close").addEventListener("click", () => dialog.close());
-  dialog.addEventListener("close", () => opener && opener.focus());
+  dialog.addEventListener("close", () => {
+    img.removeAttribute("src");
+    opener && opener.focus();
+  });
   dialog.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight") show(index + 1);
-    if (e.key === "ArrowLeft") show(index - 1);
+    if (e.key === "ArrowRight") show(index + 1, 1);
+    if (e.key === "ArrowLeft") show(index - 1, -1);
   });
   // Clic fuera de la foto cierra
   stage.addEventListener("click", (e) => {
@@ -219,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
   stage.addEventListener("touchend", (e) => {
     if (startX === null) return;
     const dx = e.changedTouches[0].clientX - startX;
-    if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
     startX = null;
   });
 })();
@@ -318,4 +345,49 @@ document.addEventListener("DOMContentLoaded", function () {
     { threshold: 0.6 },
   );
   counters.forEach((el) => counterIO.observe(el));
+})();
+
+// Copiar el correo con un clic. Si el portapapeles no está disponible, el enlace abre el correo normal.
+(function () {
+  const links = document.querySelectorAll("[data-copy]");
+  if (!links.length || !navigator.clipboard) return;
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.setAttribute("role", "status");
+  toast.setAttribute("aria-live", "polite");
+  document.body.appendChild(toast);
+  let timer;
+  links.forEach((link) => {
+    link.setAttribute("title", "Clic para copiar");
+    link.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        await navigator.clipboard.writeText(link.dataset.copy);
+        toast.textContent = "Copiado ✓";
+      } catch {
+        window.location.href = link.getAttribute("href");
+        return;
+      }
+      toast.classList.add("is-visible");
+      clearTimeout(timer);
+      timer = setTimeout(() => toast.classList.remove("is-visible"), 1800);
+    });
+  });
+})();
+
+// Entrada del hero: el título aparece línea por línea (solo al cargar, < 1 s)
+(function () {
+  const h1 = document.querySelector(".hero h1");
+  if (!h1 || !document.documentElement.classList.contains("js-motion")) return;
+  const words = h1.textContent.trim().split(/\s+/);
+  h1.setAttribute("aria-label", h1.textContent.trim());
+  h1.innerHTML = words.map((w) => `<span class="hero__word" aria-hidden="true"><span>${w}</span></span>`).join(" ");
+  // Agrupa las palabras por renglón real (depende del ancho de pantalla)
+  let line = -1, lastTop = null;
+  h1.querySelectorAll(".hero__word").forEach((word) => {
+    const top = word.offsetTop;
+    if (top !== lastTop) { line++; lastTop = top; }
+    word.firstChild.style.animationDelay = `${line * 90}ms`;
+  });
+  h1.classList.add("is-split");
 })();

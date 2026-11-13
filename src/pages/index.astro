@@ -120,7 +120,7 @@ const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?
           <p class="contact__lead">Comparte el contexto de tu proyecto y te ayudamos a identificar el punto de partida.</p>
           <div class="contact__alt">
             {whatsappUrl && <a href={whatsappUrl} target="_blank" rel="noopener noreferrer"><span class="contact__icon"><Icon name="whatsapp" size={20} /></span>¿Prefieres WhatsApp? Escríbenos directo</a>}
-            {site.email && <a href={`mailto:${site.email}`}><span class="contact__icon"><Icon name="mail" size={20} /></span>{site.email}</a>}
+            {site.email && <a href={`mailto:${site.email}`} data-copy={site.email}><span class="contact__icon"><Icon name="mail" size={20} /></span>{site.email}</a>}
           </div>
         </div>
         <div class="contact__card"><ContactForm /></div>

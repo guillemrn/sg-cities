@@ -31,7 +31,7 @@ const links = [
       </ul>
       <div class="site-nav__foot">
         {whatsappUrl && <a class="button button--light" href={whatsappUrl} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" /> Escríbenos por WhatsApp</a>}
-        {site.email && <a class="site-nav__mail" href={`mailto:${site.email}`}>{site.email}</a>}
+        {site.email && <a class="site-nav__mail" href={`mailto:${site.email}`} data-copy={site.email}>{site.email}</a>}
         <p class="site-nav__place">SG Cities <span>/</span> {site.location}</p>
       </div>
     </nav>
