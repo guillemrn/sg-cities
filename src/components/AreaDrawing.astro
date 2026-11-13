@@ -1,0 +1,120 @@
+---
+// Dibujos técnicos ilustrativos para las áreas que aún no tienen fotos reales.
+// Línea teal, estilo plano. Las líneas con clase "d" se trazan al aparecer.
+interface Props { name: 'infraestructura' | 'planificacion' | 'urbanizacion'; }
+const { name } = Astro.props;
+const labels = {
+  infraestructura: 'Esquema ilustrativo: corte transversal de una vialidad',
+  planificacion: 'Esquema ilustrativo: plano de zonificación',
+  urbanizacion: 'Esquema ilustrativo: traza de lotes de un fraccionamiento',
+};
+const lots = [0, 1, 2, 3, 4, 5, 6];
+---
+<svg class="area-drawing" viewBox="0 0 400 300" role="img" aria-label={labels[name]} xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id={`hatch-${name}`} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#61b0bc" stroke-width="1" />
+    </pattern>
+    <pattern id={`dots-${name}`} width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="1" fill="#61b0bc" />
+    </pattern>
+  </defs>
+
+  {name === 'infraestructura' && (
+    <g>
+      <text class="t" x="20" y="28">CORTE A–A' · VIALIDAD</text>
+      <!-- cotas -->
+      <path class="d soft" pathLength="1" d="M40 62 H360 M40 56 V68 M100 56 V68 M300 56 V68 M360 56 V68" />
+      <text class="t" x="70" y="52" text-anchor="middle">3.00</text>
+      <text class="t" x="200" y="52" text-anchor="middle">10.00</text>
+      <text class="t" x="330" y="52" text-anchor="middle">3.00</text>
+      <!-- capas del pavimento -->
+      <path class="tint" d="M100 158 Q200 152 300 158 V200 H100 Z" />
+      <rect class="hatch" x="100" y="182" width="200" height="18" fill={`url(#hatch-${name})`} opacity=".5" />
+      <!-- banquetas, guarniciones y rodamiento -->
+      <path class="d" pathLength="1" d="M20 150 H100 V158 Q200 152 300 158 V150 H380" />
+      <path class="d soft" pathLength="1" d="M100 166 Q200 160 300 166 M100 182 H300" />
+      <!-- terreno natural -->
+      <path class="d" pathLength="1" d="M20 200 H380" />
+      <path class="d soft" pathLength="1" d="M30 200 l-8 8 M60 200 l-8 8 M90 200 l-8 8 M320 200 l-8 8 M350 200 l-8 8 M380 200 l-8 8" />
+      <!-- árboles -->
+      <path class="d" pathLength="1" d="M70 150 V122 M330 150 V122" />
+      <circle class="d" pathLength="1" cx="70" cy="104" r="18" />
+      <circle class="d" pathLength="1" cx="330" cy="104" r="18" />
+      <!-- eje y drenaje -->
+      <path class="dash" d="M200 82 V150" />
+      <circle class="d" pathLength="1" cx="200" cy="232" r="11" />
+      <text class="t" x="218" y="236">Ø 0.45 DRENAJE</text>
+      <text class="t lab" x="200" y="177" text-anchor="middle">CARPETA · BASE · SUB-BASE</text>
+      <text class="t" x="20" y="280">ESC. 1:100</text>
+    </g>
+  )}
+
+  {name === 'planificacion' && (
+    <g>
+      <text class="t" x="20" y="28">PLANO DE ZONIFICACIÓN</text>
+      <!-- zonas -->
+      <rect class="hatch" x="40" y="50" width="90" height="80" fill={`url(#hatch-${name})`} opacity=".45" />
+      <rect class="hatch" x="150" y="150" width="90" height="80" fill={`url(#hatch-${name})`} opacity=".45" />
+      <rect class="tint" x="150" y="50" width="90" height="80" />
+      <rect class="tint" x="260" y="150" width="90" height="80" />
+      <rect class="hatch" x="260" y="50" width="90" height="80" fill={`url(#dots-${name})`} opacity=".6" />
+      <!-- manzanas -->
+      <rect class="d" pathLength="1" x="40" y="50" width="90" height="80" />
+      <rect class="d" pathLength="1" x="150" y="50" width="90" height="80" />
+      <rect class="d" pathLength="1" x="260" y="50" width="90" height="80" />
+      <rect class="d" pathLength="1" x="40" y="150" width="90" height="80" />
+      <rect class="d" pathLength="1" x="150" y="150" width="90" height="80" />
+      <rect class="d" pathLength="1" x="260" y="150" width="90" height="80" />
+      <!-- polígono de actuación -->
+      <rect class="dash" x="30" y="40" width="330" height="200" />
+      <text class="t lab" x="85" y="94" text-anchor="middle">H4</text>
+      <text class="t lab" x="195" y="94" text-anchor="middle">CS</text>
+      <text class="t lab" x="305" y="94" text-anchor="middle">EV</text>
+      <text class="t lab" x="85" y="194" text-anchor="middle">EI</text>
+      <text class="t lab" x="195" y="194" text-anchor="middle">H3</text>
+      <text class="t lab" x="305" y="194" text-anchor="middle">CS</text>
+      <!-- norte -->
+      <path class="d" pathLength="1" d="M378 70 L372 86 L378 82 L384 86 Z" />
+      <text class="t" x="378" y="64" text-anchor="middle">N</text>
+      <!-- escala -->
+      <path class="d soft" pathLength="1" d="M40 266 H140 M40 262 V270 M90 262 V270 M140 262 V270" />
+      <text class="t" x="40" y="282">0</text>
+      <text class="t" x="90" y="282" text-anchor="middle">50</text>
+      <text class="t" x="140" y="282" text-anchor="middle">100 m</text>
+      <text class="t" x="380" y="282" text-anchor="end">H HAB. · CS COM. · EV VERDE</text>
+    </g>
+  )}
+
+  {name === 'urbanizacion' && (
+    <g>
+      <text class="t" x="20" y="28">TRAZA DE LOTES · MZ 01–02</text>
+      <!-- vialidad y red hidráulica -->
+      <rect class="tint" x="20" y="140" width="360" height="24" />
+      <path class="d" pathLength="1" d="M20 140 H380 M20 164 H380" />
+      <path class="dash" d="M20 152 H380" />
+      <text class="t" x="300" y="158">RED HIDRÁULICA</text>
+      <!-- manzana 1: 7 lotes -->
+      <rect class="d" pathLength="1" x="40" y="60" width="315" height="72" />
+      {lots.map((i) => <path class="d soft" pathLength="1" d={`M${40 + 45 * (i + 1)} 60 V132`} />)}
+      {lots.map((i) => <text class="t" x={62 + 45 * i} y="100" text-anchor="middle">{String(i + 1).padStart(2, '0')}</text>)}
+      <!-- manzana 2: 4 lotes + área de donación -->
+      <rect class="d" pathLength="1" x="40" y="172" width="315" height="72" />
+      {[0, 1, 2, 3].map((i) => <path class="d soft" pathLength="1" d={`M${40 + 45 * (i + 1)} 172 V244`} />)}
+      {[0, 1, 2, 3].map((i) => <text class="t" x={62 + 45 * i} y="212" text-anchor="middle">{String(i + 8).padStart(2, '0')}</text>)}
+      <rect class="hatch" x="220" y="172" width="135" height="72" fill={`url(#dots-${name})`} opacity=".6" />
+      <circle class="d" pathLength="1" cx="250" cy="200" r="9" />
+      <circle class="d" pathLength="1" cx="285" cy="222" r="9" />
+      <circle class="d" pathLength="1" cx="322" cy="198" r="9" />
+      <text class="t lab" x="287" y="260" text-anchor="middle">ÁREA DE DONACIÓN</text>
+      <!-- cotas de un lote -->
+      <path class="d soft" pathLength="1" d="M40 50 H85 M40 46 V54 M85 46 V54" />
+      <text class="t" x="62" y="44" text-anchor="middle">8.00</text>
+      <path class="d soft" pathLength="1" d="M30 60 V132 M26 60 H34 M26 132 H34" />
+      <text class="t" x="22" y="100" text-anchor="middle" transform="rotate(-90 22 100)">20.00</text>
+      <!-- norte -->
+      <path class="d" pathLength="1" d="M372 70 L366 86 L372 82 L378 86 Z" />
+      <text class="t" x="372" y="64" text-anchor="middle">N</text>
+    </g>
+  )}
+</svg>

@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const counters = document.querySelectorAll(".stats__value, .featured__value, .project__value");
-  const watched = document.querySelectorAll(".marker, .area-list, .portfolio-area__items, .area-row, [data-reveal]");
+  const watched = document.querySelectorAll(".feature-band, .marker, .area-list, .portfolio-area__items, .area-row, [data-reveal]");
 
   const io = new IntersectionObserver(
     (entries) => {

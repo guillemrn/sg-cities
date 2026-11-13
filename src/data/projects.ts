@@ -15,6 +15,11 @@ export type ProjectItem = {
   gallery: { src: string; alt: string }[];
   video?: { src: string; poster: string; label: string };
   credits?: string[];
+  // Fotos para la banda de "Proyecto destacado" del Home (de la obra al resultado)
+  featureShots?: { src: string; alt: string; label: string }[];
+  // Portada de la página del proyecto: "full" = una foto a todo lo ancho (ideal para fotos horizontales);
+  // por defecto usa las featureShots en diagonal (mejor para fotos verticales de celular).
+  heroLayout?: "full" | "split";
 };
 
 const p = (project: string, file: string) => `/portfolio/edificacion/${project}/${file}.webp`;
@@ -59,6 +64,10 @@ export const projects: ProjectItem[] = [
       label: "Recorrido interior de un departamento",
     },
     credits: ["Ingeniería estructural: OM Estructuristas"],
+    featureShots: [
+      { src: p("living-segovia", "exterior-en-proceso-de-construccion-estructura"), alt: "Living Segovia durante la obra: estructura de acero y cubo del elevador", label: "Obra · 2025" },
+      { src: p("living-segovia", "fachada-exterior"), alt: "Fachada terminada de Living Segovia", label: "Terminado · 2026" },
+    ],
   },
   {
     slug: "silly-billy-house",
@@ -70,6 +79,7 @@ export const projects: ProjectItem[] = [
     summary: "Proyecto integral de fachada, interiores y espacios comunes.",
     description: [],
     cover: p("silly-billy-house", "render-perspectiva-aerea"),
+    heroLayout: "full",
     stats: [],
     tags: ["Proyecto integral", "Interiorismo"],
     gallery: [
@@ -101,6 +111,10 @@ export const projects: ProjectItem[] = [
       "Su principal aporte al paisaje urbano es una obra sobria, centrada en una intervención acentuada en los vanos que reinterpreta las proporciones y ritmos del contexto. Dialoga con la morfología histórica del barrio y se inserta con discreción en una zona de alta afluencia peatonal, donde la mezcla de vivienda, comercio y almacenamiento refuerza la vida social y económica de San Juan de Dios.",
     ],
     cover: p("bodegas-san-juan-de-dios", "detalle-fachada-2"),
+    featureShots: [
+      { src: p("bodegas-san-juan-de-dios", "demolicion-1"), alt: "Demolición parcial de la vivienda original", label: "Obra · 2024" },
+      { src: p("bodegas-san-juan-de-dios", "detalle-fachada-2"), alt: "Detalle de la fachada intervenida", label: "Fachada · 2024" },
+    ],
     stats: [],
     tags: ["Reciclaje arquitectónico", "Uso mixto", "Barrio histórico"],
     gallery: [

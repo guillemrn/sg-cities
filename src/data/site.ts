@@ -7,7 +7,7 @@ export const site = {
   // Número en formato internacional sin "+" ni espacios, p. ej. "5213312345678"
   whatsapp: "5213300000000", // TODO: reemplazar por el número real
   facebook: "https://www.facebook.com/SGcities/",
-  linkedin: "https://www.linkedin.com/company/sg-cities", // TODO: reemplazar por la URL real
+  linkedin: "https://www.linkedin.com/company/sgcities/",
   instagram: "", // TODO: el cliente lo pidió en la portada; vacío = no se muestra
   email: "enrique.delacruz@sgcities.com",
   location: "Guadalajara, Jalisco",

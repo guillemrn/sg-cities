@@ -4,7 +4,9 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Icon from '../components/Icon.astro';
-import { portfolioAreas, hasProjects } from '../data/portfolio';
+import AreaDrawing from '../components/AreaDrawing.astro';
+import { portfolioAreas, hasProjects, featuredProjectSlug } from '../data/portfolio';
+import { projects } from '../data/projects';
 import { services } from '../data/services';
 import { site, whatsappUrl, stats, audiences, clients } from '../data/site';
 
@@ -24,6 +26,10 @@ const schema = {
   sameAs: [site.facebook, site.linkedin, site.instagram].filter(Boolean),
   knowsAbout: services.map((s) => s.title),
 };
+const featured = projects.find((x) => x.slug === featuredProjectSlug);
+const featuredShots = featured ? (featured.featureShots ?? [{ src: featured.cover, alt: featured.name, label: featured.period }]) : [];
+// Dibujo técnico para las áreas que aún no tienen fotos reales
+const drawingFor = (id: string) => (['infraestructura', 'planificacion', 'urbanizacion'] as const).find((d) => d === id);
 const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?? slug;
 ---
 <Layout title="SG Cities | Planeación urbana, factibilidades y obra en Guadalajara" description="Acompañamos proyectos urbanos, de infraestructura y de construcción en Jalisco: estudios y factibilidades, planificación y gestión, edificación y urbanización." jsonLd={schema}>
@@ -88,6 +94,35 @@ const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?
       </div>
     </section>
 
+    <!-- Proyecto destacado: banda fotográfica, misma regla que el hero -->
+    {featured && (
+      <section class="feature-band" aria-labelledby="destacado-titulo">
+        <div class="feature-band__media">
+          {featuredShots.map((shot, i) => (
+            <figure class={`feature-band__shot feature-band__shot--${i + 1} feature-band__shot--of-${featuredShots.length}`}>
+              <img src={shot.src} alt={shot.alt} loading="lazy" />
+              <figcaption>{shot.label}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <span class="feature-band__grid" aria-hidden="true"></span>
+        <div class="container feature-band__inner">
+          <div class="feature-band__text">
+            <p class="feature-band__kicker">Proyecto destacado <span>·</span> Edificación</p>
+            <h2 id="destacado-titulo">{featured.name}</h2>
+            <p class="feature-band__meta">{featured.period} <span>·</span> {featured.location.replace(/, Jalisco$/, '')}</p>
+            <p class="feature-band__summary">{featured.summary}</p>
+            {featured.stats.length > 0 && (
+              <ul class="feature-band__stats">
+                {featured.stats.map((st) => <li><p class="featured__value">{st.value}</p><p>{st.label}</p></li>)}
+              </ul>
+            )}
+            <a class="button button--light" href={`/proyectos/${featured.slug}`}>Ver proyecto <Icon name="arrow" /></a>
+          </div>
+        </div>
+      </section>
+    )}
+
     <!-- 3. Áreas de trabajo -->
     <section class="areas" id="areas">
       <div class="container">
@@ -101,14 +136,21 @@ const titleOf = (slug: string) => services.find((s) => s.slug === slug)?.title ?
         </div>
         <ol class="area-list">
           {portfolioAreas.map((area) => (
-            <li class={area.image ? "area-row" : "area-row area-row--text"}>
+            <li class={area.image || drawingFor(area.id) ? "area-row" : "area-row area-row--text"}>
               <span class="area-row__num" aria-hidden="true">{area.num}</span>
               <div class="area-row__body">
                 <h3>{hasProjects(area) ? <a href={`/portafolio#${area.id}`}>{area.title}</a> : area.title}</h3>
                 <p>{area.summary}</p>
                 {area.services.length > 1 && <ul class="tags">{area.services.map((slug) => <li>{titleOf(slug)}</li>)}</ul>}
               </div>
-              {area.image && <img class="area-row__img" src={area.image} alt="" loading="lazy" />}
+              {area.image ? (
+                <img class="area-row__img" src={area.image} alt="" loading="lazy" />
+              ) : drawingFor(area.id) ? (
+                <figure class="area-row__drawing">
+                  <AreaDrawing name={drawingFor(area.id)!} />
+                  <figcaption>Esquema ilustrativo</figcaption>
+                </figure>
+              ) : null}
             </li>
           ))}
         </ol>
